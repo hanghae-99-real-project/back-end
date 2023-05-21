@@ -3,6 +3,10 @@ const app = express();
 // const cookieParser = require("cookie-parser");
 // const http = require("http");
 
+app.get('/', (req, res) => {
+  res.send('Hello, World!');
+});
+
 // const cors = require("cors");
 // const { host } = require("./config/config");
 const port = 3000;
