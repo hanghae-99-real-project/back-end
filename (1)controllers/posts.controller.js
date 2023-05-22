@@ -30,7 +30,7 @@ class PostController {
         content,
         photoUrl,
         like: 0,
-        likeCount:0,
+        likeCount: 0,
       };
       await postService.createPost(postData);
       return res.status(201).json({ message: "게시글 작성에 성공하였습니다." });

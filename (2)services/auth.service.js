@@ -21,7 +21,7 @@ class UserService {
         photoUrl,
         introduction
     ) => {
-            const signupData = await this.userRepository.signup(
+        const signupData = await this.userRepository.signup(
             nickname,
             password,
             photoUrl,
@@ -30,7 +30,7 @@ class UserService {
         return signupData;
     };
 
-// 회원탈퇴 API
+    // 회원탈퇴 API
     deleteSignup = async (userId) => {
         await this.userRepository.deleteSignup(userId);
         return;
@@ -46,17 +46,17 @@ class UserService {
     createAccessToken = async (loginUser) => {
         const { userId } = loginUser;
         const accessToken = jwt.sign({ userId: userId }, process.env.ACCESS_KEY, {
-        expiresIn: process.env.ACCESS_EXPIRES,
-    });
+            expiresIn: process.env.ACCESS_EXPIRES,
+        });
         return accessToken;
     };
 
 
     createRefreshToken = async () => {
         const refreshToken = jwt.sign({}, process.env.REFRESH_KEY, {
-        expiresIn: process.env.REFRESH_EXPIRES,
-    });
-    return refreshToken;
+            expiresIn: process.env.REFRESH_EXPIRES,
+        });
+        return refreshToken;
     };
 
 
@@ -68,8 +68,8 @@ class UserService {
 
 
     logout = async (userId) => {
-    await this.tokenRepository.deleteToken(userId);
-    return;
+        await this.tokenRepository.deleteToken(userId);
+        return;
     };
 
 }

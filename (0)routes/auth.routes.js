@@ -14,7 +14,7 @@ router.post(
 
 // 닉네임 중복 확인 API
 router.post(
-    "/checkNickname", 
+    "/checkNickname",
     userController.checkNickname);
 
 // 회원탈퇴 API
