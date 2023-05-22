@@ -1,19 +1,25 @@
 const express = require("express");
+const cookieParser = require("cookie-parser");
+// require("express-async-errors");
+// const cors = require("cors");
 const app = express();
-// const cookieParser = require("cookie-parser");
+const port = 3000;
 // const http = require("http");
 
 app.get('/', (req, res) => {
   res.send('Hello, World!');
 });
 
-// const cors = require("cors");
+const router = require("./(0)routes");
+// const errorHandler = require("./middlewares/error-handler");
+
 // const { host } = require("./config/config");
-const port = 3000;
 
 // app.use(express.urlencoded({ extended: false }));
-// app.use(express.json());
-// app.use(cookieParser());
+app.use(express.json());
+app.use(cookieParser());
+app.use("/api", router);
+// app.use(errorHandler);
 
 
 
@@ -28,12 +34,6 @@ const port = 3000;
 //   })
 // );
 
-// // router
-// const apiMainRouter = require("./routes/index");
-// app.use("/api", [apiMainRouter]);
-
 app.listen(port, () => {
   console.log(`running http://localhost:${port}`);
 });
-
-module.exports = app;

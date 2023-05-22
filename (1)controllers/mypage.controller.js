@@ -1,4 +1,4 @@
-const MypageService = require("../services/mypage.service");
+const MypageService = require("../(2)services/mypage.service");
 
 class MyPage {
   mypageService = new MypageService();
