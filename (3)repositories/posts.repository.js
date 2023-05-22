@@ -1,4 +1,4 @@
-const { Posts,Likes } = require('../models');
+const { Posts, Likes } = require('../models');
 require('dotenv').config();
 
 
@@ -10,10 +10,10 @@ class PostRepository {
 
 
     async getPosts() {
-    return await Posts.findAll({
-        order: [
-            ['createdAt', 'DESC']
-        ],
+        return await Posts.findAll({
+            order: [
+                ['createdAt', 'DESC']
+            ],
         });
     }
 
