@@ -43,13 +43,18 @@ class UserService {
     };
 
 
-    createAccessToken = async (loginUser) => {
-        const { userId } = loginUser;
-        const accessToken = jwt.sign({ userId: userId }, process.env.ACCESS_KEY, {
-        expiresIn: process.env.ACCESS_EXPIRES,
+
+createAccessToken = async (loginUser) => {
+    const { user_id } = loginUser;
+    const accessToken = jwt.sign({ user_id: user_id }, process.env.ACCESS_KEY, {
+    expiresIn: process.env.ACCESS_EXPIRES,
     });
-        return accessToken;
-    };
+
+
+    client.set(accessToken, user_id);
+
+    return accessToken;
+};
 
 
     createRefreshToken = async () => {
