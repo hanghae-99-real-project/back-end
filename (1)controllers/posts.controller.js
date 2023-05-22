@@ -1,6 +1,6 @@
-const PostService = require("../services/posts.service");
+const PostService = require("../(2)services/posts.service");
 const postService = new PostService();
-const CommentsService = require("../services/comments.service");
+const CommentsService = require("../(2)services/comment.service");
 
 class PostController {
   commentsService = new CommentsService();

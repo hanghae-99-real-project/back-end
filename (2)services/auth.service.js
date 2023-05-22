@@ -1,4 +1,4 @@
-const UserRepository = require("../repositories/users.repository");
+const UserRepository = require("../repositories/auth.repository");
 const TokenRepository = require("../repositories/tokens.repository");
 const jwt = require("jsonwebtoken");
 const { Users } = require("../models");
