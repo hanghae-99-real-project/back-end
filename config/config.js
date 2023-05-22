@@ -1,31 +1,27 @@
 require("dotenv").config();
 
-const env = process.env;
-
 const development = {
-  host: env.DB_HOST,
-  username: env.DB_USER,
-  database: env.DB_NAME,
-  password: env.DB_PASSWORD,
-  dialect: env.DB_DIALECT,
-};
-const test = {
-  host: env.DB_HOST,
-  username: env.DB_USER,
-  database: env.DB_TEST_NAME,
-  password: env.DB_PASSWORD,
-  dialect: env.DB_DIALECT,
-};
-const jwt = {
-  secretKey: env.SECRET_KEY,
-  refreshExpiresIn: env.REFRESH_EXPIRES,
-  accessExpiresIn: env.ACCESS_EXPIRES,
-};
-const bcrypt = {
-  saltRounds: parseInt(env.BCRYPT_SALT_ROUNDS),
-};
-const host = {
-  port: parseInt(env.HOST_PORT),
+  username: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  database: "pooDeang",
+  host: process.env.DB_HOST,
+  dialect: "mysql",
 };
 
-module.exports = { development, test, jwt, bcrypt, host };
+const test = {
+  username: "root",
+  password: null,
+  database: "database_test",
+  host: "127.0.0.1",
+  dialect: "mysql",
+};
+
+const production = {
+  username: "root",
+  password: null,
+  database: "database_production",
+  host: "127.0.0.1",
+  dialect: "mysql",
+};
+
+module.exports = { development, test, production };

@@ -2,7 +2,7 @@
 const { Model } = require("sequelize");
 const Sequelize = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class Likes extends Model {
+  class Poos extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -15,15 +15,11 @@ module.exports = (sequelize, DataTypes) => {
         targetKey: "userId",
         foreignKey: "UserId",
       });
-      this.belongsTo(models.Posts, {
-        targetKey: "postId",
-        foreignKey: "PostId",
-      });
     }
   }
-  Likes.init(
+  Poos.init(
     {
-      likeId: {
+      pooId: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -33,25 +29,39 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false
       },
-      PostId: {
-        type: DataTypes.INTEGER,
+      title: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      content: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      pooImage: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      userLocation: {
+        type: DataTypes.JSON,
+        allowNull: false
+      },
+      pooLocation: {
+        type: DataTypes.JSON,
         allowNull: false
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.fn("now"),
+        type: Sequelize.DATE
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.fn("now"),
+        type: Sequelize.DATE
       },
     },
     {
       sequelize,
-      modelName: "Likes",
+      modelName: "Poos",
     },
   );
-  return Likes;
+  return Poos;
 };
