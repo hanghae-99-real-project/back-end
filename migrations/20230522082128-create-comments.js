@@ -1,32 +1,8 @@
 "use strict";
-const { Model } = require("sequelize");
-const Sequelize = require("sequelize");
-module.exports = (sequelize, DataTypes) => {
-  class Comments extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
-
-      this.hasMany(models.Comments, {
-        sourceKey: 'commentId',
-        foreignKey: 'CommentId',
-      });
-      this.belongsTo(models.Posts, {
-        sourceKey: 'postId',
-        foreignKey: 'PostId',
-      });
-      this.belongsTo(models.Users, {
-        sourceKey: 'userId',
-        foreignKey: 'UserId',
-      });
-    }
-  }
-  Comments.init(
-    {
+/** @type {import('sequelize-cli').Migration} */
+module.exports = {
+  async up(queryInterface, Sequelize) {
+    await queryInterface.createTable('Comments', {
       commentId: {
         allowNull: false,
         autoIncrement: true,
@@ -36,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       UserId: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        references: {
+        reference: {
           model: "Users",
           key: "userId",
         },
@@ -45,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       PostId: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        references: {
+        reference: {
           model: "Posts",
           key: "postId",
         },
@@ -69,11 +45,9 @@ module.exports = (sequelize, DataTypes) => {
         type: Sequelize.DATE,
         defaultValue: Sequelize.fn("now"),
       },
-    },
-    {
-      sequelize,
-      modelName: "Comments",
-    },
-  );
-  return Comments;
+    });
+  },
+  async down(queryInterface, Sequelize) {
+    await queryInterface.dropTable('Comments');
+  }
 };

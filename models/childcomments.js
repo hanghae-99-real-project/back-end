@@ -2,7 +2,7 @@
 const { Model } = require("sequelize");
 const Sequelize = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class Comments extends Model {
+  class ChildComments extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -10,28 +10,28 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-
-      this.hasMany(models.Comments, {
-        sourceKey: 'commentId',
-        foreignKey: 'CommentId',
+      this.belongsTo(models.Users, {
+        sourceKey: 'userId',
+        foreignKey: 'UserId',
       });
       this.belongsTo(models.Posts, {
         sourceKey: 'postId',
         foreignKey: 'PostId',
       });
-      this.belongsTo(models.Users, {
-        sourceKey: 'userId',
-        foreignKey: 'UserId',
+      this.belongsTo(models.Comments, {
+        sourceKey: 'commentId',
+        foreignKey: 'CommentId',
       });
+
     }
   }
-  Comments.init(
+  ChildComments.init(
     {
-      commentId: {
+      childCommentId: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER
       },
       UserId: {
         allowNull: false,
@@ -51,11 +51,16 @@ module.exports = (sequelize, DataTypes) => {
         },
         onDelete: "CASCADE",
       },
-      comment: {
+      CommentId: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
+        reference: {
+          model: "Comments",
+          key: "commentId",
+        },
+        onDelete: "CASCADE",
       },
-      photoUrl: {
+      childComment: {
         allowNull: false,
         type: Sequelize.STRING,
       },
@@ -72,8 +77,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "Comments",
+      modelName: "ChildComments",
     },
   );
-  return Comments;
+  return ChildComments;
 };
