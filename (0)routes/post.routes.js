@@ -17,10 +17,10 @@ router.post(
 );
 
 router.get(
-    "/", 
+    "/",
     async (req, res) => {
         postController.getPosts(req, res);
-});
+    });
 
 
 router.get(
@@ -36,8 +36,8 @@ router.put(
 );
 
 router.delete(
-    "/:postId", 
-    authMiddleware, 
+    "/:postId",
+    authMiddleware,
     postController.deletePost
 );
 

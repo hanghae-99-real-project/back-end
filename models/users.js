@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
         sourceKey: 'userId',
         foreignKey: 'UserId',
       });
-      this.hasMany(models.Poo, {
+      this.hasMany(models.Poos, {
         sourceKey: 'userId',
         foreignKey: 'UserId',
       });
