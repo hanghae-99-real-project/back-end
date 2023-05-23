@@ -17,7 +17,7 @@ router.use("/auth", [authRouter, mypageRouter]);
 // router.use("/posts", [childCommentRouter, commentRouter, likeRouter, postRouter]);
 
 
-// router.use("/search", searchRouter);
+router.use("/search", searchRouter);
 
 router.use("/map/poo", pooRouter)
 
