@@ -1,10 +1,10 @@
 const { Op } = require("sequelize");
 
 class CommentRepository {
-    constructor(postsModel, usersModel, commentsModel) {
-        this.postsModel = postsModel;
-        this.usersModel = usersModel;
+    constructor(commentsModel, usersModel, postsModel) {
         this.commentsModel = commentsModel;
+        this.usersModel = usersModel;
+        this.postsModel = postsModel;
     };
 
     // 게시글 한 개 조회
