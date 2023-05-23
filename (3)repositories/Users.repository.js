@@ -27,6 +27,8 @@ class UserRepository {
     };
 
 
+    
+
     deleteSignup = async (userId) => {
         await this.usersModel.destroy({
             where: { userId },

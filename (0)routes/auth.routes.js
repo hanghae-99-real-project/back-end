@@ -1,9 +1,9 @@
 const express = require("express");
 
 const router = express.Router();
-
+const uploadImage = require("../modules/s3.js");
 const authMiddleware = require("../middlewares/auth-middleware");
-const UserController = require("../(1)controllers/auth.controller");
+const UserController = require("../(1)controllers/users.controller");
 const userController = new UserController();
 
 
@@ -16,12 +16,6 @@ router.post(
 router.post(
     "/checkNickname",
     userController.checkNickname);
-
-// 회원탈퇴 API
-router.delete(
-    "/withdraw",
-    authMiddleware,
-    userController.deleteSignup);
 
 
 router.post(

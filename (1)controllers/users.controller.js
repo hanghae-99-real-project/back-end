@@ -1,4 +1,4 @@
-const UserService = require("../(2)services/auth.service");
+const UserService = require("../(2)services/users.service");
 
 class UserController {
   userService = new UserService();
@@ -18,11 +18,18 @@ class UserController {
       const nicknameFilter = /^[a-zA-Z0-9]{6,}/gi;
       const passwordFilter = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
       const existNickname = await this.userService.findNickname(nickname);
+      const emailFilter = /[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]+$/gi;
 
       if (!nicknameFilter.test(nickname)) {
         return res
           .status(412)
           .json({ errorMessage: "닉네임의 형식이 일치하지 않습니다." });
+      }
+
+      if (!emailFilter.test(email)) {
+        return res
+          .status(412)
+          .json({ errorMessage: "이메일의 형식이 일치하지 않습니다." });
       }
 
       if (!passwordFilter.test(password)) {
@@ -81,31 +88,6 @@ class UserController {
       return res
         .status(412)
         .json({ errorMessage: "닉네임 중복 확인에 실패하였습니다." });
-    }
-  };
-
-  // 회원탈퇴 API
-  deleteSignup = async (req, res, next) => {
-    const { userId } = res.locals.user;
-    const { nickname, password } = req.body;
-
-    try {
-      const existUser = await this.userService.findNickname(nickname);
-
-      if (existUser.nickname === nickname && existUser.password === password) {
-        return res
-          .status(412)
-          .json({ errorMessage: "닉네임 또는 패스워드를 확인해주세요." });
-      }
-      if (userId === existUser.userId) {
-        await this.userService.deleteSignup(userId);
-        return res.status(200).json({ message: "회원탈퇴에 성공하였습니다." });
-      }
-    } catch (error) {
-      console.error(error);
-      return res
-        .status(400)
-        .json({ errorMessage: "회원탈퇴에 실패하였습니다." });
     }
   };
 

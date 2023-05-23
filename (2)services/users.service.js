@@ -1,6 +1,4 @@
-const redis = require('redis');
-const client = redis.createClient();
-const UserRepository = require("../(3)repositories/auth.repository");
+const UserRepository = require("../(3)repositories/users.repository");
 const TokenRepository = require("../(3)repositories/tokens.repository");
 const jwt = require("jsonwebtoken");
 const { Users } = require("../models");
@@ -30,11 +28,6 @@ class UserService {
         return signupData;
     };
 
-    // 회원탈퇴 API
-    deleteSignup = async (userId) => {
-        await this.userRepository.deleteSignup(userId);
-        return;
-    };
 
 
     loginUser = async (nickname) => {
@@ -46,7 +39,7 @@ class UserService {
     createAccessToken = async (loginUser) => {
         const { userId } = loginUser;
         const accessToken = jwt.sign({ userId: userId }, process.env.ACCESS_KEY, {
-            expiresIn: process.env.ACCESS_EXPIRES,
+        expiresIn: process.env.ACCESS_EXPIRES,
         });
         return accessToken;
     };
