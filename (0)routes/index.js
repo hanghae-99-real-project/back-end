@@ -12,14 +12,13 @@ const searchRouter = require("./search.routes");
 
 router.use("/posts", [commentRouter]);
 
-// router.use("/auth", authRouter);
+router.use("/auth", [authRouter, mypageRouter]);
 
 // router.use("/posts", [childCommentRouter, commentRouter, likeRouter, postRouter]);
 
-// router.use("/auth/mypage", mypageRouter);
 
 // router.use("/search", searchRouter);
 
-// router.use("/map/poo", pooRouter)
+router.use("/map/poo", pooRouter)
 
 module.exports = router;
