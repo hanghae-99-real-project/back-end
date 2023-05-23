@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const { Users } = require("../models");
-const TokenRepository = require("../repositories/tokens.repository");
+const TokenRepository = require("../(3)repositories/tokens.repository");
 
 const tokenRepository = new TokenRepository();
 
@@ -63,8 +63,8 @@ module.exports = async (req, res, next) => {
     }
 
 
-    const { user_id } = jwt.verify(authAccessToken, process.env.ACCESS_KEY);
-    const user = await Users.findOne({ where: { user_id: user_id } });
+    const { userId } = jwt.verify(authAccessToken, process.env.ACCESS_KEY);
+    const user = await Users.findOne({ where: { userId: userId } });
     res.locals.user = user;
 
     next();
@@ -81,7 +81,7 @@ module.exports = async (req, res, next) => {
 
 const createAccessToken = (accessTokenId) => {
     const accessToken = jwt.sign(
-    { user_id: accessTokenId },
+    { userId: accessTokenId },
     process.env.ACCESS_KEY,
     {
         expiresIn: process.env.ACCESS_EXPIRES,
