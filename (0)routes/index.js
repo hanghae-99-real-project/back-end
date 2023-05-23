@@ -10,7 +10,7 @@ const pooRouter = require("./poo.routes");
 const postRouter = require("./post.routes");
 const searchRouter = require("./search.routes");
 
-router.use("/posts", [commentRouter]);
+router.use("/posts", [commentRouter, childCommentRouter]);
 
 router.use("/auth", [authRouter, mypageRouter]);
 
