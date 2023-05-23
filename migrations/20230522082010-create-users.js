@@ -22,6 +22,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
+      userPhoto: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
       position: {
         allowNull: false,
         type: Sequelize.BOOLEAN
@@ -29,10 +33,6 @@ module.exports = {
       userLocation: {
         allowNull: false,
         type: Sequelize.JSON
-      },
-      profileUrl: {
-        allowNull: false,
-        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

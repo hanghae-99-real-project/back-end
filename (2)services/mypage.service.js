@@ -18,7 +18,7 @@ class myPagesController {
 
         } catch (err) {
             console.error(err)
-            return { "errorMessage": "요청한 데이터 형식이 올바르지 않습니다." }
+            throw new Error("500/ 예외처리")
         }
     };
 

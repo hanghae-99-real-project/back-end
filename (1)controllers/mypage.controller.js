@@ -5,7 +5,7 @@ class myPagesController {
 
     getMyInfo = async (req, res) => {
         const { userId } = res.locals.user
-        const getMyInfoData = await this.mypagesService.getMyInfo(userId)
+        const getMyInfoData = await this.mypagesService.getMyInfo()
 
         return res.staus(201).json({ getMyInfoData })
     };
