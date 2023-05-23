@@ -1,6 +1,6 @@
 const util = require('util');
 
-const yellow = '\x1b[33m';
+const yellow = '\x1b[31m';
 const reset = '\x1b[0m';
 
 const consoleError = console.error;

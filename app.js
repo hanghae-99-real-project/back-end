@@ -37,3 +37,7 @@ app.use(errorHandler);
 app.listen(port, () => {
   console.log(`running http://localhost:${port}`);
 });
+
+// app.listen(port, () => {
+//   console.log(`\x1b[35m%s\x1b[0m`, `running http://localhost:${port}`);
+// }); // 색상 추가
