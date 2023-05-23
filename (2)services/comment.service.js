@@ -31,7 +31,7 @@ class CommentService {
                     PostId: comment.PostId,
                     comment: comment.comment,
                     nickname: user.nickname,
-                    profileUrl: user.profileUrl,
+                    userPhoto: user.userPhoto,
                     photoUrl: comment.photoUrl,
                     createdAt: comment.createdAt,
                     updatedAt: comment.updatedAt,

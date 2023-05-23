@@ -27,7 +27,7 @@ class ChildCommentService {
                     postId: childComment.PostId,
                     childComment: childComment.childComment,
                     nickname: user.nickname,
-                    profileUrl: user.profileUrl,
+                    userPhoto: user.userPhoto,
                     createdAt: childComment.createdAt,
                     updatedAt: childComment.updatedAt
                 }
