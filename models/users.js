@@ -52,6 +52,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.STRING,
       },
+      userPhoto: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
       position: {
         allowNull: false,
         type: DataTypes.BOOLEAN,
@@ -59,10 +63,6 @@ module.exports = (sequelize, DataTypes) => {
       userLocation: {
         allowNull: false,
         type: DataTypes.JSON
-      },
-      profileUrl: {
-        allowNull: false,
-        type: DataTypes.STRING,
       },
       createdAt: {
         allowNull: false,

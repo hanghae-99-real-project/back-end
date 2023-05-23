@@ -11,7 +11,7 @@ class myPagesController {
             attributes: ["userId", "email", "nickname", "userPhoto"],
             include: {
                 model: Posts,
-                attributes: ["postId", "title", "photoUrl", "createdAt"]
+                attributes: ["postId", "title", "content", "photoUrl", "createdAt"]
             }
         })
         return getMyInfoData
