@@ -1,5 +1,3 @@
-const redis = require('redis');
-const client = redis.createClient();
 const UserRepository = require("../(3)repositories/users.repository");
 const TokenRepository = require("../(3)repositories/tokens.repository");
 const jwt = require("jsonwebtoken");
