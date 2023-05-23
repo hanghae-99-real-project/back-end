@@ -1,4 +1,4 @@
-const ChildCommentRepository = require("../(3)repositoryies/childComment.repository.js");
+const ChildCommentRepository = require("../(3)repositories/childComment.repository.js");
 const CommentRepository = require("../(3)repositories/comment.repository.js");
 
 const { Comments, childComments } = require("../models");

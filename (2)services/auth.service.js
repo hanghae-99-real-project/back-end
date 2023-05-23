@@ -5,9 +5,10 @@ const TokenRepository = require("../(3)repositories/tokens.repository");
 const jwt = require("jsonwebtoken");
 const { Users } = require("../models");
 
+
 class UserService {
-    userRepository = new UserRepository(Users);
-    tokenRepository = new TokenRepository();
+    // userRepository = new UserRepository(Users);
+    // tokenRepository = new TokenRepository();
 
 
     findNickname = async (nickname) => {
