@@ -5,6 +5,7 @@ const router = express.Router();
 const authMiddleware = require("../middlewares/auth-middleware");
 const UserController = require("../(1)controllers/auth.controller");
 const userController = new UserController();
+const uploadImage = require('../modules/s3');
 
 
 router.post(
