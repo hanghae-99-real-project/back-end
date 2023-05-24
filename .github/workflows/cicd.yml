@@ -8,6 +8,13 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+    
+env:
+  PROJECT_NAME: back-end
+  BUCKET_NAME: karyl
+  CODE_DEPLOY_APP_NAME: last_dance
+  DEPLOYMENT_GROUP_NAME: last_dance
+
 
 jobs:
   test:
@@ -15,11 +22,19 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build --if-present
+
+      - name: Set up AWS CLI
+        run: |
+          sudo apt-get install -y awscli
+
+      - name: Deploy to CodeDeploy
+        run: |
+          aws deploy create-deployment --application-name last_dance --deployment-group-name last_dance --s3-location bucket=karyl,key=aws deploy create-deployment --application-name last_dance --deployment-group-name last_dance --s3-location bucket=karyl,key=back-end/70d3c129-6376-4fb9-ab45-ee978ee73cd8,bundleType=zip,bundleType=zip
