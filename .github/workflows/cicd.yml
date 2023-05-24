@@ -34,6 +34,10 @@ jobs:
       - name: Set up AWS CLI
         run: |
           sudo apt-get install -y awscli
+          
+      - name: Make Zip File
+        run: zip -qq -r ./70d3c129-6376-4fb9-ab45-ee978ee73cd8.zip
+        shell: bash
 
       - name: Deploy to CodeDeploy
         run: |
