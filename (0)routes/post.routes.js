@@ -10,7 +10,7 @@ const uploadImage = require("../modules/s3.js");
 router.post(
     "/",
     authMiddleware,
-    uploadImage.single("image"),
+    uploadImage.array("image", 5),
     async (req, res) => {
         postController.createPost(req, res);
     }
