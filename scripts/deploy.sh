@@ -11,4 +11,4 @@ npm run build
 aws s3 cp ./build s3://$BUCKET_NAME/$PROJECT_NAME --recursive
 
 # CodeDeploy 배포
-aws deploy create-deployment --application-name MyApp --deployment-group-name MyDeploymentGroup --s3-location bucket=$BUCKET_NAME,key=$PROJECT_NAME --region ap-northeast-2
+aws deploy create-deployment --application-name last_dance --deployment-group-name last_dance --s3-location bucket=$BUCKET_NAME,key=$PROJECT_NAME --region ap-northeast-2
