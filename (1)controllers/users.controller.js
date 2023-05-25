@@ -13,7 +13,7 @@ class UserController {
       email,
       photoUrl,
       introduction,
-    } = req;
+    } = req.body;
     try {
       const nicknameFilter = /^[a-zA-Z0-9]{6,}/gi;
       const passwordFilter = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;

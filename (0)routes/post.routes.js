@@ -6,7 +6,7 @@ const postController = new PostController();
 const uploadImage = require("../modules/s3.js");
 
 
-//게시글 작성
+
 router.post(
     "/",
     authMiddleware,
