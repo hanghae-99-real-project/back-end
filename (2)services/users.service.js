@@ -20,18 +20,42 @@ class UserService {
         nickname,
         password,
         userPhoto,
+        position,
         phoneNumber,
+<<<<<<< HEAD
+        introduction,
+        userLocation
+=======
         // introduction,
+>>>>>>> eaffb05dfabac56229f810bc42fef31a7f0f1c5e
     ) => {
         const signupData = await this.userRepository.signup(
             nickname,
             password,
             userPhoto,
+            position,
             phoneNumber,
+<<<<<<< HEAD
+            introduction,
+            userLocation
+=======
             // introduction,
+>>>>>>> eaffb05dfabac56229f810bc42fef31a7f0f1c5e
         );
         return signupData;
     };
+    
+    processKakaoLogin = async (profile) => {
+        try {
+
+          const { id, username, email } = profile;
+      
+          const user = await userRepository.findOrCreateUser(id, username, email);
+          return user;
+        } catch (error) {
+          throw new Error('Failed to process Kakao login.');
+        }
+      };
 
     // 회원탈퇴 API
     deleteSignup = async (userId) => {

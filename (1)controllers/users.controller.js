@@ -12,7 +12,13 @@ class UserController {
       password,
       confirmpassword,
       phoneNumber,
+<<<<<<< HEAD
+      position,
+      introduction,
+      userLocation
+=======
       // introduction,
+>>>>>>> eaffb05dfabac56229f810bc42fef31a7f0f1c5e
     } = req.body;
     const { userPhoto } = req;
     try {
@@ -63,7 +69,13 @@ class UserController {
         password,
         phoneNumber,
         userPhoto,
+<<<<<<< HEAD
+        position,
+        introduction,
+        userLocation
+=======
         // introduction
+>>>>>>> eaffb05dfabac56229f810bc42fef31a7f0f1c5e
       );
       res.status(200).json({ message: "회원 가입에 성공하였습니다." });
     } catch (error) {
@@ -149,6 +161,19 @@ class UserController {
     } catch (error) {
       console.error(error);
       return res.status(400).json({ errorMessage: "로그인에 실패하였습니다." });
+    }
+  };
+
+  kakaoCallback = async (req, res) => {
+    try {
+      const profile = req.user; 
+
+      const user = await userService.processKakaoLogin(profile);
+  
+
+      res.redirect('/profile');
+    } catch (error) {
+      res.redirect('/login');
     }
   };
 
