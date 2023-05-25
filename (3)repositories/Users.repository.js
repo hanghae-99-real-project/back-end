@@ -17,6 +17,8 @@ class UserRepository {
         nickname,
         password,
         phoneNumber,
+        userLocation,
+        position,
         userPhoto,
         introduction
     ) => {
@@ -24,11 +26,27 @@ class UserRepository {
             nickname,
             password,
             phoneNumber,
+            position,
+            userLocation,
             userPhoto,
             introduction,
         });
         return signupData;
     };
+
+
+    // findOrCreateUser = async (id, username, email) => {
+    //     try {
+    //         let user = await User.findOne({ id });
+    //         if (!user) {
+    //         user = new User({ id, username, email });
+    //         await user.save();
+    //     }
+    //       return user;
+    //     } catch (error) {
+    //     throw new Error('Failed to find or create user.');
+    //     }
+    //   };
 
 
     deleteSignup = async (userId) => {

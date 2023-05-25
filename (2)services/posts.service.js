@@ -25,6 +25,7 @@ class PostService {
                         updatedAt: item.updatedAt,
                         photoUrl: item.photoUrl,
                         commentCount: null,
+                        lostLocation: item.lostLocation
                     };
 
                     return post;
@@ -47,7 +48,8 @@ class PostService {
         postId,
         title,
         content,
-        photoUrl
+        photoUrl,
+        lostLocation
     ) => {
         const post = await postRepository.findPostById(postId);
 
@@ -63,7 +65,8 @@ class PostService {
             postId,
             title,
             content,
-            photoUrl
+            photoUrl,
+            lostLocation
         );
     };
 

@@ -9,12 +9,15 @@ const mypageRouter = require("./mypage.routes");
 const pooRouter = require("./poo.routes");
 const postRouter = require("./post.routes");
 const searchRouter = require("./search.routes");
+const passportConfig = require('../passport');
+passportConfig(app);
 
 router.use("/posts", [commentRouter, childCommentRouter]);
 
 router.use("/auth", [authRouter, mypageRouter]);
 
-//router.use("/posts", [childCommentRouter, commentRouter, likeRouter, postRouter]);
+
+router.use("/posts", [childCommentRouter, commentRouter, postRouter]);
 
 
 router.use("/search", searchRouter);
