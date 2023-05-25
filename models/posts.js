@@ -15,11 +15,8 @@ module.exports = (sequelize, DataTypes) => {
         targetKey: "userId",
         foreignKey: "UserId",
       });
-<<<<<<< HEAD
-      this.hasMany(models.Likes, {
-=======
+
       this.hasMany(models.BookMarks, {
->>>>>>> f426f320c4844e668c4ad759864bd2f0be86ab39
         targetKey: "postId",
         foreignKey: "PostId",
       });
