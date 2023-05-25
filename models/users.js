@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
         sourceKey: 'userId',
         foreignKey: 'UserId',
       });
-      this.hasOne(models.Likes, {
+      this.hasOne(models.BookMarks, {
         sourceKey: 'userId',
         foreignKey: 'UserId',
       });

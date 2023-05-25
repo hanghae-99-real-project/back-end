@@ -2,8 +2,8 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Likes', {
-      likeId: {
+    await queryInterface.createTable('BookMarks', {
+      bookmarkId: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -40,6 +40,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Likes');
+    await queryInterface.dropTable('BookMarks');
   }
 };
