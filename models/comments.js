@@ -55,7 +55,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      photoUrl: {
+      commentPhotoUrl: {
         allowNull: true,
         type: Sequelize.JSON,
       },
