@@ -16,14 +16,14 @@ class UserRepository {
     signup = async (
         nickname,
         password,
-        email,
+        phoneNumber,
         userPhoto,
         introduction
     ) => {
         const signupData = await this.usersModel.create({
             nickname,
             password,
-            email,
+            phoneNumber,
             userPhoto,
             introduction,
         });

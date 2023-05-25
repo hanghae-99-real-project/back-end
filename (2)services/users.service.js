@@ -20,14 +20,14 @@ class UserService {
         nickname,
         password,
         userPhoto,
-        email,
+        phoneNumber,
         introduction,
     ) => {
         const signupData = await this.userRepository.signup(
             nickname,
             password,
             userPhoto,
-            email,
+            phoneNumber,
             introduction,
         );
         return signupData;
