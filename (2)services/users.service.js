@@ -1,13 +1,13 @@
-const redis = require('redis');
-const client = redis.createClient();
-const UserRepository = require("../(3)repositories/auth.repository");
+const UserRepository = require("../(3)repositories/users.repository");
 const TokenRepository = require("../(3)repositories/tokens.repository");
+const createAuthCode = require("../modules/utils")
+const send_message = require("../modules/smsService")
 const jwt = require("jsonwebtoken");
 const { Users } = require("../models");
 
 
 class UserService {
-    // userRepository = new UserRepository(Users);
+    userRepository = new UserRepository(Users);
     // tokenRepository = new TokenRepository();
 
 
@@ -78,7 +78,6 @@ class UserService {
     authCodeSend = async (nickname, phoneNum) => {
         try {
             const authcode = createAuthCode();
-            console.log(authcode)
             await this.userRepository.authCodeSend(authcode, phoneNum)
             send_message(nickname, phoneNum, authcode)
             return { "message": "메세지 발송완료" }
