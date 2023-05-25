@@ -13,7 +13,7 @@ class UserController {
       email,
       introduction,
     } = req.body;
-    const { photoUrl } = req
+    const { userPhoto } = req;
     try {
       const nicknameFilter = /^[a-zA-Z0-9]{6,}/gi;
       const passwordFilter = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
@@ -61,7 +61,7 @@ class UserController {
         nickname,
         password,
         email,
-        photoUrl,
+        userPhoto,
         introduction
       );
       res.status(200).json({ message: "회원 가입에 성공하였습니다." });
