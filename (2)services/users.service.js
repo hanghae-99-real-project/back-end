@@ -8,7 +8,7 @@ const { Users } = require("../models");
 
 class UserService {
     userRepository = new UserRepository(Users);
-    // tokenRepository = new TokenRepository();
+    tokenRepository = new TokenRepository();
 
 
     findNickname = async (nickname) => {
