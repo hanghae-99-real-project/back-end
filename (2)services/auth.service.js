@@ -1,13 +1,16 @@
-const redis = require('redis');
-const client = redis.createClient();
+// const redis = require('redis');
+// const client = redis.createClient();
 const UserRepository = require("../(3)repositories/auth.repository");
 const TokenRepository = require("../(3)repositories/tokens.repository");
 const jwt = require("jsonwebtoken");
 const { Users } = require("../models");
+const createAuthCode = require('../modules/utils');
+
+const send_message = require('../modules/smsService');
 
 
 class UserService {
-    // userRepository = new UserRepository(Users);
+    userRepository = new UserRepository(Users);
     // tokenRepository = new TokenRepository();
 
 
@@ -71,6 +74,40 @@ class UserService {
     logout = async (userId) => {
         await this.tokenRepository.deleteToken(userId);
         return;
+    };
+
+
+
+    authCodeSend = async (nickname, phoneNum) => {
+        try {
+            const authcode = createAuthCode();
+            console.log(authcode)
+            await this.userRepository.authCodeSend(authcode, phoneNum)
+            send_message(nickname, phoneNum, authcode)
+            return { "message": "메세지 발송완료" }
+        } catch (error) {
+            console.error(error);
+            return { "errorMessage": "인증번호 요청에 실패하였습니다." }
+        }
+    };
+
+    authCodeVaildation = async (code, phoneNum) => {
+        try {
+            const authCode = await this.userRepository.authCodeVaildation(phoneNum)
+            if (!code) {
+                throw new Error("400/인증코드가 입력되지 않았습니다.")
+            }
+            if (authCode !== code) {
+                throw new Error("400/입력된 코드가 일치하지 않습니다.")
+            }
+            if (!authCode) {
+                throw new Error("400/인증코드가 만료 되었습니다.")
+            }
+            return { "message": "인증번호 확인완료" }
+        } catch (error) {
+            error.failedApi = "인증번호 검사";
+            throw error;
+        }
     };
 
 }

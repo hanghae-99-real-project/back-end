@@ -1,5 +1,6 @@
 const UserService = require("../(2)services/auth.service");
 
+
 class UserController {
   userService = new UserService();
 
@@ -158,6 +159,19 @@ class UserController {
         .status(400)
         .json({ errorMessage: "로그아웃에 실패하였습니다." });
     }
+  };
+
+  authCodeSend = async (req, res, next) => {
+    const { nickname, phoneNum } = req.body
+    const authCode = await this.userService.authCodeSend(nickname, phoneNum)
+    return res.status(200).json(authCode)
+
+  };
+
+  authCodeVaildation = async (req, res, next) => {
+    const { code, phoneNum } = req.body;
+    const authCode = await this.userService.authCodeVaildation(code, phoneNum)
+    return res.status(200).json(authCode);
   };
 }
 

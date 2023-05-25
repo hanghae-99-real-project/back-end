@@ -1,6 +1,6 @@
 const { Posts } = require("../models");
 
-class myPagesController {
+class myPagesRepository {
     constructor(Users) {
         this.Users = Users;
     }
@@ -8,7 +8,7 @@ class myPagesController {
     getMyInfo = async (userId) => {
         const getMyInfoData = await this.Users.findOne({
             where: { userId },
-            attributes: ["userId", "email", "nickname", "userPhoto"],
+            attributes: ["userId", "email", "nickname", "photoUrl"],
             include: {
                 model: Posts,
                 attributes: ["postId", "title", "content", "photoUrl", "createdAt"]
@@ -17,7 +17,22 @@ class myPagesController {
         return getMyInfoData
     };
 
+    getMyPost = async (userId) => {
+        const getMyBookmark = await Bookmarks.findAll({
+            where: { userId },
+            include: [Posts],
+        });
+        return getMyBookmark
+    };
+
+    getMyBookmark = async (userId) => {
+        const getMyInfoData = await this.Posts.findAll({
+
+        })
+        return getMyInfoData
+    };
+
 
 }
 
-module.exports = myPagesController;
+module.exports = myPagesRepository;
