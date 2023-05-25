@@ -20,7 +20,7 @@ class SearchController {
         }
     };
 
-    // 게시물 검색
+    // 실종 신고 게시물 검색
     searchPosts = async (req, res, next) => {
         try {
             const { search } = req.query;

@@ -11,7 +11,7 @@ router.get("/users",
     // authMiddleware,
     searchController.searchUsers);
 
-// 게시물 검색 기능
+// 실종 신고 게시물 검색 기능
 router.get("/posts",
     // authMiddleware, 
     searchController.searchPosts)

@@ -21,7 +21,7 @@ class SearchService {
         return { users }
     };
 
-    // 게시물 검색
+    // 실종 신고 게시물 검색
     searchPosts = async (search) => {
         const postDetail = await this.searchRepository.findPosts(search);
 
@@ -30,9 +30,10 @@ class SearchService {
             postDetail.map(async (post) => {
                 return {
                     postId: post.postId,
+                    dogname: post.dogname,
                     title: post.title,
-                    content: post.content,
                     photoUrl: post.photoUrl,
+                    lostLocation: post.lostLocation,
                 };
             })
         );

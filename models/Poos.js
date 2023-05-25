@@ -37,8 +37,8 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false
       },
-      pooImage: {
-        type: DataTypes.STRING,
+      pooPhotoUrl: {
+        type: DataTypes.JSON,
         allowNull: false
       },
       userLocation: {
