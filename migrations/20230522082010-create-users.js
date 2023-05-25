@@ -9,7 +9,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      email: {
+      phoneNumber: {
         allowNull: false,
         unique: true,
         type: Sequelize.STRING
@@ -22,9 +22,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-      photoUrl: {
+      userPhoto: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.JSON
       },
       position: {
         allowNull: false,
