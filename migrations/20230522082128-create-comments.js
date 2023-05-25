@@ -45,6 +45,11 @@ module.exports = {
         type: Sequelize.DATE,
         defaultValue: Sequelize.fn("now"),
       },
+      isPrivate: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+      },
     });
   },
   async down(queryInterface, Sequelize) {

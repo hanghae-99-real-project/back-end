@@ -18,14 +18,14 @@ class UserRepository {
         password,
         phoneNumber,
         userPhoto,
-        introduction
+        // introduction
     ) => {
         const signupData = await this.usersModel.create({
             nickname,
             password,
             phoneNumber,
             userPhoto,
-            introduction,
+            // introduction,
         });
         return signupData;
     };

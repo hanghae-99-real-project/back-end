@@ -7,12 +7,13 @@ class ChildCommentRepository {
     };
 
     // 대댓글 생성
-    createChildComment = async (userId, postId, commentId, childComment) => {
+    createChildComment = async (userId, postId, commentId, childComment, isPrivate) => {
         const createdChildComment = await this.childCommentsModel.create({
             UserId: userId,
             PostId: postId,
             CommentId: commentId,
             childComment,
+            isPrivate: isPrivate
         })
         return createdChildComment;
     };
