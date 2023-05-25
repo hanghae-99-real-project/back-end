@@ -11,7 +11,7 @@ class CommentController {
             const { userId } = res.locals.user;
             const { postId } = req.params;
             const { comment } = req.body;
-            const { photoUrl } = req;
+            const { commentPhotoUrl } = req;
 
             if (!comment) {
                 throw new Error("403/댓글 작성에 실패하였습니다.");
@@ -25,7 +25,7 @@ class CommentController {
                 throw new Error("403/게시물이 존재하지 않습니다");
             }
 
-            await this.commentService.createComment(userId, postId, comment, photoUrl);
+            await this.commentService.createComment(userId, postId, comment, commentPhotoUrl);
 
             res.status(201).json({ message: "댓글을 작성하였습니다." });
         } catch (error) {
@@ -40,7 +40,7 @@ class CommentController {
     //         const { userId } = res.locals.user;
     //         const { postId } = req.params;
     //         const { comment } = req.body;
-    //         const { photoUrl } = req;
+    //         const { commentPhotoUrl } = req;
 
     //         if (!comment) {
     //             throw new Error("403/댓글 작성에 실패하였습니다.");
@@ -52,7 +52,7 @@ class CommentController {
     //         }
 
     //         // 비밀 댓글 생성 로직 추가
-    //         await this.commentService.createSecretComment(userId, postId, comment, photoUrl);
+    //         await this.commentService.createSecretComment(userId, postId, comment, commentPhotoUrl);
 
     //         res.status(201).json({ message: "비밀 댓글을 작성하였습니다." });
     //     } catch (error) {
@@ -109,7 +109,7 @@ class CommentController {
     // 댓글 수정
     fixComment = async (req, res, next) => {
         try {
-            const { userId } = req.locals.user;
+            const { userId } = res.locals.user;
             const { postId, commentId } = req.params;
             const { comment } = req.body;
 

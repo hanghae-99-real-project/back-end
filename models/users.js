@@ -39,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      email: {
+      phoneNumber: {
         allowNull: false,
         unique: true,
         type: DataTypes.STRING,
@@ -52,9 +52,9 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.STRING,
       },
-      photoUrl: {
+      userPhoto: {
         allowNull: true,
-        type: DataTypes.STRING,
+        type: DataTypes.JSON,
       },
       position: {
         allowNull: true,

@@ -8,8 +8,8 @@ class CommentService {
     // usersRepository = new UsersRepository(Users);
 
     // 댓글 생성
-    createComment = async (userId, postId, comment, photoUrl) => {
-        return await this.commentRepository.createComment(userId, postId, comment, photoUrl);
+    createComment = async (userId, postId, comment, commentPhotoUrl) => {
+        return await this.commentRepository.createComment(userId, postId, comment, commentPhotoUrl);
     }
 
     // 게시글 단순 조회
@@ -30,9 +30,9 @@ class CommentService {
                     UserId: comment.UserId,
                     PostId: comment.PostId,
                     comment: comment.comment,
+                    commentPhotoUrl: comment.commentPhotoUrl, // comment photoUrl
                     nickname: user.nickname,
-                    photoUrl: user.photoUrl, // userphotoUrl
-                    photoUrl: comment.photoUrl, // comment photoUrl
+                    userPhoto: user.userPhoto, // userphotoUrl
                     createdAt: comment.createdAt,
                     updatedAt: comment.updatedAt,
                 };
@@ -58,8 +58,8 @@ class CommentService {
     };
 
     //     // 비밀 댓글 생성
-    //     createSecretComment = async (userId, postId, comment, photoUrl) => {
-    //         return await this.commentRepository.createComment(userId, postId, comment, photoUrl, true);
+    //     createSecretComment = async (userId, postId, comment, commentPhotoUrl) => {
+    //         return await this.commentRepository.createComment(userId, postId, comment, commentPhotoUrl, true);
     //     };
 
     //     // 게시물 아이디의 전체 비밀 댓글 조회
@@ -75,9 +75,9 @@ class CommentService {
     //           UserId: comment.UserId,
     //           PostId: comment.PostId,
     //           comment: comment.comment,
+    //           commentPhotoUrl: comment.commentPhotoUrl, // comment photoUrl
     //           nickname: user.nickname,
-    //           photoUrl: user.photoUrl, // userphotoUrl
-    //           photoUrl: comment.photoUrl, // comment photoUrl
+    //           userPhoto: user.userPhoto, // userphotoUrl
     //           createdAt: comment.createdAt,
     //           updatedAt: comment.updatedAt,
     //         };
