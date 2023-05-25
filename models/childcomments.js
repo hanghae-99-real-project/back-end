@@ -54,7 +54,7 @@ module.exports = (sequelize, DataTypes) => {
       CommentId: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        reference: {
+        references: {
           model: "Comments",
           key: "commentId",
         },
@@ -73,6 +73,11 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.fn("now"),
+      },
+      isPrivate: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
       },
     },
     {

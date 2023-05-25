@@ -69,6 +69,11 @@ module.exports = (sequelize, DataTypes) => {
         type: Sequelize.DATE,
         defaultValue: Sequelize.fn("now"),
       },
+      isPrivate: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+      },
     },
     {
       sequelize,

@@ -12,7 +12,7 @@ class UserController {
       password,
       confirmpassword,
       phoneNumber,
-      introduction,
+      // introduction,
     } = req.body;
     const { userPhoto } = req;
     try {
@@ -63,7 +63,7 @@ class UserController {
         password,
         phoneNumber,
         userPhoto,
-        introduction
+        // introduction
       );
       res.status(200).json({ message: "회원 가입에 성공하였습니다." });
     } catch (error) {
