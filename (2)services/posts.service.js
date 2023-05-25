@@ -87,10 +87,10 @@ class PostService {
     // createSamplePost = async () => {
     //     try {
     //         const postData = {
-    //             UserId: 4,
-    //             dogname: 'ExampleDog',
-    //             title: 'Example Title',
-    //             content: 'Example Content',
+    //             UserId: 1,
+    //             dogname: '구름',
+    //             title: '여기서 잃어버렸어요',
+    //             content: '보신 분 계실까요?',
     //             photoUrl: 'https://example.com/dogPhoto.jpg',
     //             lostLocation: '{"latitude":37.7749,"longitude":122.4194}'
     //         };

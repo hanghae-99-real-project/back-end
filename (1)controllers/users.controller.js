@@ -12,9 +12,13 @@ class UserController {
       password,
       confirmpassword,
       phoneNumber,
+<<<<<<< HEAD
       position,
       introduction,
       userLocation
+=======
+      // introduction,
+>>>>>>> eaffb05dfabac56229f810bc42fef31a7f0f1c5e
     } = req.body;
     const { userPhoto } = req;
     try {
@@ -65,9 +69,13 @@ class UserController {
         password,
         phoneNumber,
         userPhoto,
+<<<<<<< HEAD
         position,
         introduction,
         userLocation
+=======
+        // introduction
+>>>>>>> eaffb05dfabac56229f810bc42fef31a7f0f1c5e
       );
       res.status(200).json({ message: "회원 가입에 성공하였습니다." });
     } catch (error) {

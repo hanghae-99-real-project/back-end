@@ -12,7 +12,7 @@ class ChildCommentController {
         try {
             const { userId } = res.locals.user;
             const { postId, commentId } = req.params;
-            const { childComment } = req.body;
+            const { childComment, isPrivate } = req.body;
 
             if (!childComment) {
                 throw new Error("403/대댓글 작성에 실패하였습니다.");
@@ -32,7 +32,7 @@ class ChildCommentController {
                 throw new Error("403/댓글이 존재하지 않습니다.");
             }
 
-            await this.childCommentService.createChildComment(userId, postId, commentId, childComment);
+            await this.childCommentService.createChildComment(userId, postId, commentId, childComment, isPrivate);
 
             res.status(201).json({ message: "대댓글을 작성하였습니다." })
         } catch (error) {
@@ -44,7 +44,8 @@ class ChildCommentController {
     // 대댓글 조회
     readChildComments = async (req, res, next) => {
         try {
-            const { commentId } = req.params;
+            const { postId, commentId } = req.params;
+            const { userId } = res.locals.user;
 
             // 댓글이 존재하는지 여부 확인
             const comments = await this.commentService.findCommentById(commentId);
@@ -53,7 +54,7 @@ class ChildCommentController {
             }
 
             // 대댓글 존재 여부 확인
-            const childComments = await this.childCommentService.findChildCommentsByCommentId(commentId);
+            const childComments = await this.childCommentService.findChildCommentsByCommentId(postId, commentId, userId);
             if (!childComments) {
                 throw new Error("403/대댓글이 존재하지 않습니다");
             }
