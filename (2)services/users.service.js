@@ -19,14 +19,16 @@ class UserService {
     signup = async (
         nickname,
         password,
-        photoUrl,
-        introduction
+        userPhoto,
+        email,
+        introduction,
     ) => {
         const signupData = await this.userRepository.signup(
             nickname,
             password,
-            photoUrl,
-            introduction
+            userPhoto,
+            email,
+            introduction,
         );
         return signupData;
     };

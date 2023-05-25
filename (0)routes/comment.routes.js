@@ -11,12 +11,12 @@ const commentController = new CommentController();
 router.post(
     "/:postId/comments",
     authMiddleware,
-    commentPhoto.single("photoUrl"), // field 값
+    commentPhoto.single("commentPhotoUrl"), // field 값
     commentController.createComment
 );
 
 // // 비밀 댓글 생성
-// router.post("/:postId/comments/secret", authMiddleware, commentPhoto.single("photoUrl"), commentController.createSecretComment);
+// router.post("/:postId/comments/secret", authMiddleware, commentPhoto.single("commentPhotoUrl"), commentController.createSecretComment);
 
 // 댓글 조회
 router.get("/:postId/comments", authMiddleware, commentController.readComments);

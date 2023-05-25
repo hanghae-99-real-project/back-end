@@ -22,9 +22,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-      pooImage: {
+      pooPhotoUrl: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.JSON
       },
       userLocation: {
         allowNull: false,

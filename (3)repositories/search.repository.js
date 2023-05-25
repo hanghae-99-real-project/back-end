@@ -17,18 +17,24 @@ class SearchRepository {
         });
     };
 
-    // 게시물 검색
+    // 게시물     // 실종 신고 게시물 검색
+
     findPosts = async (search) => {
         return await this.postsModel.findAll({
             where: {
                 [Op.or]: [
+                    {
+                        dogname: {
+                            [Op.like]: `%${search}%`
+                        }
+                    },
                     {
                         title: {
                             [Op.like]: `%${search}%`
                         }
                     },
                     {
-                        content: {
+                        lostLocation: {
                             [Op.like]: `%${search}%`
                         }
                     }

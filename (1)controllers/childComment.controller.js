@@ -46,13 +46,6 @@ class ChildCommentController {
         try {
             const { commentId } = req.params;
 
-            // 게시글이 존재하는지 여부 확인
-            // const post = await this.postsService.xxxx(postId); 
-            const post = await this.commentService.findPostById(postId);
-            if (!post) {
-                throw new Error("403/게시물이 존재하지 않습니다");
-            }
-
             // 댓글이 존재하는지 여부 확인
             const comments = await this.commentService.findCommentById(commentId);
             if (!comments) {

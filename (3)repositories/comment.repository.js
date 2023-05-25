@@ -22,22 +22,22 @@ class CommentRepository {
     };
 
     // 댓글 생성
-    createComment = async (userId, postId, comment, photoUrl) => {
+    createComment = async (userId, postId, comment, commentPhotoUrl) => {
         const createdComment = await this.commentsModel.create({
             UserId: userId,
             PostId: postId,
             comment,
-            photoUrl
+            commentPhotoUrl
         });
         return createdComment;
     };
     //     // 댓글 생성(비밀)
-    //   createComment = async (userId, postId, comment, photoUrl, isSecret) => {
+    //   createComment = async (userId, postId, comment, commentPhotoUrl, isSecret) => {
     //     const createdComment = await this.commentsModel.create({
     //       UserId: userId,
     //       PostId: postId,
     //       comment,
-    //       photoUrl,
+    //       commentPhotoUrl,
     //       isSecret,
     //     });
     //     return createdComment;

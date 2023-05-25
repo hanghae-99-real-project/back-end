@@ -1,15 +1,15 @@
 const ChildCommentRepository = require("../(3)repositories/childComment.repository.js");
 const CommentRepository = require("../(3)repositories/comment.repository.js");
 
-const { childComments, Comments } = require("../models");
+const { ChildComments, Comments, Users, Posts } = require("../models");
 
 class ChildCommentService {
-    childCommentRepository = new ChildCommentRepository(childComments);
-    commentRepository = new CommentRepository(Comments);
+    childCommentRepository = new ChildCommentRepository(ChildComments);
+    commentRepository = new CommentRepository(Comments, Users, Posts);
 
     // 대댓글 생성
     createChildComment = async (userId, postId, commentId, childComment) => {
-        return await this.childCommentrepository.createChildComment(userId, postId, commentId, childComment);
+        return await this.childCommentRepository.createChildComment(userId, postId, commentId, childComment);
     };
 
     // 대댓글 조회
@@ -24,10 +24,10 @@ class ChildCommentService {
                     childCommentId: childComment.childCommentId,
                     CommentId: childComment.CommentId,
                     UserId: childComment.UserId,
-                    postId: childComment.PostId,
+                    PostId: childComment.PostId,
                     childComment: childComment.childComment,
                     nickname: user.nickname,
-                    photoUrl: user.photoUrl, // userphotoUrl
+                    userPhoto: user.userPhoto, // userphotoUrl
                     createdAt: childComment.createdAt,
                     updatedAt: childComment.updatedAt
                 }

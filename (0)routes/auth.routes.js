@@ -5,12 +5,12 @@ const router = express.Router();
 const authMiddleware = require("../middlewares/auth-middleware");
 const UserController = require("../(1)controllers/users.controller");
 const userController = new UserController();
-const uploadImage = require('../modules/s3');
+const uploaduserImage = require('../modules/user_s3.js');
 
 
 router.post(
     "/signup",
-    uploadImage.single("image"),
+    uploaduserImage.single("image"),
     userController.signup);
 
 // 닉네임 중복 확인 API
