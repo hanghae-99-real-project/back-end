@@ -1,12 +1,14 @@
-const UserRepository = require("../(3)repositories/users.repository");
+const redis = require('redis');
+const client = redis.createClient();
+const UserRepository = require("../(3)repositories/auth.repository");
 const TokenRepository = require("../(3)repositories/tokens.repository");
 const jwt = require("jsonwebtoken");
 const { Users } = require("../models");
 
 
 class UserService {
-    userRepository = new UserRepository(Users);
-    tokenRepository = new TokenRepository();
+    // userRepository = new UserRepository(Users);
+    // tokenRepository = new TokenRepository();
 
 
     findNickname = async (nickname) => {
@@ -72,24 +74,39 @@ class UserService {
         await this.tokenRepository.deleteToken(userId);
         return;
     };
-    // createUser = async () => { // 임의로 유저 값 넣어주는 코드
-    //     try {
-    //         const userLocation = { latitude: 12.774, longitude: 124.419 };  // Example coordinates
-    //         const user = await this.userRepository.signup(
-    //             'ExampleNickname',
-    //             'securePassword123!',
-    //             'BrianPark@example.com',
-    //             'https://example.com/userProfile.jpg',
-    //             'This is an example introduction.',
-    //             userLocation
-    //         );
-    //         console.log('User created:', user);
-    //         return user;
-    //     } catch (error) {
-    //         console.error('Error creating user:', error);
-    //     }
-    // };
+
+    authCodeSend = async (nickname, phoneNum) => {
+        try {
+            const authcode = createAuthCode();
+            console.log(authcode)
+            await this.userRepository.authCodeSend(authcode, phoneNum)
+            send_message(nickname, phoneNum, authcode)
+            return { "message": "메세지 발송완료" }
+        } catch (error) {
+            console.error(error);
+            return { "errorMessage": "인증번호 요청에 실패하였습니다." }
+        }
+    };
+
+    authCodeVaildation = async (code, phoneNum) => {
+        try {
+            const authCode = await this.userRepository.authCodeVaildation(phoneNum)
+            if (!code) {
+                throw new Error("400/인증코드가 입력되지 않았습니다.")
+            }
+            if (authCode !== code) {
+                throw new Error("400/입력된 코드가 일치하지 않습니다.")
+            }
+            if (!authCode) {
+                throw new Error("400/인증코드가 만료 되었습니다.")
+            }
+            return { "message": "인증번호 확인완료" }
+        } catch (error) {
+            error.failedApi = "인증번호 검사";
+            throw error;
+        }
+    };
+
 }
-// const userService = new UserService();
-// userService.createUser();
+
 module.exports = UserService;

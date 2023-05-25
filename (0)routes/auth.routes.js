@@ -34,4 +34,13 @@ router.delete(
     "/logout",
     userController.logout);
 
+router.post(
+    "/authCodeSend",
+    userController.authCodeSend);
+
+router.post(
+    "/authCodeVaildation",
+    userController.authCodeVaildation);
+
+
 module.exports = router;
