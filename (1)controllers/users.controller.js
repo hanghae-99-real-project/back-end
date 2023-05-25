@@ -11,14 +11,14 @@ class UserController {
       nickname,
       password,
       confirmpassword,
-      email,
+      phoneNumber,
       introduction,
     } = req.body;
     const { userPhoto } = req;
     try {
       const nicknameFilter = /^[a-zA-Z0-9]{6,}/gi;
       const passwordFilter = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
-      const emailFilter = /[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]+$/gi;
+      const phoneNumberFilter = /^\d+$/;
       const existNickname = await this.userService.findNickname(nickname);
 
       if (!nicknameFilter.test(nickname)) {
@@ -33,10 +33,10 @@ class UserController {
           .json({ errorMessage: "패스워드 형식이 일치하지 않습니다." });
       }
 
-      if (!emailFilter.test(email)) {
+      if (!phoneNumberFilter.test(phoneNumber)) {
         return res
           .status(412)
-          .json({ errorMessage: "이메일의 형식이 일치하지 않습니다." });
+          .json({ errorMessage: "핸드폰 번호 형식이 일치하지 않습니다." });
       }
 
 
@@ -61,7 +61,7 @@ class UserController {
       await this.userService.signup(
         nickname,
         password,
-        email,
+        phoneNumber,
         userPhoto,
         introduction
       );
