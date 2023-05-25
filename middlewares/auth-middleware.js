@@ -1,103 +1,111 @@
-const jwt = require('jsonwebtoken');
-const { Users } = require('../models');
-const { Tokens } = require('../models');
-const TokenRepository = require('../(3)repositories/tokens.repository');
+const jwt = require("jsonwebtoken");
+const { Users } = require("../models");
+const TokenRepository = require("../(3)repositories/tokens.repository");
+
+const tokenRepository = new TokenRepository();
 
 module.exports = async (req, res, next) => {
-    const tokenRepository = new TokenRepository(Tokens);
+    let { accesstoken, refreshtoken } = req.headers;
+    console.log(req.headers);
+    console.log(accesstoken);
+    console.log(refreshtoken);
 
-    let { Authorization, refreshtoken } = req.headers;
-    //객체 형태로 가지고 올꺼야
 
-    //1. header와 쿠키에서 access, refresh 추출
     try {
-        Authorization = !req.headers.refreshtoken
-            ? req.cookies.Authorization
-            : Authorization;
+    accesstoken = !req.headers.refreshtoken
+        ? req.cookies.accesstoken
+        : accesstoken;
 
-        refreshtoken = !req.headers.refreshtoken
-            ? req.cookies.refreshtoken
-            : refreshtoken;
-        console.log(req.cookies);
+    refreshtoken = !req.headers.refreshtoken
+        ? req.cookies.refreshtoken
+        : refreshtoken;
+    console.log(accesstoken);
+    console.log(refreshtoken);
+    const [authAccessType, authAccessToken] = (accesstoken ?? "").split(" ");
+    const [authRefreshType, authRefreshToken] = (refreshtoken ?? "").split(" ");
 
-        //Authorization 은 Bearer형식으로 전달되어왔기 때문에 split으로 분리해준다.
-        const [authType, accessToken] = (Authorization ?? '').split(' ');
-        const isAccessTokenValidate = validateAccessToken(accessToken);
-        const isRefreshTokenValidate = validateRefreshToken(refreshtoken);
+    if (authRefreshType !== "Bearer" || !authRefreshToken) {
+        return res
+        .status(403)
+        .json({ errorMessage: "로그인이 필요한 기능입니다." });
+    }
 
-        //2.refresh 유효성 검증값이 false일때, db에 refreshtoken 지워줌
-        //(!isRefreshTokenValidate) means !true
-        if (!isRefreshTokenValidate) {
-            await tokenRepository.deleteRefreshToken2(refreshtoken);
-            return res.status(419).json({
-                message: 'Refresh Token이 만료되었습니다. 다시 로그인 해주세요',
-            });
-        }
 
-        //access token의 유효성 검증값이 false일때 access를 다시 생성해야함
-        if (!isAccessTokenValidate) {
-            //서버가 발급한 refresh가 맞는지 확인 후 해당토큰에서 추출한 user_id가져와서 userId에 할당
-            const userId = jwt.verify(refreshtoken, 'secret').user_id;
-            //그 userId로 해당 사용자의 refreshtoken가져옴
-            const userR = await tokenRepository.getRefreshToken(userId);
+    if (authAccessType !== "Bearer" || !authAccessToken) {
+        return res
+        .status(400)
+        .json({ errorMessage: "로그인이 필요한 기능입니다." });
+    }
 
-            if (!userR) {
-                return res.status(419).json({
-                    message:
-                        'Refresh Token의 정보가 서버에 존재하지 않습니다. 다시 로그인 해주세요',
-                });
-            }
+    const isAccessTokenValidate = validateAccessToken(authAccessToken);
+    const isRefreshTokenValidate = validateRefreshToken(authRefreshToken);
 
-            //refresh 를 찾아와서 access 재발급
-            const newAccessToken = createAccessToken(userR);
-            res.cookie('Authorization', `Bearer ${newAccessToken}`);
 
-            //새로운 access토큰의 userId를 사용하여 데이터 베이스에서 사용자 정보 가져온 후 넘겨준다
-            const user = await Users.findOne({ where: { user_id: userId } });
-            res.locals.user = user;
-        }
+    if (!isRefreshTokenValidate) {
+        return res
+        .status(419)
+        .json({ errorMessage: "Refresh Token이 만료되었습니다." });
+    }
 
-        next();
-    } catch (err) {
-        console.log(err);
-        res.clearCookie('Authorization');
-        return res.status(403).send({
-            errorMessage:
-                '전달된 쿠키에서 오류가 발생하였습니다. 다시 로그인 해주세요',
+
+    if (!isAccessTokenValidate) {
+        const accessTokenId = await tokenRepository.findTokenId(authRefreshToken);
+        if (!accessTokenId) {
+        return res.json({
+            errorMessage: "Refresh Token의 정보가 서버에 존재하지 않습니다.",
         });
+    }
+        const newAccessToken = createAccessToken(accessTokenId);
+
+
+        res.cookie("accesstoken", `Bearer ${newAccessToken}`);
+        return res.status(200).json({ newAccessToken });
+    }
+
+
+    const { userId } = jwt.verify(authAccessToken, process.env.ACCESS_KEY);
+    const user = await Users.findOne({ where: { userId: userId } });
+    res.locals.user = user;
+
+    next();
+    } catch (error) {
+    console.error(error);
+    res.clearCookie("accesstoken");
+    res.clearCookie("refreshtoken");
+    return res
+        .status(403)
+        .json({ errorMessage: "전달된 쿠키에서 오류가 발생하였습니다." });
     }
 };
 
-function createAccessToken(user) {
-    const accessToken = jwt.sign({ user_id: user.user_id }, 'secret', {
-        expiresIn: '10s',
-    });
 
+const createAccessToken = (accessTokenId) => {
+    const accessToken = jwt.sign(
+    { userId: accessTokenId },
+    process.env.ACCESS_KEY,
+    {
+        expiresIn: process.env.ACCESS_EXPIRES,
+    }
+    );
     return accessToken;
-}
+};
 
-//1. refresh, access Token의 유효성 검사(만료or위조 되었는지)
-//jwt.verify를 통해서 진행한다.
-function validateAccessToken(accessToken) {
+// access token 검증 함수
+const validateAccessToken = (authAccessToken) => {
     try {
-        jwt.verify(accessToken, 'secret');
-        return true;
+    jwt.verify(authAccessToken, process.env.ACCESS_KEY);
+    return true;
     } catch (error) {
-        return false;
+    return false;
     }
-}
+};
 
-function validateRefreshToken(refreshToken) {
+// refresh token 검증 함수
+const validateRefreshToken = (authRefreshToken) => {
     try {
-        jwt.verify(refreshToken, 'secret');
-        return true;
+    jwt.verify(authRefreshToken, process.env.REFRESH_KEY);
+    return true;
     } catch (error) {
-        return false;
+    return false;
     }
-}
-
-// } else {
-//   const userId = jwt.verify(accessToken, 'secret');
-//   const user = await Users.findOne({ where: { user_id: userId } });
-//   res.locals.user = user;
-// }
+};

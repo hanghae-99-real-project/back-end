@@ -15,7 +15,11 @@ module.exports = (sequelize, DataTypes) => {
         targetKey: "userId",
         foreignKey: "UserId",
       });
+<<<<<<< HEAD
       this.hasMany(models.Likes, {
+=======
+      this.hasMany(models.BookMarks, {
+>>>>>>> f426f320c4844e668c4ad759864bd2f0be86ab39
         targetKey: "postId",
         foreignKey: "PostId",
       });
@@ -41,6 +45,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false
       },
+      dogname: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
       title: {
         type: DataTypes.STRING,
         allowNull: false
@@ -49,21 +57,13 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false
       },
-      nickname: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      like: {
-        type: DataTypes.BOOLEAN,
-        allowNull: true
-      },
-      likesCount: {
-        type: DataTypes.INTEGER,
-        allowNull: true
-      },
       photoUrl: {
-        type: DataTypes.STRING(255),
+        type: DataTypes.JSON,
         allowNull: false
+      },
+      lostLocation: {
+        allowNull: false,
+        type: DataTypes.JSON
       },
       createdAt: {
         allowNull: false,

@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
         sourceKey: 'userId',
         foreignKey: 'UserId',
       });
-      this.hasOne(models.Likes, {
+      this.hasOne(models.BookMarks, {
         sourceKey: 'userId',
         foreignKey: 'UserId',
       });
@@ -52,16 +52,16 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.STRING,
       },
-      userPhoto: {
-        allowNull: false,
+      photoUrl: {
+        allowNull: true,
         type: DataTypes.STRING,
       },
       position: {
-        allowNull: false,
+        allowNull: true,
         type: DataTypes.BOOLEAN,
       },
       userLocation: {
-        allowNull: false,
+        allowNull: true,
         type: DataTypes.JSON
       },
       createdAt: {

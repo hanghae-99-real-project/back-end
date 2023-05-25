@@ -1,7 +1,7 @@
 const ChildCommentRepository = require("../(3)repositories/childComment.repository.js");
 const CommentRepository = require("../(3)repositories/comment.repository.js");
 
-const { Comments, childComments } = require("../models");
+const { childComments, Comments } = require("../models");
 
 class ChildCommentService {
     childCommentRepository = new ChildCommentRepository(childComments);
@@ -27,7 +27,7 @@ class ChildCommentService {
                     postId: childComment.PostId,
                     childComment: childComment.childComment,
                     nickname: user.nickname,
-                    profileUrl: user.profileUrl,
+                    photoUrl: user.photoUrl, // userphotoUrl
                     createdAt: childComment.createdAt,
                     updatedAt: childComment.updatedAt
                 }

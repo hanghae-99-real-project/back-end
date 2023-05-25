@@ -31,8 +31,8 @@ class CommentService {
                     PostId: comment.PostId,
                     comment: comment.comment,
                     nickname: user.nickname,
-                    profileUrl: user.profileUrl,
-                    photoUrl: comment.photoUrl,
+                    photoUrl: user.photoUrl, // userphotoUrl
+                    photoUrl: comment.photoUrl, // comment photoUrl
                     createdAt: comment.createdAt,
                     updatedAt: comment.updatedAt,
                 };
@@ -57,7 +57,35 @@ class CommentService {
         await this.commentRepository.deleteComment(userId, postId, commentId);
     };
 
+    //     // 비밀 댓글 생성
+    //     createSecretComment = async (userId, postId, comment, photoUrl) => {
+    //         return await this.commentRepository.createComment(userId, postId, comment, photoUrl, true);
+    //     };
 
+    //     // 게시물 아이디의 전체 비밀 댓글 조회
+    //   findSecretCommentsByPostId = async (postId) => {
+    //     const secretComments = await this.commentRepository.findCommentsByPostId(postId, true);
+
+    //     const secretCommentsWithDetail = await Promise.all(
+    //       secretComments.map(async (comment) => {
+    //         const user = await this.commentRepository.findUserById(comment.UserId);
+
+    //         return {
+    //           commentId: comment.commentId,
+    //           UserId: comment.UserId,
+    //           PostId: comment.PostId,
+    //           comment: comment.comment,
+    //           nickname: user.nickname,
+    //           photoUrl: user.photoUrl, // userphotoUrl
+    //           photoUrl: comment.photoUrl, // comment photoUrl
+    //           createdAt: comment.createdAt,
+    //           updatedAt: comment.updatedAt,
+    //         };
+    //       })
+    //     );
+
+    //     return secretCommentsWithDetail.sort((a, b) => b.createdAt - a.createdAt);
+    //   };
 }
 
 module.exports = CommentService;

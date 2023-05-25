@@ -1,16 +1,13 @@
-// const redis = require('redis');
-// const client = redis.createClient();
+const redis = require('redis');
+const client = redis.createClient();
 const UserRepository = require("../(3)repositories/auth.repository");
 const TokenRepository = require("../(3)repositories/tokens.repository");
 const jwt = require("jsonwebtoken");
 const { Users } = require("../models");
-const createAuthCode = require('../modules/utils');
-
-const send_message = require('../modules/smsService');
 
 
 class UserService {
-    userRepository = new UserRepository(Users);
+    // userRepository = new UserRepository(Users);
     // tokenRepository = new TokenRepository();
 
 
@@ -75,8 +72,6 @@ class UserService {
         await this.tokenRepository.deleteToken(userId);
         return;
     };
-
-
 
     authCodeSend = async (nickname, phoneNum) => {
         try {

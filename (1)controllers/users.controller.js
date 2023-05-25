@@ -1,4 +1,4 @@
-const UserService = require("../(2)services/auth.service");
+const UserService = require("../(2)services/users.service");
 
 
 class UserController {
@@ -12,12 +12,13 @@ class UserController {
       password,
       confirmpassword,
       email,
-      photoUrl,
       introduction,
-    } = req;
+    } = req.body;
+    const { photoUrl } = req
     try {
       const nicknameFilter = /^[a-zA-Z0-9]{6,}/gi;
       const passwordFilter = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
+      const emailFilter = /[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]+$/gi;
       const existNickname = await this.userService.findNickname(nickname);
 
       if (!nicknameFilter.test(nickname)) {
@@ -30,6 +31,12 @@ class UserController {
         return res
           .status(412)
           .json({ errorMessage: "패스워드 형식이 일치하지 않습니다." });
+      }
+
+      if (!emailFilter.test(email)) {
+        return res
+          .status(412)
+          .json({ errorMessage: "이메일의 형식이 일치하지 않습니다." });
       }
 
 

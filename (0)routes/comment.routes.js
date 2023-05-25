@@ -15,8 +15,14 @@ router.post(
     commentController.createComment
 );
 
+// // 비밀 댓글 생성
+// router.post("/:postId/comments/secret", authMiddleware, commentPhoto.single("photoUrl"), commentController.createSecretComment);
+
 // 댓글 조회
 router.get("/:postId/comments", authMiddleware, commentController.readComments);
+
+// // 비밀 댓글 조회
+// router.get("/:postId/comments/secret", authMiddleware, commentController.readSecretComments);
 
 // 댓글 수정
 router.put("/:postId/comments/:commentId", authMiddleware, commentController.fixComment);

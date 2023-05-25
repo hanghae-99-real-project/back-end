@@ -18,6 +18,10 @@ module.exports = {
         },
         onDelete: "CASCADE",
       },
+      dogname: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
       title: {
         allowNull: false,
         type: Sequelize.STRING,
@@ -26,19 +30,13 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      nickname: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      like: {
-        type: Sequelize.BOOLEAN,
-      },
-      likesCount: {
-        type: Sequelize.INTEGER,
-      },
       photoUrl: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.JSON,
+      },
+      lostLocation: {
+        allowNull: false,
+        type: Sequelize.JSON
       },
       createdAt: {
         allowNull: false,

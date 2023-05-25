@@ -6,11 +6,11 @@ const postController = new PostController();
 const uploadImage = require("../modules/s3.js");
 
 
-//게시글 작성
+
 router.post(
     "/",
     authMiddleware,
-    uploadImage.single("image"),
+    uploadImage.array("image", 5),
     async (req, res) => {
         postController.createPost(req, res);
     }
