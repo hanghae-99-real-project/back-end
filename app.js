@@ -7,6 +7,8 @@ const port = 3000;
 const morgan = require('morgan')
 const router = require("./(0)routes");
 const errorHandler = require("./middlewares/error-handler");
+const swaggerUi = require("swagger-ui-express");
+const swaggerFile = require("./swagger/swagger-output.json");
 
 
 //미들웨어
@@ -15,13 +17,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
 app.use("/api", router);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 app.use(errorHandler);
-app.use(
-  cors({
-    origin: "*",
-    credentials: "true",
-  })
-);
+app.use(cors({ origin: "*", credentials: true }));
 
 app.get('/', (req, res) => {
   res.send('Hello, World!');
