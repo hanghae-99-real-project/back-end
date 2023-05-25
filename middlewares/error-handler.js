@@ -1,12 +1,12 @@
 const util = require('util');
 
-const yellow = '\x1b[31m';
+const red = '\x1b[31m';
 const reset = '\x1b[0m';
 
 const consoleError = console.error;
 
 console.error = (...args) => {
-  consoleError(yellow + util.format(...args) + reset);
+  consoleError(red + util.format(...args) + reset);
 };
 
 module.exports = async (error, req, res, next) => {

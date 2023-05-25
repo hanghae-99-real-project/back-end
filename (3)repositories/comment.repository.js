@@ -31,13 +31,28 @@ class CommentRepository {
         });
         return createdComment;
     };
+    //     // 댓글 생성(비밀)
+    //   createComment = async (userId, postId, comment, photoUrl, isSecret) => {
+    //     const createdComment = await this.commentsModel.create({
+    //       UserId: userId,
+    //       PostId: postId,
+    //       comment,
+    //       photoUrl,
+    //       isSecret,
+    //     });
+    //     return createdComment;
+    //   };
 
     // 게시물 아이디의 전체 댓글 조회
     findCommentsByPostId = async (postId) => {
         return await this.commentsModel.findAll({ where: { postId } });
     };
+    //     // 게시물 아이디의 전체 댓글 조회(비밀)
+    //   findCommentsByPostId = async (postId, isSecret) => {
+    //     return await this.commentsModel.findAll({ where: { postId, isSecret } });
+    //   };
 
-    // 댓글 아이디로 댓글 조회
+    // 댓글 아이디로 댓글 하나 조회
     findCommentById = async (commentId) => {
         return await this.commentsModel.findOne({ where: { commentId } });
     };
