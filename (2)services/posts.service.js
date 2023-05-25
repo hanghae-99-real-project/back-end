@@ -1,5 +1,5 @@
 const PostRepository = require("../(3)repositories/posts.repository");
-const { post } = require("../(0)routes");
+const { Posts } = require("../models");
 const postRepository = new PostRepository();
 
 class PostService {
@@ -81,6 +81,27 @@ class PostService {
         await postRepository.deletePostById(postId);
     };
 
+    // createSamplePost = async () => {
+    //     try {
+    //         const postData = {
+    //             UserId: 4,
+    //             dogname: 'ExampleDog',
+    //             title: 'Example Title',
+    //             content: 'Example Content',
+    //             photoUrl: 'https://example.com/dogPhoto.jpg',
+    //             lostLocation: '{"latitude":37.7749,"longitude":122.4194}'
+    //         };
+
+    //         const post = await postRepository.create(postData);
+    //         console.log('Post created:', post);
+    //         return post;
+    //     } catch (error) {
+    //         console.error('Error creating post:', error);
+    //     }
+    // };
+
 }
+// const postService = new PostService();
+// postService.createSamplePost();
 
 module.exports = PostService;

@@ -72,7 +72,24 @@ class UserService {
         await this.tokenRepository.deleteToken(userId);
         return;
     };
-
+    // createUser = async () => { // 임의로 유저 값 넣어주는 코드
+    //     try {
+    //         const userLocation = { latitude: 12.774, longitude: 124.419 };  // Example coordinates
+    //         const user = await this.userRepository.signup(
+    //             'ExampleNickname',
+    //             'securePassword123!',
+    //             'BrianPark@example.com',
+    //             'https://example.com/userProfile.jpg',
+    //             'This is an example introduction.',
+    //             userLocation
+    //         );
+    //         console.log('User created:', user);
+    //         return user;
+    //     } catch (error) {
+    //         console.error('Error creating user:', error);
+    //     }
+    // };
 }
-
+// const userService = new UserService();
+// userService.createUser();
 module.exports = UserService;
