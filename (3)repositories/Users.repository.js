@@ -1,3 +1,5 @@
+const redisClient = require('../modules/redisClient');
+
 class UserRepository {
     constructor(UsersModel) {
         this.usersModel = UsersModel;
@@ -35,11 +37,22 @@ class UserRepository {
         });
         return;
     };
-    
+
 
     login = async (nickname) => {
         const loginUser = await this.usersModel.findOne({ where: { nickname } });
         return loginUser;
+    };
+
+
+    authCodeSend = async (authcode, phoneNum) => {
+        const authCode = await redisClient.SETEX(phoneNum, 180, authcode);
+        return authCode
+    };
+
+    authCodeVaildation = async (phoneNum) => {
+        const authCode = await redisClient.get(phoneNum)
+        return authCode
     };
 
 }
