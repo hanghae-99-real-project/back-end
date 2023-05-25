@@ -19,10 +19,6 @@ module.exports = (sequelize, DataTypes) => {
         targetKey: "postId",
         foreignKey: "PostId",
       });
-      this.hasMany(models.Images, {
-        targetKey: "postId",
-        foreignKey: "PostId",
-      });
       this.hasMany(models.Comments, {
         targetKey: "postId",
         foreignKey: "PostId",
@@ -58,7 +54,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false
       },
       photoUrl: {
-        type: DataTypes.STRING(255),
+        type: DataTypes.JSON,
         allowNull: false
       },
       lostLocation: {

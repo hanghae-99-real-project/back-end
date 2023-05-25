@@ -32,8 +32,8 @@ module.exports = {
         type: Sequelize.STRING,
       },
       photoUrl: {
-        allowNull: false,
-        type: Sequelize.STRING,
+        allowNull: true,
+        type: Sequelize.JSON,
       },
       createdAt: {
         allowNull: false,
