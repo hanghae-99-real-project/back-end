@@ -53,16 +53,20 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
       },
       userPhoto: {
-        allowNull: true,
+        allowNull: false,
         type: DataTypes.JSON,
       },
       position: {
-        allowNull: true,
+        allowNull: false,
         type: DataTypes.BOOLEAN,
       },
-      userLocation: {
-        allowNull: true,
-        type: DataTypes.JSON
+      userLatitude: {
+        allowNull: false,
+        type: DataTypes.DECIMAL(17, 14)
+      },
+      userLongitude: {
+        allowNull: false,
+        type: DataTypes.DECIMAL(17, 14)
       },
       createdAt: {
         allowNull: false,

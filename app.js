@@ -6,6 +6,7 @@ require("express-async-errors");
 const port = 3000;
 const morgan = require('morgan')
 const router = require("./(0)routes");
+
 const errorHandler = require("./middlewares/error-handler");
 const swaggerUi = require("swagger-ui-express");
 const swaggerFile = require("./swagger/swagger-output.json");
@@ -20,6 +21,12 @@ app.use("/api", router);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 app.use(errorHandler);
 app.use(cors({ origin: "*", credentials: true }));
+// app.use(session({
+//   secret: 'ras',
+//   resave: true,
+//   secure: false,
+//   saveUninitialized: false,
+// }))
 
 app.get('/', (req, res) => {
   res.send('Hello, World!');

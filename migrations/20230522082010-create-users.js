@@ -30,9 +30,13 @@ module.exports = {
         allowNull: false,
         type: Sequelize.BOOLEAN
       },
-      userLocation: {
+      userLatitude: {
         allowNull: false,
-        type: Sequelize.JSON
+        type: Sequelize.DECIMAL(17, 14)
+      },
+      userLongitude: {
+        allowNull: false,
+        type: Sequelize.DECIMAL(17, 14)
       },
       createdAt: {
         allowNull: false,

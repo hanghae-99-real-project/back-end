@@ -29,10 +29,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false
       },
-      title: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
       content: {
         type: DataTypes.STRING,
         allowNull: false
@@ -41,12 +37,16 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.JSON,
         allowNull: false
       },
-      userLocation: {
-        type: DataTypes.JSON,
+      pooLatitude: {
+        type: DataTypes.DECIMAL(17, 14),
         allowNull: false
       },
-      pooLocation: {
-        type: DataTypes.JSON,
+      pooLongitude: {
+        type: DataTypes.DECIMAL(17, 14),
+        allowNull: false
+      },
+      address: {
+        type: DataTypes.STRING,
         allowNull: false
       },
       createdAt: {
