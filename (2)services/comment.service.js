@@ -21,23 +21,15 @@ class CommentService {
     findCommentsByPostId = async (postId, userId) => {
         const comments = await this.commentRepository.findCommentsByPostId(postId);
         const post = await this.commentRepository.findPostById(postId);
-        const postUserId = post ? post.UserId : null;
+        const postUserId = post ? post.UserId : null; // 해당 게시물의 작성자 ID를 가져옴 (게시물이 존재하면 작성자 ID, 없으면 null)
 
         const commentsWithDetail = await Promise.all(
             comments.map(async (comment) => {
                 const user = await this.commentRepository.findUserById(comment.UserId);
 
-                // // 로그인하지 않은 사용자는 비밀 댓글을 볼 수 없음
-                // if (userId === null && comment.isPrivate) {
-                //     return null;
-                // }
-
-                // // 비밀 댓글은 댓글 작성자와 게시글 작성자만 볼 수 있음
-                // if (comment.isPrivate && comment.UserId !== userId && postUserId !== userId) {
-                //     return null;
-                // }
-
-                // userId가 없는 경우 (로그인하지 않은 사용자) 또는 비밀 댓글이고 사용자가 댓글 작성자 또는 게시글 작성자가 아닌 경우
+                // 로그인하지 않은 유저가 비밀 댓글 조회 X
+                // 비밀 댓글이고 비밀 댓글 작성자가 아닐 때 조회 X
+                // 게시글 작성자가 아닐 때 조회 X
                 if ((!userId && comment.isPrivate) || (comment.isPrivate && comment.UserId !== userId && postUserId !== userId)) {
                     return null;
                 }
@@ -56,7 +48,7 @@ class CommentService {
             }),
         )
 
-        return commentsWithDetail.filter(comment => comment !== null).sort((a, b) => b.createdAt - a.createdAt);
+        return commentsWithDetail.filter(comment => comment !== null).sort((a, b) => b.createdAt - a.createdAt); // null 값이 있으면 filter 사용 가능. 없어도 추 후를 위해 굳이 없애지 않아도 됨
     };
 
     // 댓글 아이디로 댓글 조회

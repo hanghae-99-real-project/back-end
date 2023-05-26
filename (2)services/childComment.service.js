@@ -33,7 +33,7 @@ class ChildCommentService {
         if (parentComment.isPrivate) {
             // 비밀 대댓글이 아니라면 에러 발생
             if (!isPrivate) {
-                throw new Error("비밀 댓글에는 비밀 대댓글만 작성할 수 있습니다.");
+                throw new Error("404/비밀 댓글에는 비밀 대댓글만 작성할 수 있습니다.");
             }
 
             // 상위 댓글의 작성자 ID 가져오기
@@ -45,9 +45,9 @@ class ChildCommentService {
             // 게시물 작성자 ID 가져오기
             const postUserId = parentPost.UserId;
 
-            // 댓글 작성자 또는 게시물 작성자가 아닌 경우 에러 발생
+            // 비밀 댓글 작성자 또는 게시물 작성자가 아닌 경우 에러 발생
             if (parentCommentUserId !== userId && postUserId !== userId) {
-                throw new Error("비밀 댓글에는 댓글 작성자 또는 게시물 작성자만 대댓글을 작성할 수 있습니다.");
+                throw new Error("404/비밀 댓글에는 댓글 작성자 또는 게시물 작성자만 대댓글을 작성할 수 있습니다.");
             }
         };
         return await this.childCommentRepository.createChildComment(userId, postId, commentId, childComment, isPrivate);
@@ -58,19 +58,17 @@ class ChildCommentService {
         // 상위 댓글 가져오기
         const parentComment = await this.commentRepository.findCommentById(commentId);
 
-        // 상위 댓글이 없으면 대댓글도 없음
-        if (!parentComment) return [];
-
         // 상위 댓글의 작성자 ID 가져오기
-        const parentCommentUserId = parentComment.UserId;
+        const parentCommentUserId = parentComment ? parentComment.UserId : null;
 
         // 게시물 작성자 ID 가져오기
         const post = await this.commentRepository.findPostById(postId);
         const postUserId = post.UserId;
 
-        // 상위 댓글이 비밀 댓글이고 조회하려는 유저가 댓글 작성자 또는 게시물 작성자가 아니라면 대댓글을 볼 수 없음
+        // 비밀 댓글 작성자가 아닐 때 비밀 대댓글 조회 X
+        // 게시물 작성자가 아닐 때 비밀 대댓글 조회 X
         if (parentComment.isPrivate && parentCommentUserId !== userId && postUserId !== userId) {
-            return [];
+            throw new Error("404/비밀 댓글에 대한 비밀 대댓글은 비밀 댓글 작성자 또는 게시물 작성자만 볼 수 있습니다.");
         }
 
         // 상위 댓글이 비밀 댓글이 아니거나 조회하려는 유저가 댓글 작성자 또는 게시물 작성자인 경우에만 대댓글 조회
@@ -81,24 +79,12 @@ class ChildCommentService {
             childComments.map(async (childComment) => {
                 const user = await this.commentRepository.findUserById(childComment.UserId);
 
-                // 게시물 작성자는 비밀 대댓글도 조회할 수 있음
+                // 비밀 대댓글인 경우 다음 조건들을 확인
+                // 대댓글 작성자가 현재 조회하는 사용자와 다른 경우
+                // 또는 상위 댓글 작성자 또는 게시물 작성자만 조회 가능
                 if (childComment.isPrivate && childComment.UserId !== userId && parentCommentUserId !== userId && postUserId !== userId) {
-                    if (userId !== postUserId) {
-                        return null;
-                    }
+                    return null;
                 }
-
-                // // 비밀 대댓글의 경우
-                // if (childComment.isPrivate) {
-                //     // 상위 댓글이 비밀 댓글이면 게시물 작성자와 댓글 작성자만 볼 수 있음
-                //     if (parentComment.isPrivate && childComment.UserId !== postUserId && parentCommentUserId !== postUserId) {
-                //         return null;
-                //     }
-                //     // 상위 댓글이 일반 댓글이면 대댓글 작성자와 상위 댓글 작성자만 볼 수 있음
-                //     else if (!parentComment.isPrivate && childComment.UserId !== userId && parentCommentUserId !== userId) {
-                //         return null;
-                //     }
-                // }
 
                 return {
                     childCommentId: childComment.childCommentId,
@@ -114,7 +100,7 @@ class ChildCommentService {
             })
         )
 
-        return childCommentsWithDetail.filter(childComment => childComment !== null).sort((a, b) => b.createdAt - a.createdAt);
+        return childCommentsWithDetail.filter(comment => comment !== null).sort((a, b) => b.createdAt - a.createdAt);
     };
 
     // 대댓글 하나 찾기

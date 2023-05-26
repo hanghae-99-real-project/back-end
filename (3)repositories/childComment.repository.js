@@ -6,7 +6,7 @@ class ChildCommentRepository {
         this.commentsModel = commentsModel;
     };
 
-    // 대댓글 생성
+    // 대댓글과 비밀 대댓글 생성
     createChildComment = async (userId, postId, commentId, childComment, isPrivate) => {
         const createdChildComment = await this.childCommentsModel.create({
             UserId: userId,
