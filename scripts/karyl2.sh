@@ -1,1 +1,1 @@
-rm -rf ../../back-end
+rm -rf /home/ubuntu/back-end
