@@ -58,9 +58,13 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.JSON,
         allowNull: false
       },
-      lostLocation: {
+      lostLatitude: {
         allowNull: false,
-        type: DataTypes.JSON
+        type: DataTypes.DECIMAL(17, 14)
+      },
+      lostLongitude: {
+        allowNull: false,
+        type: DataTypes.DECIMAL(17, 14)
       },
       createdAt: {
         allowNull: false,

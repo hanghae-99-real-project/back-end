@@ -1,20 +1,22 @@
-const PooService = require('../(2)services/poo.service')
+const PooService = require('../(2)services/poo.service');
 
 class poosController {
     poosService = new PooService()
 
     postPoo = async (req, res) => {
         const { userId } = res.locals.user
-        const { title, content, image, pooLocation } = req.body
-        const getMyInfoData = await this.poosService.postPoo(userId, title, content, image, pooLocation)
+        const { content, pooLatitude, pooLongitude } = req.body
+        const { pooPhotoUrl } = req;
 
-        return res.staus(201).json({ getMyInfoData })
+        const postPooData = await this.poosService.postPoo(userId, content, pooPhotoUrl, pooLatitude, pooLongitude)
+
+        return res.status(201).json(postPooData)
     };
 
-    getPoo = async (req, res) => {
-        const getPooData = await this.poosService.getPoo()
+    getPoo = async (req, res, next) => {
+        const getPooData = await this.poosService.getPoo();
 
-        return res.staus(201).json({ getPooData })
+        return res.status(201).json({ getPooData })
     };
 
 }

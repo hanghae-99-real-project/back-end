@@ -1,23 +1,42 @@
 
 
 class poosService {
-    constructor(Poo) {
-        this.poo = Poo;
+    constructor(poo, user) {
+        this.poo = poo;
+        this.user = user;
     }
 
-    postPoo = async (req, res) => {
-
-        const postPoo = await this.poo.create(title, content, image, pooLocation)
+    postPoo = async (userId, content, pooPhotoUrl, pooLatitude, pooLongitude) => {
+        const postPoo = await this.poo.create({
+            UserId: userId,
+            content,
+            pooPhotoUrl,
+            pooLatitude,
+            pooLongitude,
+        })
 
         return postPoo
     };
 
 
-    getPoo = async (req, res) => {
-        const getPooData = await this.poo.findAll()
-
-        return getPooData
-    };
+    findAllPoo = async () => {
+        return await this.poo.findAll({
+            include: [
+                {
+                    model: this.user,
+                    attribues: ['userId'],
+                },
+            ],
+            attributes: [
+                "pooId",
+                "UserId",
+                "pooLatitude",
+                "pooLongitude",
+                "createdAt",
+                "updatedAt",
+            ],
+        })
+    }
 
 }
 

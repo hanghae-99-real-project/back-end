@@ -34,9 +34,13 @@ module.exports = {
         allowNull: false,
         type: Sequelize.JSON,
       },
-      lostLocation: {
+      lostLatitude: {
         allowNull: false,
-        type: Sequelize.JSON
+        type: Sequelize.DECIMAL(17, 14)
+      },
+      lostLongitude: {
+        allowNull: false,
+        type: Sequelize.DECIMAL(17, 14)
       },
       createdAt: {
         allowNull: false,
