@@ -1,1 +1,1 @@
-rm -rf /home/ubuntu/back-end
+rm -rf /home/ubuntu/back-end  || true
