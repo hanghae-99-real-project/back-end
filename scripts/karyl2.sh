@@ -1,1 +1,1 @@
-rm -rf /home/ubuntu/back-end  || true
+sudo rm -rf /home/ubuntu/back-end  || true

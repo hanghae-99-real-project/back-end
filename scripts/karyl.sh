@@ -1,3 +1,2 @@
 # "멈춰!!"
-
-pkill node || true
+sudo pkill node || true
