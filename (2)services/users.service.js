@@ -20,18 +20,42 @@ class UserService {
         nickname,
         password,
         userPhoto,
+        position,
         phoneNumber,
+<<<<<<< HEAD
         introduction,
+        userLocation
+=======
+        // introduction,
+>>>>>>> eaffb05dfabac56229f810bc42fef31a7f0f1c5e
     ) => {
         const signupData = await this.userRepository.signup(
             nickname,
             password,
             userPhoto,
+            position,
             phoneNumber,
+<<<<<<< HEAD
             introduction,
+            userLocation
+=======
+            // introduction,
+>>>>>>> eaffb05dfabac56229f810bc42fef31a7f0f1c5e
         );
         return signupData;
     };
+    
+    processKakaoLogin = async (profile) => {
+        try {
+
+          const { id, username, email } = profile;
+      
+          const user = await userRepository.findOrCreateUser(id, username, email);
+          return user;
+        } catch (error) {
+          throw new Error('Failed to process Kakao login.');
+        }
+      };
 
     // 회원탈퇴 API
     deleteSignup = async (userId) => {
@@ -105,7 +129,25 @@ class UserService {
             throw error;
         }
     };
+    // createUser = async () => { // 임의로 유저 값 넣어주는 코드
+    //     try {
+    //         const userLocation = { latitude: 12.774, longitude: 124.419 };  // Example coordinates
+    //         const user = await this.userRepository.signup(
+    //             '김용식',
+    //             'securePassword123!',
+    //             '01023412323',
+    //             'https://example.com/userProfile.jpg',
+    //             'This is an example introduction.',
+    //             userLocation
+    //         );
+    //         console.log('User created:', user);
+    //         return user;
+    //     } catch (error) {
+    //         console.error('Error creating user:', error);
+    //     }
+    // };
 
-}
-
+};
+// const userService = new UserService();
+// userService.createUser();
 module.exports = UserService;

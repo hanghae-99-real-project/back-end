@@ -8,8 +8,8 @@ class CommentService {
     // usersRepository = new UsersRepository(Users);
 
     // 댓글 생성
-    createComment = async (userId, postId, comment, commentPhotoUrl) => {
-        return await this.commentRepository.createComment(userId, postId, comment, commentPhotoUrl);
+    createComment = async (userId, postId, comment, commentPhotoUrl, isPrivate) => {
+        return await this.commentRepository.createComment(userId, postId, comment, commentPhotoUrl, isPrivate);
     }
 
     // 게시글 단순 조회
@@ -18,12 +18,18 @@ class CommentService {
     };
 
     // 게시물 아이디의 전체 댓글 조회
-    findCommentsByPostId = async (postId) => {
+    findCommentsByPostId = async (postId, userId) => {
         const comments = await this.commentRepository.findCommentsByPostId(postId);
+        const post = await this.commentRepository.findPostById(postId);
+        const postUserId = post ? post.UserId : null;
 
         const commentsWithDetail = await Promise.all(
             comments.map(async (comment) => {
                 const user = await this.commentRepository.findUserById(comment.UserId);
+
+                if (comment.isPrivate && comment.UserId !== userId && postUserId !== userId) {
+                    return null;
+                }
 
                 return {
                     commentId: comment.commentId,
@@ -37,9 +43,9 @@ class CommentService {
                     updatedAt: comment.updatedAt,
                 };
             }),
-        );
+        )
 
-        return commentsWithDetail.sort((a, b) => b.createdAt - a.createdAt);
+        return commentsWithDetail.filter(comment => comment !== null).sort((a, b) => b.createdAt - a.createdAt);
     };
 
     // 댓글 아이디로 댓글 조회
@@ -56,36 +62,6 @@ class CommentService {
     deleteComment = async (userId, postId, commentId) => {
         await this.commentRepository.deleteComment(userId, postId, commentId);
     };
-
-    //     // 비밀 댓글 생성
-    //     createSecretComment = async (userId, postId, comment, commentPhotoUrl) => {
-    //         return await this.commentRepository.createComment(userId, postId, comment, commentPhotoUrl, true);
-    //     };
-
-    //     // 게시물 아이디의 전체 비밀 댓글 조회
-    //   findSecretCommentsByPostId = async (postId) => {
-    //     const secretComments = await this.commentRepository.findCommentsByPostId(postId, true);
-
-    //     const secretCommentsWithDetail = await Promise.all(
-    //       secretComments.map(async (comment) => {
-    //         const user = await this.commentRepository.findUserById(comment.UserId);
-
-    //         return {
-    //           commentId: comment.commentId,
-    //           UserId: comment.UserId,
-    //           PostId: comment.PostId,
-    //           comment: comment.comment,
-    //           commentPhotoUrl: comment.commentPhotoUrl, // comment photoUrl
-    //           nickname: user.nickname,
-    //           userPhoto: user.userPhoto, // userphotoUrl
-    //           createdAt: comment.createdAt,
-    //           updatedAt: comment.updatedAt,
-    //         };
-    //       })
-    //     );
-
-    //     return secretCommentsWithDetail.sort((a, b) => b.createdAt - a.createdAt);
-    //   };
-}
+};
 
 module.exports = CommentService;
