@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const authRouter = require("./auth.routes");
+const authRouter = require("./users.routes");
 const childCommentRouter = require("./childComment.routes");
 const commentRouter = require("./comment.routes");
 const likeRouter = require("./like.routes");
@@ -10,15 +10,12 @@ const pooRouter = require("./poo.routes");
 const postRouter = require("./post.routes");
 const searchRouter = require("./search.routes");
 const passportConfig = require('../passport');
-passportConfig(app);
+//passportConfig(app);
 
-router.use("/posts", [commentRouter, childCommentRouter]);
 
 router.use("/auth", [authRouter, mypageRouter]);
 
-
 router.use("/posts", [childCommentRouter, commentRouter, postRouter]);
-
 
 router.use("/search", searchRouter);
 
