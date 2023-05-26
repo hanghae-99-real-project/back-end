@@ -68,7 +68,6 @@ class UserController {
         position,
         introduction,
         userLocation
-
       );
       res.status(200).json({ message: "회원 가입에 성공하였습니다." });
     } catch (error) {
@@ -157,18 +156,19 @@ class UserController {
     }
   };
 
-  kakaoCallback = async (req, res) => {
-    try {
-      const profile = req.user;
 
-      const user = await userService.processKakaoLogin(profile);
+  // kakaoCallback = async (req, res) => {
+  //   try {
+  //     const profile = req.user; 
+
+  //     const user = await userService.processKakaoLogin(profile);
 
 
-      res.redirect('/profile');
-    } catch (error) {
-      res.redirect('/login');
-    }
-  };
+  //     res.redirect('/profile');
+  //   } catch (error) {
+  //     res.redirect('/login');
+  //   }
+  // };
 
   logout = async (req, res, next) => {
     const userId = req.params;

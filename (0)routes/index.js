@@ -9,7 +9,7 @@ const mypageRouter = require("./mypage.routes");
 const pooRouter = require("./poo.routes");
 const postRouter = require("./post.routes");
 const searchRouter = require("./search.routes");
-const passportConfig = require('../passport');
+//const passportConfig = require('../passport');
 //passportConfig(app);
 
 

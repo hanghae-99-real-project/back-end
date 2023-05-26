@@ -1,4 +1,4 @@
-const UserRepository = require("../(3)repositories/users.repository");
+const UserRepository = require("../(3)repositories/Users.repository");
 const TokenRepository = require("../(3)repositories/tokens.repository");
 const createAuthCode = require("../modules/utils")
 const send_message = require("../modules/smsService")
@@ -33,8 +33,6 @@ class UserService {
             phoneNumber,
             introduction,
             userLocation
-
-
         );
         return signupData;
     };
