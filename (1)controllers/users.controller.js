@@ -156,12 +156,13 @@ class UserController {
     }
   };
 
+
   // kakaoCallback = async (req, res) => {
   //   try {
   //     const profile = req.user; 
 
   //     const user = await userService.processKakaoLogin(profile);
-  
+
 
   //     res.redirect('/profile');
   //   } catch (error) {

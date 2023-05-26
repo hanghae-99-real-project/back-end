@@ -4,10 +4,10 @@ class myPagesController {
     mypagesService = new MypageService()
 
     getMyInfo = async (req, res) => {
-        const { userId } = res.locals.user
-        const getMyInfoData = await this.mypagesService.getMyInfo(userId)
+        const { userId } = res.locals.user;
+        const getMyInfoData = await this.mypagesService.getMyInfo(userId);
 
-        return res.staus(201).json({ getMyInfoData })
+        return res.status(201).json(getMyInfoData);
     };
 
 
@@ -15,7 +15,7 @@ class myPagesController {
         const { userId } = res.locals.user
         const getMyPostData = await this.mypagesService.getMyPost(userId)
 
-        return res.staus(201).json({ contents: getMyPostData })
+        return res.status(201).json({ mypagePosts: getMyPostData })
     };
 
 
