@@ -7,7 +7,7 @@ class ChildCommentController {
     commentService = new CommentService();
     // postsService = new PostsService();
 
-    // 대댓글 생성
+    // 대댓글과 비밀 대댓글 생성
     createChildComment = async (req, res, next) => {
         try {
             const { userId } = res.locals.user;
@@ -41,7 +41,7 @@ class ChildCommentController {
         }
     };
 
-    // 대댓글 조회
+    // 대댓글과 비밀 대댓글 조회
     readChildComments = async (req, res, next) => {
         try {
             const { postId, commentId } = req.params;
