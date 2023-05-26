@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 현재 실행 중인 프로세스 종료
-pm2 delete 0
+pm2 delete app.js
 
 # 환경 변수 정의
 BUCKET_NAME="karyl"
