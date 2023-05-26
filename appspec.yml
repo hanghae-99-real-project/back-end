@@ -15,7 +15,6 @@ hooks:
 
   BeforInstall:
     - location: scripts/karyl2.sh
-      timeout: 300
       runas: root
 
   AfterInstall:
