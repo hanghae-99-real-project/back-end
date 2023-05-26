@@ -36,18 +36,18 @@ class UserService {
         );
         return signupData;
     };
-    
+
     processKakaoLogin = async (profile) => {
         try {
 
-          const { id, username, email } = profile;
-      
-          const user = await userRepository.findOrCreateUser(id, username, email);
-          return user;
+            const { id, username, email } = profile;
+
+            const user = await userRepository.findOrCreateUser(id, username, email);
+            return user;
         } catch (error) {
-          throw new Error('Failed to process Kakao login.');
+            throw new Error('Failed to process Kakao login.');
         }
-      };
+    };
 
     // 회원탈퇴 API
     deleteSignup = async (userId) => {
@@ -91,11 +91,11 @@ class UserService {
         return;
     };
 
-    authCodeSend = async (nickname, phoneNum) => {
+    authCodeSend = async (nickname, phoneNumber) => {
         try {
             const authcode = createAuthCode();
-            await this.userRepository.authCodeSend(authcode, phoneNum)
-            send_message(nickname, phoneNum, authcode)
+            await this.userRepository.authCodeSend(authcode, phoneNumber)
+            send_message(nickname, phoneNumber, authcode)
             return { "message": "메세지 발송완료" }
         } catch (error) {
             console.error(error);
@@ -103,9 +103,9 @@ class UserService {
         }
     };
 
-    authCodeVaildation = async (code, phoneNum) => {
+    authCodeVaildation = async (code, phoneNumber) => {
         try {
-            const authCode = await this.userRepository.authCodeVaildation(phoneNum)
+            const authCode = await this.userRepository.authCodeVaildation(phoneNumber)
             if (!code) {
                 throw new Error("400/인증코드가 입력되지 않았습니다.")
             }
