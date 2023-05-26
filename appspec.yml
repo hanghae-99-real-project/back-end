@@ -5,8 +5,8 @@ files:
     destination: /home/ubuntu/back-end/
 permissions:
   - object: /home/ubuntu/back-end/
-    owner: root
-    group: root
+    owner: ubuntu
+    group: ubuntu
 hooks:
   ApplicationStop:
     - location: scripts/karyl.sh
