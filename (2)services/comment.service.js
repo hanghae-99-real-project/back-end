@@ -27,7 +27,18 @@ class CommentService {
             comments.map(async (comment) => {
                 const user = await this.commentRepository.findUserById(comment.UserId);
 
-                if (comment.isPrivate && comment.UserId !== userId && postUserId !== userId) {
+                // // 로그인하지 않은 사용자는 비밀 댓글을 볼 수 없음
+                // if (userId === null && comment.isPrivate) {
+                //     return null;
+                // }
+
+                // // 비밀 댓글은 댓글 작성자와 게시글 작성자만 볼 수 있음
+                // if (comment.isPrivate && comment.UserId !== userId && postUserId !== userId) {
+                //     return null;
+                // }
+
+                // userId가 없는 경우 (로그인하지 않은 사용자) 또는 비밀 댓글이고 사용자가 댓글 작성자 또는 게시글 작성자가 아닌 경우
+                if ((!userId && comment.isPrivate) || (comment.isPrivate && comment.UserId !== userId && postUserId !== userId)) {
                     return null;
                 }
 

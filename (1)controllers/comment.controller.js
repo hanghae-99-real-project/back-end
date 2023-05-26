@@ -38,7 +38,7 @@ class CommentController {
     readComments = async (req, res, next) => {
         try {
             const { postId } = req.params;
-            const { userId } = res.locals.user;
+            const userId = res.locals.user ? res.locals.user.userId : null; // 로그인하지 않은 사용자를 고려
 
             const post = await this.commentService.findPostById(postId);
             if (!post) {
