@@ -187,15 +187,15 @@ class UserController {
   };
 
   authCodeSend = async (req, res, next) => {
-    const { nickname, phoneNum } = req.body
-    const authCode = await this.userService.authCodeSend(nickname, phoneNum)
+    const { nickname, phoneNumber } = req.body
+    const authCode = await this.userService.authCodeSend(nickname, phoneNumber)
     return res.status(200).json(authCode)
 
   };
 
   authCodeVaildation = async (req, res, next) => {
-    const { code, phoneNum } = req.body;
-    const authCode = await this.userService.authCodeVaildation(code, phoneNum)
+    const { code, phoneNumber } = req.body;
+    const authCode = await this.userService.authCodeVaildation(code, phoneNumber)
     return res.status(200).json(authCode);
   };
 }
