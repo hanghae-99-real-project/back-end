@@ -1,8 +1,8 @@
 // sens.js
-function send_message(nickname, phoneNumber, authcode) {
+function send_message(nickname, phone, authcode) {
 
     // 예약자 번호, 닉네임, 코인이름
-    const user_phone_number = phoneNumber;
+    const user_phone_number = phone;
     const user_nickname = nickname;
     const user_authcode = authcode
 

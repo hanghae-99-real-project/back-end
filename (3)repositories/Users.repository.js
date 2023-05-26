@@ -63,13 +63,13 @@ class UserRepository {
     };
 
 
-    authCodeSend = async (authcode, phoneNumber) => {
-        const authCode = await redisClient.SETEX(phoneNumber, 180, authcode);
+    authCodeSend = async (authcode, phoneNum) => {
+        const authCode = await redisClient.SETEX(phoneNum, 180, authcode);
         return authCode
     };
 
-    authCodeVaildation = async (phoneNumber) => {
-        const authCode = await redisClient.get(phoneNumber)
+    authCodeVaildation = async (phoneNum) => {
+        const authCode = await redisClient.get(phoneNum)
         return authCode
     };
 
