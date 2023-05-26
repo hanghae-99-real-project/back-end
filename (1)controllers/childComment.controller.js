@@ -45,7 +45,8 @@ class ChildCommentController {
     readChildComments = async (req, res, next) => {
         try {
             const { postId, commentId } = req.params;
-            const { userId } = res.locals.user;
+            // const { userId } = res.locals.user;
+            const userId = res.locals.user ? res.locals.user.userId : null;
 
             // 댓글이 존재하는지 여부 확인
             const comments = await this.commentService.findCommentById(commentId);

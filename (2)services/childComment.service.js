@@ -8,12 +8,12 @@ class ChildCommentService {
     commentRepository = new CommentRepository(Comments, Users, Posts);
 
     /*
-    1. 일반 댓글 작성 - 유저는 게시물에 일반 댓글을 작성 가능
-       일반 댓글 조회 - 일반 댓글은 모든 사용자가 조회 가능
-    2. 일반 댓글에 일반 대댓글 작성 - 유저는 일반 댓글에 일반 대댓글 작성 가능
-       일반 댓글에 일반 대댓글 조회 - 일반 대댓글은 모든 사용자가 조회 가능
-    3. 일반 댓글에 비밀 대댓글 작성 - 유저는 일반 댓글에 비밀 댓글 작성 가능
-       일반 댓글에 비밀 대댓글 조회 - 비밀 대댓글 작성자와 상위 댓글 작성자만 조회 가능
+    1. 일반 댓글 작성 - 모든 유저는 게시물에 일반 댓글을 작성 가능
+       일반 댓글 조회 - 일반 댓글은 모든 유저가 조회 가능. 로그인 하지 않은 유저도 조회 가능
+    2. 일반 댓글에 일반 대댓글 작성 - 모든 유저는 일반 댓글에 일반 대댓글 작성 가능
+       일반 댓글에 일반 대댓글 조회 - 일반 대댓글은 모든 유저가 조회 가능. 로그인 하지 않은 유저도 조회 가능
+    3. 일반 댓글에 비밀 대댓글 작성 - 모든 유저는 일반 댓글에 비밀 댓글 작성 가능
+       일반 댓글에 비밀 대댓글 조회 - 비밀 대댓글 작성자와 상위 댓글 작성자만 조회 가능 -- OR -- 비밀 대댓글 작성자, 상위 댓글 작성자, 게시물 작성자도 조회 되게끔 가능 -- 둘 중 후자 선택
     4. 비밀 댓글 작성 - 유저는 게시물에 비밀 댓글을 작성 가능
        비밀 댓글 조회 - 댓글 작성자와 게시물 작성자만 조회 가능
     5. 비밀 댓글에 일반 대댓글 작성 - 불가능하도록 설정 
@@ -68,12 +68,12 @@ class ChildCommentService {
         const post = await this.commentRepository.findPostById(postId);
         const postUserId = post.UserId;
 
-        // 상위 댓글이 비밀 댓글이고 조회하려는 사용자가 댓글 작성자 또는 게시물 작성자가 아니라면 대댓글을 볼 수 없음
+        // 상위 댓글이 비밀 댓글이고 조회하려는 유저가 댓글 작성자 또는 게시물 작성자가 아니라면 대댓글을 볼 수 없음
         if (parentComment.isPrivate && parentCommentUserId !== userId && postUserId !== userId) {
-            throw new Error("비밀 댓글의 대댓글을 조회할 수 없습니다.");
+            return [];
         }
 
-        // 상위 댓글이 비밀 댓글이 아니거나 조회하려는 사용자가 댓글 작성자 또는 게시물 작성자인 경우에만 대댓글 조회
+        // 상위 댓글이 비밀 댓글이 아니거나 조회하려는 유저가 댓글 작성자 또는 게시물 작성자인 경우에만 대댓글 조회
         const childComments = await this.childCommentRepository.findChildCommentsByCommentId(commentId);
 
         // 아래 로직은 그대로 유지
@@ -87,6 +87,18 @@ class ChildCommentService {
                         return null;
                     }
                 }
+
+                // // 비밀 대댓글의 경우
+                // if (childComment.isPrivate) {
+                //     // 상위 댓글이 비밀 댓글이면 게시물 작성자와 댓글 작성자만 볼 수 있음
+                //     if (parentComment.isPrivate && childComment.UserId !== postUserId && parentCommentUserId !== postUserId) {
+                //         return null;
+                //     }
+                //     // 상위 댓글이 일반 댓글이면 대댓글 작성자와 상위 댓글 작성자만 볼 수 있음
+                //     else if (!parentComment.isPrivate && childComment.UserId !== userId && parentCommentUserId !== userId) {
+                //         return null;
+                //     }
+                // }
 
                 return {
                     childCommentId: childComment.childCommentId,
