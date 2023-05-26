@@ -2,9 +2,9 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /home/ec2-user/back-end/
+    destination: /home/ubuntu/back-end/
 permissions:
-  - object: /home/ec2-user/back-end/
+  - object: /home/ubuntu/back-end/
     owner: root
     group: root
 hooks:
