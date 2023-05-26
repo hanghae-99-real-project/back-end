@@ -8,8 +8,6 @@ pm2 delete app.js
 BUCKET_NAME="karyl"
 PROJECT_NAME="back-end"
 
-# 애플리케이션 빌드
-npm run build
 
 # S3에 배포
 aws s3 cp ./build s3://$BUCKET_NAME/$PROJECT_NAME --recursive
