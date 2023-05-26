@@ -7,6 +7,7 @@ const uploadImage = require("../modules/s3.js");
 
 
 
+
 router.post(
     "/",
     authMiddleware,
@@ -15,6 +16,8 @@ router.post(
         postController.createPost(req, res);
     }
 );
+
+
 
 router.get(
     "/",
