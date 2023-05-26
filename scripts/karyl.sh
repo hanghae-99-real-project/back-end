@@ -1,3 +1,3 @@
 # "멈춰!!"
 
-pkill node
+pkill node || true
