@@ -2,14 +2,14 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /home/ubuntu/back-end/
+    destination: /home/ubuntu/temp/
 permissions:
   - object: /home/ubuntu/back-end/
     owner: ubuntu
     group: ubuntu
 hooks:
   BeforInstall:
-    - location: scripts/karyl2.sh
+    - location: scripts/karyl.sh
       runas: root
 
   AfterInstall:
