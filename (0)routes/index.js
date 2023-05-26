@@ -9,8 +9,8 @@ const mypageRouter = require("./mypage.routes");
 const pooRouter = require("./poo.routes");
 const postRouter = require("./post.routes");
 const searchRouter = require("./search.routes");
-const passportConfig = require('../passport');
-passportConfig(app);
+//const passportConfig = require('../passport');
+//passportConfig(app);
 
 router.use("/posts", [commentRouter, childCommentRouter]);
 
