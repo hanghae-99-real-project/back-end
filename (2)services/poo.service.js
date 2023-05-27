@@ -56,6 +56,24 @@ class poosService {
             throw error;
         }
     };
+
+    getPooDetail = async (pooId) => {
+        try {
+            const getPooData = await this.poosRepository.getPooDetail(pooId);
+
+            if (!pooId) {
+                throw new Error("403/푸박스를 찾을 수 없습니다.")
+            }
+            if (!getPooData) {
+                throw new Error("403/등록된 푸박스가 없습니다.")
+            }
+            return getPooData
+        } catch (error) {
+            error.failedApi = "푸박스 상세조회";
+            throw error;
+        }
+
+    };
 }
 
 module.exports = poosService;

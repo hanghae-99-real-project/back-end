@@ -40,6 +40,15 @@ class poosService {
         })
     }
 
+
+    getPooDetail = async (pooId) => {
+        const getPooData = await this.poo.findOne(
+            { where: { pooId } }
+        );
+
+        return getPooData
+    };
+
 }
 
 module.exports = poosService;

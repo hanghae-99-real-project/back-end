@@ -7,7 +7,6 @@ class poosController {
         const { userId } = res.locals.user
         const { content, pooLatitude, pooLongitude } = req.body
         const { pooPhotoUrl } = req;
-
         const postPooData = await this.poosService.postPoo(userId, content, pooPhotoUrl, pooLatitude, pooLongitude)
 
         return res.status(201).json(postPooData)
@@ -17,6 +16,13 @@ class poosController {
         const getPooData = await this.poosService.getPoo();
 
         return res.status(201).json({ getPooData })
+    };
+
+    getPooDetail = async (req, res, next) => {
+        const { pooId } = req.params
+        const getPooData = await this.poosService.getPooDetail(pooId);
+
+        return res.status(201).json(getPooData)
     };
 
 }
