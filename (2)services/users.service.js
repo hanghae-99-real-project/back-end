@@ -91,11 +91,11 @@ class UserService {
         return;
     };
 
-    authCodeSend = async (nickname, phoneNumber) => {
+    authCodeSend = async (phoneNumber) => {
         try {
             const authcode = createAuthCode();
             await this.userRepository.authCodeSend(authcode, phoneNumber)
-            send_message(nickname, phoneNumber, authcode)
+            send_message(phoneNumber, authcode)
             return { "message": "메세지 발송완료" }
         } catch (error) {
             console.error(error);

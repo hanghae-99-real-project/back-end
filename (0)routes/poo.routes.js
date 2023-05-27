@@ -7,10 +7,13 @@ const uploadpooImage = require("../modules/poo_s3");
 
 
 
-//게시글 작성
+//푸박스 등록
 router.post("/", authMiddleware, uploadpooImage.single("pooPhotoUrl"), pooController.postPoo);
 
-//게시글 조회
+//푸박스 조회
 router.get("/", pooController.getPoo);
+
+//푸박스 상세조회
+router.get("/:pooId", pooController.getPooDetail);
 
 module.exports = router;

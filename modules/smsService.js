@@ -1,9 +1,8 @@
 // sens.js
-function send_message(nickname, phoneNumber, authcode) {
+function send_message(phoneNumber, authcode) {
 
     // 예약자 번호, 닉네임, 코인이름
     const user_phone_number = phoneNumber;
-    const user_nickname = nickname;
     const user_authcode = authcode
 
     // 모듈들을 불러오기. 오류 코드는 맨 마지막에 삽입 예정
@@ -51,7 +50,7 @@ function send_message(nickname, phoneNumber, authcode) {
             countryCode: "82",
             from: my_number,
             // 원하는 메세지 내용
-            content: `${user_nickname}님 푸댕에 가입해주셔서 감사합니다. \n인증번호는 ${user_authcode} 입니다`,
+            content: `푸댕에 가입해주셔서 감사합니다. \n인증번호는 ${user_authcode} 입니다`,
             messages: [
                 // 신청자의 전화번호
                 { to: `${user_phone_number}`, },],
