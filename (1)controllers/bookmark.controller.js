@@ -1,16 +1,16 @@
-const BookmarkService = require('../(2)services/bookmark.service')
+// const BookmarkService = require('../(2)services/bookmark.service')
 
-class bookmarksController {
-    bookmarksService = new BookmarkService()
+// class bookmarksController {
+//     bookmarksService = new BookmarkService()
 
-    //북마크 등록
-    postBookmark = async (req, res) => {
-        const { postId } = req.params
-        const { userId } = res.locals.user
-        const createBookmark = await this.bookmarksService.postBookmark(postId, userId)
+//     //북마크 등록
+//     postBookmark = async (req, res) => {
+//         const { postId } = req.params
+//         const { userId } = res.locals.user
+//         const createBookmark = await this.bookmarksService.postBookmark(postId, userId)
 
-        return createBookmark
-    }
+//         return createBookmark
+    //}
 
     // scrapExhibition = async (req, res, next) => {
     //     try {
@@ -47,6 +47,6 @@ class bookmarksController {
 
 
 
-}
+// }
 
-module.exports = bookmarksController;
+// module.exports = bookmarksController;
