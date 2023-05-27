@@ -26,13 +26,17 @@ module.exports = {
         allowNull: false,
         type: Sequelize.JSON
       },
-      userLocation: {
+      pooLatitude: {
         allowNull: false,
-        type: Sequelize.JSON
+        type: Sequelize.DECIMAL(17, 14)
       },
-      pooLocation: {
+      pooLongitude: {
         allowNull: false,
-        type: Sequelize.JSON
+        type: Sequelize.DECIMAL(17, 14)
+      },
+      address: {
+        allowNull: false,
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
