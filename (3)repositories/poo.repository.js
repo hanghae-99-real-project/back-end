@@ -6,13 +6,14 @@ class poosService {
         this.user = user;
     }
 
-    postPoo = async (userId, content, pooPhotoUrl, pooLatitude, pooLongitude) => {
+    postPoo = async (userId, content, pooPhotoUrl, pooLatitude, pooLongitude, address) => {
         const postPoo = await this.poo.create({
             UserId: userId,
             content,
             pooPhotoUrl,
             pooLatitude,
             pooLongitude,
+            address
         })
 
         return postPoo
@@ -32,6 +33,7 @@ class poosService {
                 "UserId",
                 "pooLatitude",
                 "pooLongitude",
+                "address",
                 "createdAt",
                 "updatedAt",
             ],

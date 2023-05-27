@@ -1,26 +1,15 @@
 const PooRepsitory = require('../(3)repositories/poo.repository')
 const { Poos, Users } = require("../models");
-const axios = require('axios');
-
-const KAKAO_API_KEY = '1c59f990f7c05d165699edf7dd27ed41';
-
-async function getAddress(lat, lon) {
-    const response = await axios.get(`https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${lon}&y=${lat}`, {
-        headers: {
-            'Authorization': `KakaoAK ${KAKAO_API_KEY}`
-        }
-    });
-
-    const address = response.data.documents[0]?.address?.address_name;
-    return address;
-}
+const getAddress = require("../modules/kakao")
 
 class poosService {
     poosRepository = new PooRepsitory(Poos, Users)
 
     postPoo = async (userId, content, pooPhotoUrl, pooLatitude, pooLongitude) => {
         try {
-            const postPooData = await this.poosRepository.postPoo(userId, content, pooPhotoUrl, pooLatitude, pooLongitude)
+
+            const address = await getAddress(pooLatitude, pooLongitude);
+            const postPooData = await this.poosRepository.postPoo(userId, content, pooPhotoUrl, pooLatitude, pooLongitude, address)
             if (!userId) {
                 throw new Error("403/마이페이지 권한이 없습니다.")
             }
@@ -49,15 +38,14 @@ class poosService {
 
             const response = await Promise.all(
                 getPooData.map(async (poo) => {
-                    const address = await getAddress(poo.pooLatitude, poo.pooLongitude);
                     return {
                         pooId: poo.pooId,
                         UserId: poo.UserId,
                         pooLatitude: poo.pooLatitude,
                         pooLongitude: poo.pooLongitude,
+                        address: poo.address,
                         createdAt: poo.createdAt,
                         updatedAt: poo.updatedAt,
-                        address // 주소
                     };
                 })
             )

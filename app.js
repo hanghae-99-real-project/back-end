@@ -10,9 +10,13 @@ const router = require("./(0)routes");
 const errorHandler = require("./middlewares/error-handler");
 const swaggerUi = require("swagger-ui-express");
 const swaggerFile = require("./swagger/swagger-output.json");
+const session = require("express-session");
 
 
 //미들웨어
+app.use(
+  session({ secret: "secret key", resave: false, saveUninitialized: false })
+);
 app.use(morgan("dev"))
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
