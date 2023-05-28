@@ -14,6 +14,7 @@ class PostService {
             const results = await Promise.all(
                 posts.map(async (item) => {
                     const post = {
+                        dogname: item.dogname,
                         postId: item.postId,
                         userId: item.userId,
                         nickname: item.nickname,
@@ -25,7 +26,8 @@ class PostService {
                         updatedAt: item.updatedAt,
                         photoUrl: item.photoUrl,
                         commentCount: null,
-                        lostLocation: item.lostLocation
+                        lostLatitude: item.lostLatitude,
+                        lostLongitude: item.lostLocation
                     };
 
                     return post;
@@ -44,12 +46,14 @@ class PostService {
     };
 
     updatePost = async (
+        dogname,
         userId,
         postId,
         title,
         content,
         photoUrl,
-        lostLocation
+        lostLatitude,
+        lostLongitude,
     ) => {
         const post = await postRepository.findPostById(postId);
 
@@ -62,11 +66,13 @@ class PostService {
         }
 
         await postRepository.updatePostById(
+            dogname,
             postId,
             title,
             content,
             photoUrl,
-            lostLocation
+            lostLatitude,
+            lostLongitude,
         );
     };
 

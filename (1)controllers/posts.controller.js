@@ -8,7 +8,7 @@ class PostController {
   createPost = async (req, res) => {
     try {
       const { userId, nickname } = res.locals.user;
-      const { title, content, lostLocation } = req.body;
+      const { dogname, title, content, lostLatitude,lostLongitude } = req.body;
       const { photoUrl } = req;
 
       if (!title) {
@@ -24,14 +24,18 @@ class PostController {
 
 
       const postData = {
+        dogname,
         userId,
         nickname,
         title,
         content,
         photoUrl,
-        lostLocation,
-        like: 0,
+        lostLatitude,
+        lostLongitude,
+        likes: 0,
+        views: 0,
         likeCount: 0,
+        commentCount: 0
       };
       await postService.createPost(postData);
       return res.status(201).json({ message: "게시글 작성에 성공하였습니다." });
@@ -78,16 +82,18 @@ class PostController {
     try {
       const { userId } = res.locals.user;
       const { postId } = req.params;
-      const { title, content } = req.body;
+      const { title, content, dogname } = req.body;
       const { photoUrl } = req;
-      const { lostLocation } =req.body
+      const { lostLatitude, lostLongitude, } =req.body
       await postService.updatePost(
+        dogname,
         userId,
         postId,
         title,
         content,
         photoUrl,
-        lostLocation
+        lostLatitude,
+        lostLongitude,
       );
       res.status(200).json({ message: "게시글을 수정하였습니다." });
     } catch (err) {

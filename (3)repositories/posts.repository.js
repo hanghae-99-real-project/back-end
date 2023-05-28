@@ -28,10 +28,13 @@ class PostRepository {
         const date = new Date();
         await Posts.update(
             {
+                dogname: dogname,
                 title: title,
                 content: content,
                 updatedAt: date,
                 photoUrl: photoUrl,
+                lostLatitude: lostLatitude,
+                lostLongitude: lostLongitude,
             },
             {
                 where: { postId }
