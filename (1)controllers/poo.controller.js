@@ -3,6 +3,7 @@ const PooService = require('../(2)services/poo.service');
 class poosController {
     poosService = new PooService()
 
+    // 푸박스 등록
     postPoo = async (req, res) => {
         const { userId } = res.locals.user
         const { content, pooLatitude, pooLongitude } = req.body
@@ -12,6 +13,7 @@ class poosController {
         return res.status(201).json(postPooData)
     };
 
+    // 푸박스 조회
     getPoo = async (req, res, next) => {
         const getPooData = await this.poosService.getPoo();
 

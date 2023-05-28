@@ -8,7 +8,10 @@ class poosService {
     postPoo = async (userId, content, pooPhotoUrl, pooLatitude, pooLongitude) => {
         try {
 
-            const address = await getAddress(pooLatitude, pooLongitude);
+            let address = await getAddress(pooLatitude, pooLongitude);
+            if (!address) {
+                address = `${pooLatitude}, ${pooLongitude}`
+            }
             const postPooData = await this.poosRepository.postPoo(userId, content, pooPhotoUrl, pooLatitude, pooLongitude, address)
             if (!userId) {
                 throw new Error("403/마이페이지 권한이 없습니다.")

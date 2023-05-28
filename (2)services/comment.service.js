@@ -28,8 +28,8 @@ class CommentService {
                 const user = await this.commentRepository.findUserById(comment.UserId);
 
                 // 로그인하지 않은 유저가 비밀 댓글 조회 X
-                // 비밀 댓글이고 비밀 댓글 작성자가 아닐 때 조회 X
-                // 게시글 작성자가 아닐 때 조회 X
+                // 비밀 댓글 작성자가 아닐 때 비밀 댓글 조회 X
+                // 게시글 작성자가 아닐 때 비밀 댓글 조회 X
                 if ((!userId && comment.isPrivate) || (comment.isPrivate && comment.UserId !== userId && postUserId !== userId)) {
                     return null;
                 }

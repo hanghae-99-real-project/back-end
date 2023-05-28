@@ -88,11 +88,10 @@ class PostService {
     //     try {
     //         const postData = {
     //             UserId: 1,
-    //             dogname: '구름',
-    //             title: '여기서 잃어버렸어요',
-    //             content: '보신 분 계실까요?',
-    //             photoUrl: 'https://example.com/dogPhoto.jpg',
-    //             lostLocation: '{"latitude":37.7749,"longitude":122.4194}'
+    //             dogname: '메이',
+    //             title: '귀요미 잃어버렸어요',
+    //             content: '귀요미 분 계실까요?',
+    //             photoUrl: 'https://example.com/dogPhoto.jpg'
     //         };
 
     //         const post = await postRepository.create(postData);
