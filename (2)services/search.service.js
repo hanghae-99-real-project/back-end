@@ -33,7 +33,7 @@ class SearchService {
                     dogname: post.dogname,
                     title: post.title,
                     photoUrl: post.photoUrl,
-                    lostLocation: post.lostLocation,
+                    address: post.address,
                 };
             })
         );

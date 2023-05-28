@@ -34,7 +34,7 @@ class SearchRepository {
                         }
                     },
                     {
-                        lostLocation: {
+                        address: {
                             [Op.like]: `%${search}%`
                         }
                     }
