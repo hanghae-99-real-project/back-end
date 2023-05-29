@@ -1,7 +1,7 @@
-const PooService = require('../(2)services/poo.service');
+const PoosService = require('../(2)services/poo.service');
 
-class poosController {
-    poosService = new PooService()
+class PoosController {
+    poosService = new PoosService()
 
     // 푸박스 등록
     postPoo = async (req, res) => {
@@ -29,4 +29,4 @@ class poosController {
 
 }
 
-module.exports = poosController;
+module.exports = PoosController;

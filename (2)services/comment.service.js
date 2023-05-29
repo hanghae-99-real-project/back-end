@@ -1,5 +1,6 @@
 const CommentRepository = require("../(3)repositories/comment.repository.js");
 // const UsersRepository = require("../repositories/users.repository.js");
+const getAddress = require("../modules/kakao")
 
 const { Comments, Users, Posts } = require("../models");
 
@@ -8,8 +9,13 @@ class CommentService {
     // usersRepository = new UsersRepository(Users);
 
     // 댓글 생성
-    createComment = async (userId, postId, comment, commentPhotoUrl, isPrivate) => {
-        return await this.commentRepository.createComment(userId, postId, comment, commentPhotoUrl, isPrivate);
+    createComment = async (userId, postId, comment, commentPhotoUrl, isPrivate, commentLatitude, commentLongitude) => {
+        let address = await getAddress(commentLatitude, commentLongitude);
+        if (!address) {
+            address = `${commentLatitude}, ${commentLongitude}`
+        }
+        const createcomment = await this.commentRepository.createComment(userId, postId, comment, commentPhotoUrl, isPrivate, commentLatitude, commentLongitude, address);
+        return createcomment
     }
 
     // 게시글 단순 조회
@@ -42,6 +48,9 @@ class CommentService {
                     commentPhotoUrl: comment.commentPhotoUrl, // comment photoUrl
                     nickname: user.nickname,
                     userPhoto: user.userPhoto, // userphotoUrl
+                    commentLatitude: comment.commentLatitude,
+                    commentLongitude: comment.commentLongitude,
+                    address: comment.address,
                     createdAt: comment.createdAt,
                     updatedAt: comment.updatedAt,
                 };
