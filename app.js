@@ -12,7 +12,7 @@ const morgan = require('morgan')
 const router = require("./(0)routes");
 const errorHandler = require("./middlewares/error-handler");
 const swaggerUi = require("swagger-ui-express");
-const swaggerFile = require("./swagger/swagger-output.json");
+const swaggerFile = require("./swagger-output.json");
 
 
 
