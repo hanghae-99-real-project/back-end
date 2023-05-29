@@ -16,4 +16,9 @@ router.get("/posts",
     // authMiddleware, 
     searchController.searchPosts)
 
+// 푸박스 주소 검색
+router.get("/poos",
+    // authMiddleware, 
+    searchController.searchPoobox)
+
 module.exports = router;

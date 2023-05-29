@@ -1,9 +1,10 @@
 const { Op } = require("sequelize");
 
 class SearchRepository {
-    constructor(usersModel, postsModel) {
+    constructor(usersModel, postsModel, poosModel) {
         this.usersModel = usersModel;
         this.postsModel = postsModel
+        this.poosModel = poosModel
     };
 
     // 닉네임 검색 유저 조회
@@ -33,12 +34,23 @@ class SearchRepository {
                             [Op.like]: `%${search}%`
                         }
                     },
-                    {
-                        address: {
-                            [Op.like]: `%${search}%`
-                        }
-                    }
+                    // {
+                    //     address: {
+                    //         [Op.like]: `%${search}%`
+                    //     }
+                    // }
                 ]
+            }
+        });
+    };
+
+    // 푸박스 주소 검색
+    findPoos = async (search) => {
+        return await this.poosModel.findAll({
+            where: {
+                address: {
+                    [Op.like]: `%${search}%`
+                }
             }
         });
     };
