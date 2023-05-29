@@ -1,9 +1,11 @@
 const PoosRepository = require('../(3)repositories/poo.repository')
 const { Poos, Users } = require("../models");
 const getAddress = require("../modules/kakao")
+const redisClient = require("../modules/redisClient")
+const DEFAULT_EXPIRATION = 3600
 
 class PoosService {
-    poosRepository = new PoosRepository(Poos, Users)
+    poosRepository = new PoosRepository(Poos, Users, redisClient)
 
     postPoo = async (userId, content, pooPhotoUrl, pooLatitude, pooLongitude) => {
         try {
@@ -37,28 +39,37 @@ class PoosService {
 
     getPoo = async () => {
         try {
-            const getPooData = await this.poosRepository.findAllPoo()
-
-            const response = await Promise.all(
-                getPooData.map(async (poo) => {
-                    return {
-                        pooId: poo.pooId,
-                        UserId: poo.UserId,
-                        pooLatitude: poo.pooLatitude,
-                        pooLongitude: poo.pooLongitude,
-                        address: poo.address,
-                        createdAt: poo.createdAt,
-                        updatedAt: poo.updatedAt,
-                    };
-                })
-            )
-
-            return response.sort((a, b) => b.createdAt - a.createdAt);
+            const getPooBoxAll = await redisClient.get('pooBoxAll')
+            if (getPooBoxAll) {
+                console.log('Cashe Hit')
+                return (JSON.parse(getPooBoxAll))
+            } else {
+                console.log('Cashe Miss')
+                const getPooData = await this.poosRepository.findAllPoo()
+                const response = await Promise.all(
+                    getPooData.map((poo) => {
+                        return {
+                            pooId: poo.pooId,
+                            UserId: poo.UserId,
+                            pooLatitude: poo.pooLatitude,
+                            pooLongitude: poo.pooLongitude,
+                            address: poo.address,
+                            createdAt: poo.createdAt,
+                            updatedAt: poo.updatedAt,
+                        };
+                    })
+                )
+                response.sort((a, b) => b.createdAt - a.createdAt);
+                redisClient.SETEX('pooBoxAll', DEFAULT_EXPIRATION, JSON.stringify(response))
+                return ({ result: response });
+            }
         } catch (error) {
             error.failedApi = "푸박스 조회";
             throw error;
         }
+
     };
+
 
     getPooDetail = async (pooId) => {
         try {

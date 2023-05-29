@@ -182,9 +182,9 @@ class UserController {
 
   };
 
-  authCodeVaildation = async (req, res, next) => {
+  authCodeValidation = async (req, res, next) => {
     const { code, phoneNumber } = req.body;
-    const authCode = await this.userService.authCodeVaildation(code, phoneNumber)
+    const authCode = await this.userService.authCodeValidation(code, phoneNumber)
     return res.status(200).json(authCode);
   };
 

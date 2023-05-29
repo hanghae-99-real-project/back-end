@@ -41,8 +41,8 @@ router.post(
     userController.authCodeSend);
 
 router.post(
-    "/authCodeVaildation",
-    userController.authCodeVaildation);
+    "/authCodeValidation",
+    userController.authCodeValidation);
 
 //카카오 로그인
 router.post(
