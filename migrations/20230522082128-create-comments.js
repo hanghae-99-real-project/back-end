@@ -50,6 +50,18 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
       },
+      commentLatitude: {
+        allowNull: true,
+        type: Sequelize.DECIMAL(17, 14)
+      },
+      commentLongitude: {
+        allowNull: true,
+        type: Sequelize.DECIMAL(17, 14)
+      },
+      address: {
+        allowNull: true,
+        type: Sequelize.STRING
+      },
     });
   },
   async down(queryInterface, Sequelize) {

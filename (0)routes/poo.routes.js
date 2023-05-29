@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const authMiddleware = require("../middlewares/auth-middleware");
-const PooController = require("../(1)controllers/poo.controller");
-const pooController = new PooController();
+const PoosController = require("../(1)controllers/poo.controller");
+const pooController = new PoosController();
 const uploadpooImage = require("../modules/poo_s3");
 
 
