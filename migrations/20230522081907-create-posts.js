@@ -42,10 +42,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DECIMAL(17, 14)
       },
-      // address: {
-      //   allowNull: false,
-      //   type: Sequelize.STRING
-      // },
+      address: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
