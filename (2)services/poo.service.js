@@ -1,9 +1,9 @@
-const PooRepsitory = require('../(3)repositories/poo.repository')
+const PoosRepository = require('../(3)repositories/poo.repository')
 const { Poos, Users } = require("../models");
 const getAddress = require("../modules/kakao")
 
-class poosService {
-    poosRepository = new PooRepsitory(Poos, Users)
+class PoosService {
+    poosRepository = new PoosRepository(Poos, Users)
 
     postPoo = async (userId, content, pooPhotoUrl, pooLatitude, pooLongitude) => {
         try {
@@ -79,4 +79,4 @@ class poosService {
     };
 }
 
-module.exports = poosService;
+module.exports = PoosService;

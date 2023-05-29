@@ -1,6 +1,6 @@
 
 
-class poosService {
+class PoosRepository {
     constructor(poo, user) {
         this.poo = poo;
         this.user = user;
@@ -51,4 +51,4 @@ class poosService {
 
 }
 
-module.exports = poosService;
+module.exports = PoosRepository;

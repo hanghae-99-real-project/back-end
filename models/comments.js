@@ -74,6 +74,18 @@ module.exports = (sequelize, DataTypes) => {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
       },
+      commentLatitude: {
+        allowNull: true,
+        type: DataTypes.DECIMAL(17, 14)
+      },
+      commentLongitude: {
+        allowNull: true,
+        type: DataTypes.DECIMAL(17, 14)
+      },
+      address: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
     },
     {
       sequelize,
