@@ -48,13 +48,6 @@ class PostController {
   getPosts = async (req, res) => {
     try {
       const posts = await postService.getPosts();
-      const result = await Promise.all(
-        posts.map(async (a) => {
-          const b = await this.commentsService.getComments(a.postId);
-          return (a.commentCount = b.length);
-        })
-      );
-
       if (posts.error) {
         throw new Error(posts.message);
       }
@@ -70,8 +63,7 @@ class PostController {
     try {
       const { postId } = req.params;
       const post = await postService.getPostById(postId);
-      const comments = await this.commentsService.getComments(postId);
-      res.json({ data: post, commentsCount: comments.length });
+      res.json({ data: post});
     } catch (err) {
       console.error(err);
       res.status(400).send({ message: "게시글 조회에 실패하였습니다." });
