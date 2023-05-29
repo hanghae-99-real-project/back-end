@@ -10,7 +10,6 @@ require("express-async-errors");
 const port = 3000;
 const morgan = require('morgan')
 const router = require("./(0)routes");
-
 const errorHandler = require("./middlewares/error-handler");
 const swaggerUi = require("swagger-ui-express");
 const swaggerFile = require("./swagger/swagger-output.json");
@@ -24,7 +23,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
-
 // app.use(
 //   session({
 //     store: new RedisStore({ client: redisClient }), // Redis 클라이언트 사용
@@ -34,10 +32,11 @@ app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 //   })
 // );
 
-
 app.use("/api", router);
 
 app.use(errorHandler);
+
+
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 

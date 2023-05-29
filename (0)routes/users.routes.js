@@ -14,8 +14,8 @@ router.post(
     userController.signup);
 
 
-    //router.get('/kakao', passport.authenticate('kakao'));
-    //router.get('/kakao/callback', userController.kakaoCallback);
+//router.get('/kakao', passport.authenticate('kakao'));
+//router.get('/kakao/callback', userController.kakaoCallback);
 
 
 // 닉네임 중복 확인 API
@@ -44,8 +44,8 @@ router.post(
     userController.authCodeSend);
 
 router.post(
-    "/authCodeVaildation",
-    userController.authCodeVaildation);
+    "/authCodeValidation",
+    userController.authCodeValidation);
 
 //카카오 로그인
 router.post(
