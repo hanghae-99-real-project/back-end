@@ -107,9 +107,9 @@ class UserService {
         }
     };
 
-    authCodeVaildation = async (code, phoneNumber) => {
+    authCodeValidation = async (code, phoneNumber) => {
         try {
-            const authCode = await this.userRepository.authCodeVaildation(phoneNumber)
+            const authCode = await this.userRepository.authCodeValidation(phoneNumber)
             if (!code) {
                 throw new Error("400/인증코드가 입력되지 않았습니다.")
             }

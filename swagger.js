@@ -2,14 +2,10 @@ const swaggerAutogen = require('swagger-autogen')({ openapi: '3.0.0' });
 
 const options = {
     info: {
-        title: 'This is my API Document',
-        description: '이렇게 스웨거 자동생성이 됩니다.',
+        title: 'PooDenag API 테스트',
+        description: '푸댕 API테스트입니다.',
     },
-    servers: [
-        {
-            url: 'http://localhost:3000',
-        },
-    ],
+    host: '13.125.250.60/',
     schemes: ['http'],
     securityDefinitions: {
         bearerAuth: {
@@ -20,6 +16,6 @@ const options = {
         },
     },
 };
-const outputFile = './swagger/swagger-output.json';
+const outputFile = './swagger-output.json';
 const endpointsFiles = ['./(0)routes/index.js'];
 swaggerAutogen(outputFile, endpointsFiles, options);

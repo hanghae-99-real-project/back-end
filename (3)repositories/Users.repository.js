@@ -58,7 +58,7 @@ class UserRepository {
         return authCode
     };
 
-    authCodeVaildation = async (phoneNumber) => {
+    authCodeValidation = async (phoneNumber) => {
         const authCode = await redisClient.get(phoneNumber)
         return authCode
     };
