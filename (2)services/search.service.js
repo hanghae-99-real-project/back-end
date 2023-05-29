@@ -1,8 +1,8 @@
 const SearchRepository = require("../(3)repositories/search.repository");
-const { Users, Posts } = require("../models");
+const { Users, Posts, Poos } = require("../models");
 
 class SearchService {
-    searchRepository = new SearchRepository(Users, Posts);
+    searchRepository = new SearchRepository(Users, Posts, Poos);
 
     // 유저 검색
     searchUsers = async (search) => {
@@ -33,11 +33,27 @@ class SearchService {
                     dogname: post.dogname,
                     title: post.title,
                     photoUrl: post.photoUrl,
-                    address: post.address,
+                    // address: post.address,
                 };
             })
         );
         return { posts }
+    };
+
+    // 푸박스 주소 검색
+    searchPoobox = async (search) => {
+        const poosDetail = await this.searchRepository.findPoos(search);
+
+
+        const poos = await Promise.all(
+            poosDetail.map(async (poos) => {
+                return {
+                    pooId: poos.pooId,
+                    address: poos.address,
+                };
+            })
+        );
+        return { poos }
     };
 };
 

@@ -36,6 +36,23 @@ class SearchController {
             throw error;
         }
     };
+
+    // 푸박스 주소 검색
+    searchPoobox = async (req, res, next) => {
+        try {
+            const { search } = req.query;
+            if (!search || search === "" || typeof search !== "string") {
+                throw new Error("419/검색어의 형식이 올바르지 않습니다.");
+            };
+
+            const result = await this.searchService.searchPoobox(search);
+
+            res.status(200).json(result);
+        } catch (error) {
+            error.failedApi = "검색";
+            throw error;
+        }
+    };
 };
 
 module.exports = SearchController;
