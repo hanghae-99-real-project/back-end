@@ -47,8 +47,8 @@ class UserRepository {
     };
 
 
-    login = async (nickname) => {
-        const loginUser = await this.usersModel.findOne({ where: { nickname } });
+    login = async (phoneNumber) => {
+        const loginUser = await this.usersModel.findOne({ where: { phoneNumber } });
         return loginUser;
     };
 
