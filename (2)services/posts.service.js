@@ -27,7 +27,8 @@ class PostService {
                         photoUrl: item.photoUrl,
                         commentCount: null,
                         lostLatitude: item.lostLatitude,
-                        lostLongitude: item.lostLocation
+                        lostLongitude: item.lostLocation,
+                        address: item.address
                     };
 
                     return post;
@@ -54,6 +55,7 @@ class PostService {
         photoUrl,
         lostLatitude,
         lostLongitude,
+        address
     ) => {
         const post = await postRepository.findPostById(postId);
 
@@ -73,6 +75,7 @@ class PostService {
             photoUrl,
             lostLatitude,
             lostLongitude,
+            address
         );
     };
 

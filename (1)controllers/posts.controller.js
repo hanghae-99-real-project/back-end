@@ -1,6 +1,8 @@
 const PostService = require("../(2)services/posts.service");
 const postService = new PostService();
 const CommentsService = require("../(2)services/comment.service");
+const getAddress = require("../modules/kakao")
+
 
 class PostController {
   commentsService = new CommentsService();
@@ -10,6 +12,10 @@ class PostController {
       const { userId, nickname } = res.locals.user;
       const { dogname, title, content, lostLatitude, lostLongitude } = req.body;
       const { photoUrl } = req;
+      let address = await getAddress(commentLatitude, commentLongitude);
+      if (!address) {
+          address = `${commentLatitude}, ${commentLongitude}`
+      }
 
       if (!title) {
         return res
@@ -35,7 +41,8 @@ class PostController {
         likes: 0,
         views: 0,
         likeCount: 0,
-        commentCount: 0
+        commentCount: 0,
+        address
       };
       await postService.createPost(postData);
       return res.status(201).json({ message: "게시글 작성에 성공하였습니다." });
@@ -77,6 +84,10 @@ class PostController {
       const { title, content, dogname } = req.body;
       const { photoUrl } = req;
       const { lostLatitude, lostLongitude, } = req.body
+      const address = await getAddress(commentLatitude, commentLongitude);
+      if (!address) {
+          address = `${commentLatitude}, ${commentLongitude}`
+      }
       await postService.updatePost(
         dogname,
         userId,
@@ -86,6 +97,7 @@ class PostController {
         photoUrl,
         lostLatitude,
         lostLongitude,
+        address
       );
       res.status(200).json({ message: "게시글을 수정하였습니다." });
     } catch (err) {
