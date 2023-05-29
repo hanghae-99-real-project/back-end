@@ -23,7 +23,8 @@ class UserService {
         position,
         phoneNumber,
         introduction,
-        userLocation
+        userLongitude,
+        userLatitude
     ) => {
         const signupData = await this.userRepository.signup(
             nickname,
@@ -32,7 +33,8 @@ class UserService {
             position,
             phoneNumber,
             introduction,
-            userLocation
+            userLongitude,
+            userLatitude
         );
         return signupData;
     };
