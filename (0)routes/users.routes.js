@@ -47,5 +47,10 @@ router.post(
     "/authCodeVaildation",
     userController.authCodeVaildation);
 
+//카카오 로그인
+router.post(
+    '/kakao/signin',
+    userController.signInKakao)
+
 
 module.exports = router;
