@@ -5,7 +5,7 @@ const options = {
         title: 'PooDenag API 테스트',
         description: '푸댕 API테스트입니다.',
     },
-    host: '13.125.250.60/',
+    host: '13.125.250.60',
     schemes: ['http'],
     securityDefinitions: {
         bearerAuth: {
