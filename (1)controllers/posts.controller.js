@@ -8,7 +8,7 @@ class PostController {
   createPost = async (req, res) => {
     try {
       const { userId, nickname } = res.locals.user;
-      const { dogname, title, content, lostLatitude,lostLongitude } = req.body;
+      const { dogname, title, content, lostLatitude, lostLongitude } = req.body;
       const { photoUrl } = req;
 
       if (!title) {
@@ -25,7 +25,7 @@ class PostController {
 
       const postData = {
         dogname,
-        userId,
+        UserId: userId,
         nickname,
         title,
         content,
@@ -76,7 +76,7 @@ class PostController {
       const { postId } = req.params;
       const { title, content, dogname } = req.body;
       const { photoUrl } = req;
-      const { lostLatitude, lostLongitude, } =req.body
+      const { lostLatitude, lostLongitude, } = req.body
       await postService.updatePost(
         dogname,
         userId,
