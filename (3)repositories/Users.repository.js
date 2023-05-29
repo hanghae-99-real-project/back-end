@@ -21,7 +21,7 @@ class UserRepository {
         userLatitude,
         position,
         userPhoto,
-        // introduction
+        introduction
     ) => {
         const signupData = await this.usersModel.create({
             nickname,
@@ -31,7 +31,7 @@ class UserRepository {
             userLongitude,
             userLatitude,
             userPhoto,
-            // introduction,
+            introduction,
         });
         return signupData;
     };
