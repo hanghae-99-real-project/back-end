@@ -4,14 +4,7 @@ const getAddress = require("../modules/kakao")
 const redisClient = require("../modules/redisClient")
 const DEFAULT_EXPIRATION = 3600
 
-// const { promisify } = require('util');
-
-// // redisClient의 get, set, setex 메서드를 Promise 패턴으로 변환합니다.
-// const getAsync = promisify(redisClient.get).bind(redisClient);
-// const setAsync = promisify(redisClient.set).bind(redisClient);
-// const setexAsync = promisify(redisClient.setex).bind(redisClient);
-
-class poosService {
+class PoosService {
     poosRepository = new PoosRepository(Poos, Users, redisClient)
 
     postPoo = async (userId, content, pooPhotoUrl, pooLatitude, pooLongitude) => {
