@@ -17,7 +17,8 @@ class UserRepository {
         nickname,
         password,
         phoneNumber,
-        userLocation,
+        userLongitude,
+        userLatitude,
         position,
         userPhoto,
         // introduction
@@ -27,7 +28,8 @@ class UserRepository {
             password,
             phoneNumber,
             position,
-            userLocation,
+            userLongitude,
+            userLatitude,
             userPhoto,
             // introduction,
         });

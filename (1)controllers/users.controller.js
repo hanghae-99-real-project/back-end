@@ -14,7 +14,8 @@ class UserController {
       phoneNumber,
       position,
       introduction,
-      userLocation
+      userLatitude,
+      userLongitude
     } = req.body;
     const { userPhoto } = req;
     try {
@@ -67,7 +68,8 @@ class UserController {
         userPhoto,
         position,
         introduction,
-        userLocation
+        userLongitude,
+        userLatitude
       );
       res.status(200).json({ message: "회원 가입에 성공하였습니다." });
     } catch (error) {
