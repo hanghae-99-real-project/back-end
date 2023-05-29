@@ -4,6 +4,8 @@ const createAuthCode = require("../modules/utils")
 const send_message = require("../modules/smsService")
 const jwt = require("jsonwebtoken");
 const { Users } = require("../models");
+const axios = require("axios");
+const { UserDao } = require("../models");
 
 
 class UserService {
@@ -44,7 +46,7 @@ class UserService {
 
             const { id, username, email } = profile;
 
-            const user = await userRepository.findOrCreateUser(id, username, email);
+            const user = await this.userRepository.findOrCreateUser(id, username, email);
             return user;
         } catch (error) {
             throw new Error('Failed to process Kakao login.');
@@ -123,25 +125,41 @@ class UserService {
             throw error;
         }
     };
-    // createUser = async () => { // 임의로 유저 값 넣어주는 코드
-    //     try {
-    //         const userLocation = { latitude: 12.774, longitude: 124.419 };  // Example coordinates
-    //         const user = await this.userRepository.signup(
-    //             '김용식',
-    //             'securePassword123!',
-    //             '01023412323',
-    //             'https://example.com/userProfile.jpg',
-    //             'This is an example introduction.',
-    //             userLocation
-    //         );
-    //         console.log('User created:', user);
-    //         return user;
-    //     } catch (error) {
-    //         console.error('Error creating user:', error);
-    //     }
-    // };
+
+//카카오로그인
+    signInKakao = async (kakaoToken) => {
+        const result = await axios.get("https://kapi.kakao.com/v2/user/me", {
+        headers: {
+            Authorization: `Bearer ${kakaoToken}`,
+        },
+        });
+
+        const { data } = result;
+        const name = data.properties.nickname;
+        const email = data.kakao_account.email;
+        const kakaoId = data.id;
+        const profileImage = data.properties.profile_image;
+
+        if (!name || !email || !kakaoId) throw new Error("KEY_ERROR", 400);
+
+        const user = await UserDao.findOne({
+        where: {
+            kakao_id: kakaoId
+        }
+        });
+
+        if (!user) {
+        await UserDao.create({
+            account_email: email,
+            name: name,
+            kakao_id: kakaoId,
+            profile_image: profileImage
+        });
+    }
+
+        return jwt.sign({ kakao_id: user.kakao_id }, process.env.TOKEN_SECRET);
+};
+
 
 };
-// const userService = new UserService();
-// userService.createUser();
 module.exports = UserService;
