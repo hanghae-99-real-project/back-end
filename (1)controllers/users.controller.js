@@ -184,7 +184,7 @@ class UserController {
       console.error(error);
       return res
         .status(400)
-        .json({ errorMessage: "로그아웃에 실패하였습니다." });
+        .json({ errorMessage: "못.. 도망친다..." });
     }
   };
 
