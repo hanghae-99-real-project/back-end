@@ -23,19 +23,19 @@ module.exports = {
         type: Sequelize.STRING
       },
       userPhoto: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.JSON
       },
       position: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.BOOLEAN
       },
       userLatitude: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DECIMAL(17, 14)
       },
       userLongitude: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DECIMAL(17, 14)
       },
       createdAt: {
