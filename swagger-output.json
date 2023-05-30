@@ -5,7 +5,11 @@
     "description": "푸댕 API테스트입니다.",
     "version": "1.0.0"
   },
-  "host": "13.125.250.60",
+  "servers": [
+    {
+      "url": "http://13.125.250.60/"
+    }
+  ],
   "paths": {
     "/auth/signup": {
       "post": {
