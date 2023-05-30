@@ -8,8 +8,6 @@ class PoosController {
         const { userId } = res.locals.user
         const { content, pooLatitude, pooLongitude } = req.body
         const { pooPhotoUrl } = req;
-        console.log("userId :" + userId)
-        console.log("pooPhotoUrl :" + pooPhotoUrl)
         const postPooData = await this.poosService.postPoo(userId, content, pooPhotoUrl, pooLatitude, pooLongitude)
         return res.status(201).json(postPooData)
     };
