@@ -1,5 +1,5 @@
 const UserService = require("../(2)services/users.service");
-
+const {Users} = require('../models')
 
 class UserController {
   userService = new UserService();
@@ -12,22 +12,12 @@ class UserController {
       password,
       phoneNumber,
       position,
-      introduction,
-      userLatitude,
-      userLongitude
     } = req.body;
     const { userPhoto } = req;
     try {
-      const nicknameFilter = /^[a-zA-Z0-9]{6,}/gi;
       const passwordFilter = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
       const phoneNumberFilter = /^\d+$/;
       const existNickname = await this.userService.findNickname(nickname);
-
-      if (!nicknameFilter.test(nickname)) {
-        return res
-          .status(412)
-          .json({ errorMessage: "닉네임의 형식이 일치하지 않습니다." });
-      }
 
       if (!passwordFilter.test(password)) {
         return res
@@ -54,9 +44,6 @@ class UserController {
         phoneNumber,
         userPhoto,
         position,
-        introduction,
-        userLongitude,
-        userLatitude
       );
       res.status(200).json({ message: "회원 가입에 성공하였습니다." });
     } catch (error) {
@@ -70,12 +57,9 @@ class UserController {
 
   checkNickname = async (req, res, next) => {
     const { nickname } = req.body;
-    const nicknameFilter = /^[a-zA-Z0-9]{6,}/gi;
     try {
       const existNickname = await this.userService.findNickname(nickname);
-      if (existNickname || !nicknameFilter.test(nickname)) {
-        return res.status(412).json({ message: false });
-      }
+
       return res.status(200).json({ message: true });
     } catch (error) {
       console.error(error);
@@ -113,21 +97,32 @@ class UserController {
 
   login = async (req, res, next) => {
     try {
-      const { nickname, password } = req.body;
+      const { phoneNumber, password, userLongitude, userLatitude, position, } = req.body;
 
-      if (!nickname || !password) {
+      if (!phoneNumber || !password) {
         return res
           .status(412)
           .json({ errorMessage: "데이터의 형식이 일치하지 않습니다." });
       }
 
-      const loginUser = await this.userService.loginUser(nickname);
+      const loginUser = await this.userService.loginUser(phoneNumber);
       console.log(loginUser.userId);
+      const {userId} = loginUser.userId
       if (!loginUser || loginUser.password !== password) {
         return res
           .status(412)
           .json({ errorMessage: "닉네임 또는 패스워드를 확인해주세요." });
       }
+      await Users.update(
+        {
+            userLongitude: userLongitude,
+            userLatitude: userLatitude,
+            position: position,
+        },
+        {
+            where: { userId }
+        }
+    );
 
       const accessToken = await this.userService.createAccessToken(loginUser);
       const refreshToken = await this.userService.createRefreshToken();

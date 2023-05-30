@@ -24,9 +24,6 @@ class UserService {
         userPhoto,
         position,
         phoneNumber,
-        introduction,
-        userLongitude,
-        userLatitude
     ) => {
         const signupData = await this.userRepository.signup(
             nickname,
@@ -34,23 +31,8 @@ class UserService {
             userPhoto,
             position,
             phoneNumber,
-            introduction,
-            userLongitude,
-            userLatitude
         );
         return signupData;
-    };
-
-    processKakaoLogin = async (profile) => {
-        try {
-
-            const { id, username, email } = profile;
-
-            const user = await this.userRepository.findOrCreateUser(id, username, email);
-            return user;
-        } catch (error) {
-            throw new Error('Failed to process Kakao login.');
-        }
     };
 
     // 회원탈퇴 API
@@ -60,8 +42,8 @@ class UserService {
     };
 
 
-    loginUser = async (nickname) => {
-        const loginUser = await this.userRepository.login(nickname);
+    loginUser = async (phoneNumber) => {
+        const loginUser = await this.userRepository.login(phoneNumber);
         return loginUser;
     };
 
