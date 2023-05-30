@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     UserDao.init(
         {
             userId: {
-                type: DataTypes.STRING,
+                type: DataTypes.INTEGER,
                 allowNull: false,
                 primaryKey: true
             },
@@ -48,9 +48,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         {
             sequelize,
-            modelName: "User",
-            tableName: "users",
-            timestamps: false
+            modelName: "UserDao",
         }
     );
 
