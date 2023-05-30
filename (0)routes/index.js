@@ -10,6 +10,7 @@ const pooRouter = require("./poo.routes");
 const postRouter = require("./post.routes");
 const searchRouter = require("./search.routes");
 const notificationRouter = require("./notification.routes");
+const reportRouter = require("./reportPoo.routes");
 //const passportConfig = require('../passport');
 //passportConfig(app);
 
@@ -23,6 +24,8 @@ router.use("/search", searchRouter);
 router.use("/map/poo", pooRouter);
 
 router.use("/notifications", notificationRouter);
+
+router.use("/report", reportRouter);
 
 
 

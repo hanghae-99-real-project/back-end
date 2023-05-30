@@ -30,10 +30,9 @@ class SearchService {
             postDetail.map(async (post) => {
                 return {
                     postId: post.postId,
-                    dogname: post.dogname,
                     title: post.title,
                     photoUrl: post.photoUrl,
-                    // address: post.address,
+                    address: post.address,
                 };
             })
         );
