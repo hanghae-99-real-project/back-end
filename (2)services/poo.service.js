@@ -61,7 +61,7 @@ class PoosService {
                 )
                 response.sort((a, b) => b.createdAt - a.createdAt);
                 redisClient.SETEX('pooBoxAll', DEFAULT_EXPIRATION, JSON.stringify(response))
-                return ({ result: response });
+                return response;
             }
         } catch (error) {
             error.failedApi = "푸박스 조회";
