@@ -188,12 +188,14 @@ class UserController {
   //카카오로그인
   signInKakao = async (req, res) => {
     const headers = req.headers["authorization"];
-    const kakaoToken = headers.split(" ")[1];
-
-    const accessToken = await this.userService.signInKakao(kakaoToken);
-    
-    return res.status(200).json({ accessToken: accessToken });
-};
+    const authCode = headers.split(" ")[1];
+    const kakaoToken = await this.userService.getTokens(authCode);
+    const {accessToken} = await this.userService.signInKakao(kakaoToken);
+    const refreshToken = await this.userService.createRefreshToken();
+    res.cookie("accesstoken", `Bearer ${accessToken}`);
+    res.cookie("refreshtoken", `Bearer ${refreshToken}`);
+    return res.status(200).json({ accessToken, refreshToken });
+  };
 }
 
 module.exports = UserController;
