@@ -1,8 +1,24 @@
 
 class ReportPooRepository {
-    constructor(ReportPoos) {
+    constructor(ReportPoos, poosModel) {
         this.ReportPoos = ReportPoos
+        this.poosModel = poosModel
     }
+
+
+    findOneReport = async (userId, pooId) => {
+        return await this.ReportPoos.findOne({
+            where: {
+                UserId: userId,
+                PooId: pooId,
+            }
+        });
+    };
+    findOneReportPoo = async (pooId) => {
+        return await this.ReportPoos.findOne({
+            where: { PooId: pooId }
+        });
+    };
 
 
     // 푸박스신고
@@ -12,13 +28,41 @@ class ReportPooRepository {
             PooId: pooId,
             reportContent
         });
-        //동일한 PooId의 값이 create 될때마다
-        //PooId = 1에 해당하는 reportCount +1 씩 증가
-        //PooId, reportCount 0..2...5
-        //reportCount가 5가 될때 db에서 삭제
         return reportPoo
     };
 
+    incrementReportCount = async (findOneReportPoo) => {
+        findOneReportPoo.reportCount += 1;
+        return await findOneReportPoo.save();
+    };
+
+
+
+
+    destroyReportPoo = async (userId, pooId) => {
+        return await this.ReportPoos.destroy({
+            where: {
+                UserId: userId,
+                PooId: pooId,
+            }
+        });
+    };
+
+    destroyPoo = async (pooId) => {
+        return await this.poosModel.destroy({
+            where: {
+                PooId: pooId
+            }
+        })
+    }
+
+    // destroyReportPooId = async (reportId) => {
+    //     return await this.ReportPoos.destroy({
+    //         where: {
+    //             PooId: pooId
+    //         }
+    //     })
+    // }
 
 };
 
