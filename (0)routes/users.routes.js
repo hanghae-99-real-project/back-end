@@ -6,16 +6,13 @@ const authMiddleware = require("../middlewares/auth-middleware");
 const UserController = require("../(1)controllers/users.controller");
 const userController = new UserController();
 const uploaduserImage = require('../modules/user_s3.js');
-//const passport = require('../passport');
+
 
 router.post(
-    "/signup",
+    "/users",
     uploaduserImage.single("image"),
     userController.signup);
 
-
-//router.get('/kakao', passport.authenticate('kakao'));
-//router.get('/kakao/callback', userController.kakaoCallback);
 
 
 // 닉네임 중복 확인 API

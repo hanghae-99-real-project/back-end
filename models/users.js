@@ -29,6 +29,10 @@ module.exports = (sequelize, DataTypes) => {
         sourceKey: 'userId',
         foreignKey: 'UserId',
       });
+      this.hasMany(models.Notifications, {
+        sourceKey: 'userId',
+        foreignKey: 'UserId',
+      })
     }
   }
   Users.init(
@@ -53,19 +57,19 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
       },
       userPhoto: {
-        allowNull: false,
+        allowNull: true,
         type: DataTypes.JSON,
       },
       position: {
-        allowNull: false,
+        allowNull: true,
         type: DataTypes.BOOLEAN,
       },
       userLatitude: {
-        allowNull: false,
+        allowNull: true,
         type: DataTypes.DECIMAL(17, 14)
       },
       userLongitude: {
-        allowNull: false,
+        allowNull: true,
         type: DataTypes.DECIMAL(17, 14)
       },
       createdAt: {

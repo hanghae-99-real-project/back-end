@@ -12,9 +12,9 @@ class PostController {
       const { userId, nickname } = res.locals.user;
       const { dogname, title, content, lostLatitude, lostLongitude } = req.body;
       const { photoUrl } = req;
-      let address = await getAddress(commentLatitude, commentLongitude);
+      let address = await getAddress(lostLatitude, lostLongitude);
       if (!address) {
-          address = `${commentLatitude}, ${commentLongitude}`
+          address = `${lostLatitude}, ${lostLongitude}`
       }
 
       if (!title) {
@@ -84,9 +84,9 @@ class PostController {
       const { title, content, dogname } = req.body;
       const { photoUrl } = req;
       const { lostLatitude, lostLongitude, } = req.body
-      const address = await getAddress(commentLatitude, commentLongitude);
+      const { address } = await getAddress(lostLatitude, lostLongitude);
       if (!address) {
-          address = `${commentLatitude}, ${commentLongitude}`
+          address = `${lostLatitude}, ${lostLongitude}`
       }
       await postService.updatePost(
         dogname,

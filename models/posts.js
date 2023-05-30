@@ -15,7 +15,6 @@ module.exports = (sequelize, DataTypes) => {
         targetKey: "userId",
         foreignKey: "UserId",
       });
-
       this.hasMany(models.BookMarks, {
         targetKey: "postId",
         foreignKey: "PostId",
@@ -25,6 +24,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "PostId",
       });
       this.hasMany(models.ChildComments, {
+        targetKey: "postId",
+        foreignKey: "PostId",
+      });
+      this.hasMany(models.Notifications, {
         targetKey: "postId",
         foreignKey: "PostId",
       });
