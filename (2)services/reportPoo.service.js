@@ -1,22 +1,41 @@
 const ReportPooRepository = require("../(3)repositories/reportPoo.repository");
-const { ReportPoos } = require("../models");
+const { ReportPoos, Poos } = require("../models");
 
 class ReportPooService {
-    reportPooRepository = new ReportPooRepository(ReportPoos);
+    reportPooRepository = new ReportPooRepository(ReportPoos, Poos);
 
-
+    // 신고 5회 이상 시 poo 게시글 삭제
     postReportPoo = async (userId, pooId, reportContent) => {
         try {
-            const reportPoo = await this.reportPooRepository.postReportPoo(userId, pooId, reportContent);
-            console.log(reportPoo)
-            return { "msg": "푸박스 신고가 완료되었습니다." }
+            const findOneReport = await this.reportPooRepository.findOneReport(
+                userId,
+                pooId
+            );
+            if (!findOneReport) {
+                await this.reportPooRepository.postReportPoo(
+                    userId,
+                    pooId,
+                    reportContent
+                );
+                const findOneReportPoo = await this.reportPooRepository.findOneReportPoo(pooId);
+
+                if (findOneReportPoo) {
+                    await this.reportPooRepository.incrementReportCount(findOneReportPoo);
+                    if (findOneReportPoo.reportCount >= 5) {
+                        await this.reportPooRepository.destroyPoo(pooId);
+                        return { msg: "게시글삭제 완료" };
+                    }
+                }
+
+                return { msg: "신고 완료" };
+            } else {
+                await this.reportPooRepository.destroyReportPoo(userId, pooId);
+                return { msg: "신고 취소" };
+            }
         } catch (error) {
-            console.error(error)
-            return { error: true, message: error.message };
+            error.failedApi = "신고 실패";
+            throw error;
         }
     };
-
-
-};
-
+}
 module.exports = ReportPooService;

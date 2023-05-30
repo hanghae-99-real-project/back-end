@@ -35,6 +35,7 @@ module.exports = {
       reportCount: {
         allowNull: true,
         type: Sequelize.INTEGER,
+        defaultValue: 0
       },
       createdAt: {
         allowNull: false,

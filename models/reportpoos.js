@@ -43,7 +43,8 @@ module.exports = (sequelize, DataTypes) => {
             },
             reportCount: {
                 type: DataTypes.INTEGER,
-                allowNull: true
+                allowNull: true,
+                defaultValue: 0
             },
             createdAt: {
                 allowNull: false,
