@@ -107,7 +107,7 @@ class UserController {
 
       const loginUser = await this.userService.loginUser(phoneNumber);
       console.log(loginUser.userId);
-      const {userId} = loginUser.userId
+      const userId = loginUser.userId;
       if (!loginUser || loginUser.password !== password) {
         return res
           .status(412)
