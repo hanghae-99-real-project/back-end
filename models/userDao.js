@@ -14,20 +14,20 @@ module.exports = (sequelize, DataTypes) => {
     }
     UserDao.init(
         {
-        kakaoId: {
+        userId: {
             type: DataTypes.STRING,
             allowNull: false,
             primaryKey: true
         },
-        account_email: {
+        email: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        name: {
+        nickname: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        profile_image: {
+        profileImage: {
             type: DataTypes.STRING,
             allowNull: true
         }
