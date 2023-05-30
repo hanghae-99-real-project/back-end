@@ -22,7 +22,10 @@ module.exports = (sequelize, DataTypes) => {
         sourceKey: 'commentId',
         foreignKey: 'CommentId',
       });
-
+      this.hasMany(models.Notifications, {
+        sourceKey: 'childCommentId',
+        foreignKey: 'ChildCommentId',
+      });
     }
   }
   ChildComments.init(
