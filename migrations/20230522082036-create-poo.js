@@ -24,7 +24,7 @@ module.exports = {
       },
       pooPhotoUrl: {
         allowNull: false,
-        type: Sequelize.JSON
+        type: Sequelize.STRING
       },
       pooLatitude: {
         allowNull: false,
