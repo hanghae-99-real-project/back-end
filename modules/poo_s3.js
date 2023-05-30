@@ -42,11 +42,8 @@ const uploadpooImage = multer({
             if (!allowedExtensions.includes(extension)) {
                 return callback(new Error('확장자 에러'));
             }
-            const photo = `https://karyl.s3.ap-northeast-2.amazonaws.com/folder/${date}_${randomNumber}`
-            if (!req.pooPhotoUrl) {
-                req.pooPhotoUrl = [];
-            }
-            req.pooPhotoUrl.push(photo);
+            const pooPhotoUrl = `https://karyl.s3.ap-northeast-2.amazonaws.com/folder/${date}_${randomNumber}`
+            req.pooPhotoUrl = pooPhotoUrl;
 
             callback(null, `folder/${date}_${randomNumber}`);
         },

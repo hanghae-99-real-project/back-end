@@ -38,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false
       },
       pooPhotoUrl: {
-        type: DataTypes.JSON,
+        type: DataTypes.STRING,
         allowNull: false
       },
       pooLatitude: {
