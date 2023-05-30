@@ -9,6 +9,7 @@ const mypageRouter = require("./mypage.routes");
 const pooRouter = require("./poo.routes");
 const postRouter = require("./post.routes");
 const searchRouter = require("./search.routes");
+const notificationRouter = require("./notification.routes");
 //const passportConfig = require('../passport');
 //passportConfig(app);
 
@@ -19,7 +20,9 @@ router.use("/posts", [childCommentRouter, commentRouter, postRouter, bookmarkRou
 
 router.use("/search", searchRouter);
 
-router.use("/map/poo", pooRouter)
+router.use("/map/poo", pooRouter);
+
+router.use("/notifications", notificationRouter);
 
 
 

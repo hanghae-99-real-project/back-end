@@ -1,12 +1,14 @@
 const CommentRepository = require("../(3)repositories/comment.repository.js");
-// const UsersRepository = require("../repositories/users.repository.js");
+// const NotificationService = require("../(2)services/notification.service.js");
+const NotificationRepository = require("../(3)repositories/notification.repository.js");
 const getAddress = require("../modules/kakao")
 
-const { Comments, Users, Posts } = require("../models");
+const { Comments, Users, Posts, Notifications } = require("../models");
 
 class CommentService {
     commentRepository = new CommentRepository(Comments, Users, Posts);
-    // usersRepository = new UsersRepository(Users);
+    // notificationService = new NotificationService();
+    notificationRepository = new NotificationRepository(Notifications);
 
     // 댓글 생성
     createComment = async (userId, postId, comment, commentPhotoUrl, isPrivate, commentLatitude, commentLongitude) => {
@@ -15,6 +17,17 @@ class CommentService {
             address = `${commentLatitude}, ${commentLongitude}`
         }
         const createcomment = await this.commentRepository.createComment(userId, postId, comment, commentPhotoUrl, isPrivate, commentLatitude, commentLongitude, address);
+
+        // // 댓글 생성 후 알림을 생성
+        // const post = await this.commentRepository.findPostById(postId);
+        // const postUserId = post ? post.UserId : null; // 게시물의 작성자 Id를 갖고옴
+        // const commentId = createcomment.commentId; // 방금 생성된 댓글의 Id를 갖고옴
+
+        // // 게시글 작성자가 있으면 알림 생성 // 사실상 필요 없는데 예상치 못한 상황을 방지하기 위해 추가
+        // if (postUserId) {
+        //     await this.notificationRepository.createNotification(postId, commentId)
+        // }
+
         return createcomment
     }
 
