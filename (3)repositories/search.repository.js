@@ -34,11 +34,11 @@ class SearchRepository {
                             [Op.like]: `%${search}%`
                         }
                     },
-                    // {
-                    //     address: {
-                    //         [Op.like]: `%${search}%`
-                    //     }
-                    // }
+                    {
+                        address: {
+                            [Op.like]: `%${search}%`
+                        }
+                    }
                 ]
             }
         });

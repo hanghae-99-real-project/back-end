@@ -14,7 +14,7 @@ class PostController {
       const { photoUrl } = req;
       let address = await getAddress(lostLatitude, lostLongitude);
       if (!address) {
-          address = `${lostLatitude}, ${lostLongitude}`
+        address = `${lostLatitude}, ${lostLongitude}`
       }
 
       if (!title) {
@@ -70,7 +70,7 @@ class PostController {
     try {
       const { postId } = req.params;
       const post = await postService.getPostById(postId);
-      res.json({ data: post});
+      res.json({ data: post });
     } catch (err) {
       console.error(err);
       res.status(400).send({ message: "게시글 조회에 실패하였습니다." });
@@ -86,7 +86,7 @@ class PostController {
       const { lostLatitude, lostLongitude, } = req.body
       const { address } = await getAddress(lostLatitude, lostLongitude);
       if (!address) {
-          address = `${lostLatitude}, ${lostLongitude}`
+        address = `${lostLatitude}, ${lostLongitude}`
       }
       await postService.updatePost(
         dogname,

@@ -15,6 +15,10 @@ module.exports = (sequelize, DataTypes) => {
         targetKey: "userId",
         foreignKey: "UserId",
       });
+      this.hasMany(models.ReportPoos, {
+        sourceKey: 'pooId',
+        foreignKey: 'PooId',
+      })
     }
   }
   Poos.init(
