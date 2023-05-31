@@ -11,10 +11,10 @@ class PostController {
     try {
       const { userId, nickname } = res.locals.user;
       const { dogname, title, content, lostLatitude, lostLongitude } = req.body;
-      const { photoUrl } = req;
+      const { lostPhotoUrl } = req;
       let address = await getAddress(lostLatitude, lostLongitude);
       if (!address) {
-          address = `${lostLatitude}, ${lostLongitude}`
+        address = `${lostLatitude}, ${lostLongitude}`
       }
 
       if (!title) {
@@ -35,7 +35,7 @@ class PostController {
         nickname,
         title,
         content,
-        photoUrl,
+        lostPhotoUrl,
         lostLatitude,
         lostLongitude,
         likes: 0,
@@ -70,7 +70,7 @@ class PostController {
     try {
       const { postId } = req.params;
       const post = await postService.getPostById(postId);
-      res.json({ data: post});
+      res.json({ data: post });
     } catch (err) {
       console.error(err);
       res.status(400).send({ message: "게시글 조회에 실패하였습니다." });
@@ -82,11 +82,11 @@ class PostController {
       const { userId } = res.locals.user;
       const { postId } = req.params;
       const { title, content, dogname } = req.body;
-      const { photoUrl } = req;
+      const { lostPhotoUrl } = req;
       const { lostLatitude, lostLongitude, } = req.body
       const { address } = await getAddress(lostLatitude, lostLongitude);
       if (!address) {
-          address = `${lostLatitude}, ${lostLongitude}`
+        address = `${lostLatitude}, ${lostLongitude}`
       }
       await postService.updatePost(
         dogname,
@@ -94,7 +94,7 @@ class PostController {
         postId,
         title,
         content,
-        photoUrl,
+        lostPhotoUrl,
         lostLatitude,
         lostLongitude,
         address

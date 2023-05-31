@@ -13,6 +13,6 @@ const notificationController = new NotificationController();
 // router.get("/:userId", authMiddleware, notificationController.getNotificationForUser);
 
 // // 알림 상태 변경 // 읽음 or 안읽음 //isRead로 진실 혹은 거짓 표시
-// router.put("/:notificationId", authMiddleware, notificationController.markAsRead);
+// router.put("/:notificationId/read", authMiddleware, notificationController.markAsRead);
 
 module.exports = router;

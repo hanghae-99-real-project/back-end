@@ -24,7 +24,7 @@ class PostRepository {
     };
 
 
-    updatePostById = async (dogname,postId, title, content, photoUrl,lostLatitude,lostLongitude) => {
+    updatePostById = async (dogname, postId, title, content, lostPhotoUrl, lostLatitude, lostLongitude) => {
         const date = new Date();
         await Posts.update(
             {
@@ -32,7 +32,7 @@ class PostRepository {
                 title: title,
                 content: content,
                 updatedAt: date,
-                photoUrl: photoUrl,
+                lostPhotoUrl: lostPhotoUrl,
                 lostLatitude: lostLatitude,
                 lostLongitude: lostLongitude,
             },

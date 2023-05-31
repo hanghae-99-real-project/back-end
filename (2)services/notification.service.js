@@ -15,8 +15,8 @@ class NotificationService {
     // }
 
     // // 알림 상태 변경 // 읽음 or 안읽음 //isRead로 진실 혹은 거짓 표시
-    // markAsRead = async (notificationId) => {
-    //     return await this.notificationRepository.updateNotification(notificationId, true)
+    // markAsRead = async (notificationId, isRead) => {
+    //     return await this.notificationRepository.updateNotification(notificationId, isRead)
     // }
 }
 module.exports = NotificationService;

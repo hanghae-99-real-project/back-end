@@ -32,6 +32,14 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.Notifications, {
         sourceKey: 'userId',
         foreignKey: 'UserId',
+      });
+      this.hasOne(models.ReportPoos, {
+        sourceKey: 'userId',
+        foreignKey: 'UserId',
+      });
+      this.hasOne(models.UserDao, {
+        sourceKey: 'userId',
+        foreignKey: 'UserId',
       })
     }
   }
