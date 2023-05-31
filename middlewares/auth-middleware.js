@@ -100,6 +100,7 @@ module.exports = async (req, res, next) => { // 로그인을 한 사용자와 �
 
         const isAccessTokenValidate = validateAccessToken(authAccessToken);
         const isRefreshTokenValidate = validateRefreshToken(authRefreshToken);
+        console.log(isRefreshTokenValidate)
 
         if (!isRefreshTokenValidate) {
             return res.status(419).json({ errorMessage: "Refresh Token이 만료되었습니다." });
