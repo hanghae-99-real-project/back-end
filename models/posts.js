@@ -59,7 +59,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       lostPhotoUrl: {
         type: DataTypes.JSON,
-        allowNull: false
+        allowNull: true
       },
       lostLatitude: {
         allowNull: false,
