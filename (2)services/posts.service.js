@@ -24,7 +24,7 @@ class PostService {
                         views: item.views,
                         createdAt: item.createdAt,
                         updatedAt: item.updatedAt,
-                        photoUrl: item.photoUrl,
+                        lostPhotoUrl: item.lostPhotoUrl,
                         commentCount: null,
                         lostLatitude: item.lostLatitude,
                         lostLongitude: item.lostLocation,
@@ -52,7 +52,7 @@ class PostService {
         postId,
         title,
         content,
-        photoUrl,
+        lostPhotoUrl,
         lostLatitude,
         lostLongitude,
         address
@@ -72,7 +72,7 @@ class PostService {
             postId,
             title,
             content,
-            photoUrl,
+            lostPhotoUrl,
             lostLatitude,
             lostLongitude,
             address

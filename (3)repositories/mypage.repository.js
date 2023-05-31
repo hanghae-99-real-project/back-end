@@ -17,7 +17,7 @@ class myPagesRepository {
     getMyPost = async (userId) => {
         const getMyPostData = await this.Posts.findAll({
             where: { userId },
-            attributes: ["postId", "title", "content", "photoUrl", "lostLocation", "createdAt", "updatedAt"],
+            attributes: ["postId", "title", "content", "lostPhotoUrl", "lostLocation", "createdAt", "updatedAt"],
         })
         return getMyPostData
     };
