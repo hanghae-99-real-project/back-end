@@ -90,11 +90,10 @@ module.exports = async (req, res, next) => { // 로그인을 한 사용자와 �
 
         console.log(accesstoken)
         console.log(refreshtoken)
-        const [authAccessToken] = (accesstoken ?? "").split(" ");
-        const [authRefreshToken] = (refreshtoken ?? "").split(" ");
-
+        const [authAccessType, authAccessToken] = (accesstoken ?? "").split(" ");
+        const [authRefreshType, authRefreshToken] = (refreshtoken ?? "").split(" ");
         // 토큰이 없으면 무시하고 다음 핸들러로 이동
-        if ((!authAccessToken || !authRefreshToken)) {
+        if ((authRefreshType !== "Bearer" || !authRefreshToken) || (authAccessType !== "Bearer" || !authAccessToken)) {
             res.locals.user = { userId: null }; // 가짜 사용자 객체를 만듭니다
             return next(); // 다음 핸들러로 이동
         }
@@ -113,6 +112,7 @@ module.exports = async (req, res, next) => { // 로그인을 한 사용자와 �
             }
             const newAccessToken = createAccessToken(accessTokenId);
 
+            console.log(newAccessToken)
             res.cookie("accesstoken", `Bearer ${newAccessToken}`);
             return res.status(200).json({ newAccessToken });
         }
