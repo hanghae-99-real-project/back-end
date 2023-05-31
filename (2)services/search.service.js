@@ -31,7 +31,7 @@ class SearchService {
                 return {
                     postId: post.postId,
                     title: post.title,
-                    photoUrl: post.photoUrl,
+                    lostPhotoUrl: post.lostPhotoUrl,
                     address: post.address,
                 };
             })

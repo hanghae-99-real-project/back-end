@@ -11,7 +11,7 @@ class PostController {
     try {
       const { userId, nickname } = res.locals.user;
       const { dogname, title, content, lostLatitude, lostLongitude } = req.body;
-      const { photoUrl } = req;
+      const { lostPhotoUrl } = req;
       let address = await getAddress(lostLatitude, lostLongitude);
       if (!address) {
         address = `${lostLatitude}, ${lostLongitude}`
@@ -35,7 +35,7 @@ class PostController {
         nickname,
         title,
         content,
-        photoUrl,
+        lostPhotoUrl,
         lostLatitude,
         lostLongitude,
         likes: 0,
@@ -82,7 +82,7 @@ class PostController {
       const { userId } = res.locals.user;
       const { postId } = req.params;
       const { title, content, dogname } = req.body;
-      const { photoUrl } = req;
+      const { lostPhotoUrl } = req;
       const { lostLatitude, lostLongitude, } = req.body
       const { address } = await getAddress(lostLatitude, lostLongitude);
       if (!address) {
@@ -94,7 +94,7 @@ class PostController {
         postId,
         title,
         content,
-        photoUrl,
+        lostPhotoUrl,
         lostLatitude,
         lostLongitude,
         address
