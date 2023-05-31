@@ -1,9 +1,9 @@
 const MypageRepository = require('../(3)repositories/mypage.repository')
-const { Users } = require("../models");
+const { Users, Posts, BookMarks } = require("../models");
 
 class myPagesService {
     //의존성주입
-    mypageRepository = new MypageRepository(Users)
+    mypageRepository = new MypageRepository(Users, Posts, BookMarks)
 
     getMyInfo = async (userId) => {
         try {
@@ -45,7 +45,7 @@ class myPagesService {
             if (!getMyBookmark) {
                 throw new Error("400/데이터가 존재하지 않습니다.")
             }
-            return getMyBookmark.map((bookmark) => bookmark.Post);
+            return getMyBookmark
 
         } catch (err) {
             console.error(err)
