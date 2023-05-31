@@ -10,7 +10,7 @@ class PoosService {
     postPoo = async (userId, content, pooPhotoUrl, pooLatitude, pooLongitude) => {
         try {
 
-            const address = await getAddress(pooLatitude, pooLongitude);
+            let address = await getAddress(pooLatitude, pooLongitude);
             if (!address) {
                 address = `${pooLatitude}, ${pooLongitude}`
             }
