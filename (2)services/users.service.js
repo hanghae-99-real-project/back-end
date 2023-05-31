@@ -138,8 +138,11 @@ class UserService {
             profileImage: profileImage,
         });
         }
+        
+        const { kakaouserid } = await this.userRepository.findId(nickname)
+        const { userId } = kakaouserid.userId
 
-        return jwt.sign({ userId: user.userId }, process.env.ACCESS_KEY);
+        return jwt.sign({ userId }, process.env.ACCESS_KEY);
     };
 
     // 엑세스 토큰 받아오기
