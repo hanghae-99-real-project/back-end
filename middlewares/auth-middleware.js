@@ -81,14 +81,10 @@ const tokenRepository = new TokenRepository();
 module.exports = async (req, res, next) => { // 로그인을 한 사용자와 로그인을 하지 않은 사용자 둘 다 사이트 조회 가능  
 
     let { accesstoken, refreshtoken } = req.headers;
-    console.log('이거보여주셈1', req.headers, req.headers.refreshtoken)
-
-
 
     try {
         accesstoken = !req.headers.refreshtoken ? req.cookies.accesstoken : accesstoken;
         refreshtoken = !req.headers.refreshtoken ? req.cookies.refreshtoken : refreshtoken;
-
 
         const [authAccessType, authAccessToken] = (accesstoken ?? "").split(" ");
         // const [authRefreshType, authRefreshToken] = (refreshtoken ?? "").split(" ");
@@ -97,11 +93,11 @@ module.exports = async (req, res, next) => { // 로그인을 한 사용자와 �
         //     res.locals.user = { userId: null }; // 가짜 사용자 객체를 만듭니다
         //     return next(); // 다음 핸들러로 이동
         // }
-        console.log('이거보여주셈2', refreshtoken)
 
         const isAccessTokenValidate = validateAccessToken(authAccessToken);
         const isRefreshTokenValidate = validateRefreshToken(refreshtoken);
-        console.log('이거보여주셈3', isRefreshTokenValidate)
+
+
 
         if (!isRefreshTokenValidate) {
             return res.status(419).json({ errorMessage: "Refresh Token이 만료되었습니다." });
