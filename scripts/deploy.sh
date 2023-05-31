@@ -9,20 +9,3 @@ if [ -d /home/ubuntu/temp ]; then
     sudo rm -rf /home/ubuntu/temp
 fi
 
-
-
-if pgrep -f node > /dev/null; then
-    sudo kill $(pgrep -f node)
-fi
-
-if pgrep -f node > /dev/null; then
-    sudo kill $(pgrep -f node)
-fi
-
-if pgrep -f node > /dev/null; then
-    sudo kill $(pgrep -f node)
-fi
-
-if pgrep -f node > /dev/null; then
-    sudo kill $(pgrep -f node)
-fi
