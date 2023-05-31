@@ -79,6 +79,7 @@ const tokenRepository = new TokenRepository();
 // };
 
 module.exports = async (req, res, next) => { // 로그인을 한 사용자와 로그인을 하지 않은 사용자 둘 다 사이트 조회 가능  
+    console.log(req.headers)
     let { Accesstoken, Refreshtoken } = req.headers;
 
     try {
