@@ -33,7 +33,8 @@ class PoosService {
             }
             return { "msg": "푸박스 등록 성공" }
         } catch (err) {
-            return console.error(err)
+            console.error(err)
+            throw new Error("400/에러 케이스에서 처리 할 수 없는 에러")
         }
     };
 
