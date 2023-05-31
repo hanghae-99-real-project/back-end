@@ -1,5 +1,5 @@
 const UserService = require("../(2)services/users.service");
-const {Users} = require('../models')
+const { Users } = require('../models')
 
 class UserController {
   userService = new UserService();
@@ -115,14 +115,14 @@ class UserController {
       }
       await Users.update(
         {
-            userLongitude: userLongitude,
-            userLatitude: userLatitude,
-            position: position,
+          userLongitude: userLongitude,
+          userLatitude: userLatitude,
+          position: position,
         },
         {
-            where: { userId }
+          where: { userId }
         }
-    );
+      );
 
       const accessToken = await this.userService.createAccessToken(loginUser);
       const refreshToken = await this.userService.createRefreshToken();
@@ -160,6 +160,7 @@ class UserController {
       await this.userService.logout(userId);
       res.clearCookie("accesstoken");
       res.clearCookie("refreshtoken");
+      delete res.locals.user
 
       return res.status(200).json({ message: "로그아웃에 성공하였습니다." });
     } catch (error) {
@@ -190,7 +191,7 @@ class UserController {
     const headers = req.headers["authorization"];
     const authCode = headers.split(" ")[1];
     const kakaoToken = await this.userService.getTokens(authCode);
-    const {accessToken} = await this.userService.signInKakao(kakaoToken);
+    const { accessToken } = await this.userService.signInKakao(kakaoToken);
     const refreshToken = await this.userService.createRefreshToken();
     res.cookie("accesstoken", `Bearer ${accessToken}`);
     res.cookie("refreshtoken", `Bearer ${refreshToken}`);
