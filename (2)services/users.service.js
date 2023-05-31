@@ -121,14 +121,13 @@ class UserService {
         const { data } = result;
         const nickname = data.properties.nickname;
         const email = data.kakao_account.email;
-        const userId = data.id;
         const profileImage = data.properties.profile_image;
 
-        if (!nickname || !email || !userId) throw new Error("KEY_ERROR", 400);
+        if (!nickname || !email ) throw new Error("KEY_ERROR", 400);
 
         let user = await UserDao.findOne({
         where: {
-            userId: userId,
+            email: email,
         },
         });
 
@@ -136,7 +135,6 @@ class UserService {
         user = await UserDao.create({
             email: email,
             nickname: nickname,
-            userId: userId,
             profileImage: profileImage,
         });
         }

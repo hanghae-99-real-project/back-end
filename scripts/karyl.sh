@@ -8,6 +8,8 @@ if pgrep -f node > /dev/null; then
     kill $(pgrep -f node)
 fi
 
+sudo rm -rf /home/ubuntu/back-end
+
 
 
 if [ -d /home/ubuntu/temp ]; then
