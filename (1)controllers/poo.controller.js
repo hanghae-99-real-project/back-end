@@ -14,14 +14,16 @@ class PoosController {
 
     // 푸박스 조회
     getPoo = async (req, res, next) => {
-        const getPooData = await this.poosService.getPoo();
-
+        const originalUrl = req.originalUrl
+        const getPooData = await this.poosService.getPoo(originalUrl);
         return res.status(201).json({ getPooData })
     };
 
     getPooDetail = async (req, res, next) => {
         const { pooId } = req.params
-        const getPooData = await this.poosService.getPooDetail(pooId);
+        const originalUrl = req.originalUrl
+        console.log(originalUrl)
+        const getPooData = await this.poosService.getPooDetail(pooId, originalUrl);
 
         return res.status(201).json(getPooData)
     };
