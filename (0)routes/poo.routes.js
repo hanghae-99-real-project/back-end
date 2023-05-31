@@ -7,12 +7,12 @@ const uploadpooImage = require("../modules/poo_s3");
 
 
 //푸박스 등록
-router.post("/", authMiddleware, uploadpooImage.single("pooPhotoUrl"), pooController.postPoo);
+router.post("/poo", authMiddleware, uploadpooImage.single("pooPhotoUrl"), pooController.postPoo);
 
 //푸박스 조회 캐싱 미들웨어 추가
-router.get("/", pooController.getPoo);
+router.get("/poo", pooController.getPoo);
 
 //푸박스 상세조회
-router.get("/:pooId", pooController.getPooDetail);
+router.get("/poo/:pooId", pooController.getPooDetail);
 
 module.exports = router;

@@ -20,7 +20,7 @@ router.use("/posts", [childCommentRouter, commentRouter, postRouter, bookmarkRou
 
 router.use("/search", searchRouter);
 
-router.use("/map/poo", pooRouter);
+router.use("/map", pooRouter);
 
 router.use("/notifications", notificationRouter);
 
