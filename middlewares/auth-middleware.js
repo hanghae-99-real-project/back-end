@@ -79,18 +79,22 @@ const tokenRepository = new TokenRepository();
 // };
 
 module.exports = async (req, res, next) => { // 로그인을 한 사용자와 로그인을 하지 않은 사용자 둘 다 사이트 조회 가능  
-    console.log(req.headers)
-    let { Accesstoken, Refreshtoken } = req.headers;
+
+    let { accesstoken, refreshtoken } = req.headers;
+
+
 
     try {
-        accesstoken = !req.headers.Refreshtoken ? req.cookies.Accesstoken : Accesstoken;
-        refreshtoken = !req.headers.Refreshtoken ? req.cookies.Refreshtoken : Refreshtoken;
+        accesstoken = !req.headers.refreshtoken ? req.cookies.accesstoken : accesstoken;
+        refreshtoken = !req.headers.refreshtoken ? req.cookies.refreshtoken : refreshtoken;
 
-        const [authAccessType, authAccessToken] = (accesstoken ?? "").split(" ");
-        const [authRefreshType, authRefreshToken] = (refreshtoken ?? "").split(" ");
+        console.log(accesstoken)
+        console.log(refreshtoken)
+        const [authAccessToken] = (accesstoken ?? "").split(" ");
+        const [authRefreshToken] = (refreshtoken ?? "").split(" ");
 
         // 토큰이 없으면 무시하고 다음 핸들러로 이동
-        if ((authRefreshType !== "Bearer" || !authRefreshToken) || (authAccessType !== "Bearer" || !authAccessToken)) {
+        if ((!authAccessToken || !authRefreshToken)) {
             res.locals.user = { userId: null }; // 가짜 사용자 객체를 만듭니다
             return next(); // 다음 핸들러로 이동
         }
