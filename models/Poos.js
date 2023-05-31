@@ -15,6 +15,10 @@ module.exports = (sequelize, DataTypes) => {
         targetKey: "userId",
         foreignKey: "UserId",
       });
+      this.hasMany(models.ReportPoos, {
+        sourceKey: 'pooId',
+        foreignKey: 'PooId',
+      })
     }
   }
   Poos.init(
@@ -34,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false
       },
       pooPhotoUrl: {
-        type: DataTypes.JSON,
+        type: DataTypes.STRING,
         allowNull: false
       },
       pooLatitude: {

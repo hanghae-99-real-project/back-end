@@ -32,6 +32,8 @@ module.exports = {
       },
       photoUrl: {
         allowNull: true,
+      lostPhotoUrl: {
+        allowNull: false,
         type: Sequelize.JSON,
       },
       lostLatitude: {

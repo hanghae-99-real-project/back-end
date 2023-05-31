@@ -2,7 +2,7 @@
 const { Model } = require("sequelize");
 const Sequelize = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-    class UserDao extends Model {
+    class ReportPoos extends Model {
         /**
          * Helper method for defining associations.
          * This method is not a part of Sequelize lifecycle.
@@ -10,47 +10,55 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
+
             this.belongsTo(models.Users, {
                 targetKey: "userId",
                 foreignKey: "UserId",
             });
+            this.belongsTo(models.Poos, {
+                targetKey: "pooId",
+                foreignKey: "PooId",
+            });
         }
     }
-    UserDao.init(
+    ReportPoos.init(
         {
-            userId: {
+            reportId: {
+                autoIncrement: true,
                 type: DataTypes.INTEGER,
                 allowNull: false,
                 primaryKey: true
             },
-            email: {
+            UserId: {
+                type: DataTypes.INTEGER,
+                allowNull: false
+            },
+            PooId: {
+                type: DataTypes.INTEGER,
+                allowNull: false
+            },
+            reportContent: {
                 type: DataTypes.STRING,
                 allowNull: false
             },
-            nickname: {
-                type: DataTypes.STRING,
-                allowNull: false
-            },
-            profileImage: {
-                type: DataTypes.STRING,
-                allowNull: true
+            reportCount: {
+                type: DataTypes.INTEGER,
+                allowNull: true,
+                defaultValue: 0
             },
             createdAt: {
                 allowNull: false,
-                type: DataTypes.DATE,
-                defaultValue: DataTypes.NOW,
+                type: Sequelize.DATE
             },
             updatedAt: {
                 allowNull: false,
-                type: DataTypes.DATE,
-                defaultValue: DataTypes.NOW,
+                type: Sequelize.DATE
             },
         },
         {
             sequelize,
-            modelName: "UserDao",
-        }
+            modelName: "ReportPoos",
+        },
     );
-
-    return UserDao;
+    return ReportPoos;
 };

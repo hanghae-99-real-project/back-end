@@ -1,13 +1,14 @@
 'use strict';
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Poos', {
-      pooId: {
+    await queryInterface.createTable("ReportPoos", {
+      reportId: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       UserId: {
         allowNull: false,
@@ -18,25 +19,23 @@ module.exports = {
         },
         onDelete: "CASCADE",
       },
-      content: {
+      PooId: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER,
+        reference: {
+          model: "Poos",
+          key: "pooId",
+        },
+        onDelete: "CASCADE",
       },
-      pooPhotoUrl: {
+      reportContent: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
-      pooLatitude: {
-        allowNull: false,
-        type: Sequelize.DECIMAL(17, 14)
-      },
-      pooLongitude: {
-        allowNull: false,
-        type: Sequelize.DECIMAL(17, 14)
-      },
-      address: {
-        allowNull: false,
-        type: Sequelize.STRING
+      reportCount: {
+        allowNull: true,
+        type: Sequelize.INTEGER,
+        defaultValue: 0
       },
       createdAt: {
         allowNull: false,
@@ -45,10 +44,11 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      }
-    });
+      },
+    })
   },
+
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Poos');
+    await queryInterface.dropTable('ReportPoos');
   }
 };

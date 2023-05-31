@@ -57,7 +57,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false
       },
-      photoUrl: {
+      lostPhotoUrl: {
         type: DataTypes.JSON,
         allowNull: true
       },
