@@ -10,11 +10,12 @@ class PoosService {
     postPoo = async (userId, content, pooPhotoUrl, pooLatitude, pooLongitude) => {
         try {
 
-            let address = await getAddress(pooLatitude, pooLongitude);
+            const address = await getAddress(pooLatitude, pooLongitude);
             if (!address) {
                 address = `${pooLatitude}, ${pooLongitude}`
             }
             const postPooData = await this.poosRepository.postPoo(userId, content, pooPhotoUrl, pooLatitude, pooLongitude, address)
+
             if (!userId) {
                 throw new Error("403/마이페이지 권한이 없습니다.")
             }
@@ -32,14 +33,14 @@ class PoosService {
             }
             return { "msg": "푸박스 등록 성공" }
         } catch (err) {
-            console.error(err)
-            throw new Error("400/에러 케이스에서 처리 할 수 없는 에러")
+            return console.error(err)
         }
     };
 
     getPoo = async () => {
         try {
             const getPooBoxAll = await redisClient.get('pooBoxAll')
+            console.log(getPooBoxAll)
             if (getPooBoxAll) {
                 console.log('Cashe Hit')
                 return (JSON.parse(getPooBoxAll))
