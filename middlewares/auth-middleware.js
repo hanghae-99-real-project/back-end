@@ -91,24 +91,25 @@ module.exports = async (req, res, next) => { // 로그인을 한 사용자와 �
 
 
         const [authAccessType, authAccessToken] = (accesstoken ?? "").split(" ");
-        const [authRefreshType, authRefreshToken] = (refreshtoken ?? "").split(" ");
+        // const [authRefreshType, authRefreshToken] = (refreshtoken ?? "").split(" ");
         // 토큰이 없으면 무시하고 다음 핸들러로 이동
         // if ((authRefreshType !== "Bearer" || !authRefreshToken) || (authAccessType !== "Bearer" || !authAccessToken)) {
         //     res.locals.user = { userId: null }; // 가짜 사용자 객체를 만듭니다
         //     return next(); // 다음 핸들러로 이동
         // }
-        console.log('이거보여주셈2', authRefreshToken)
+        console.log('이거보여주셈2', refreshtoken)
 
         const isAccessTokenValidate = validateAccessToken(authAccessToken);
-        const isRefreshTokenValidate = validateRefreshToken(authRefreshToken);
+        const isRefreshTokenValidate = validateRefreshToken(refreshtoken);
+        console.log('이거보여주셈3', isRefreshTokenValidate)
 
         if (!isRefreshTokenValidate) {
             return res.status(419).json({ errorMessage: "Refresh Token이 만료되었습니다." });
         }
-        console.log('이거보려고 어그로끌었따', !isRefreshTokenValidate)
+
 
         if (!isAccessTokenValidate) {
-            const accessTokenId = await tokenRepository.findTokenId(authRefreshToken);
+            const accessTokenId = await tokenRepository.findTokenId(refreshtoken);
             if (!accessTokenId) {
                 return res.json({ errorMessage: "Refresh Token의 정보가 서버에 존재하지 않습니다.", });
             }
@@ -156,9 +157,9 @@ const validateAccessToken = (authAccessToken) => {
 };
 
 // refresh token 검증 함수
-const validateRefreshToken = (authRefreshToken) => {
+const validateRefreshToken = (refreshtoken) => {
     try {
-        jwt.verify(authRefreshToken, process.env.REFRESH_KEY);
+        jwt.verify(refreshtoken, process.env.REFRESH_KEY);
         return true;
     } catch (error) {
         return false;
