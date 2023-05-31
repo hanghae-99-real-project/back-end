@@ -80,11 +80,11 @@ const tokenRepository = new TokenRepository();
 
 module.exports = async (req, res, next) => { // 로그인을 한 사용자와 로그인을 하지 않은 사용자 둘 다 사이트 조회 가능  
     console.log(req.headers)
-    let { accesstoken, refreshtoken } = req.headers;
+    let { Accesstoken, Refreshtoken } = req.headers;
 
     try {
-        accesstoken = !req.headers.refreshtoken ? req.cookies.accesstoken : accesstoken;
-        refreshtoken = !req.headers.refreshtoken ? req.cookies.refreshtoken : refreshtoken;
+        accesstoken = !req.headers.Refreshtoken ? req.cookies.Accesstoken : Accesstoken;
+        refreshtoken = !req.headers.Refreshtoken ? req.cookies.Refreshtoken : Refreshtoken;
 
         const [authAccessType, authAccessToken] = (accesstoken ?? "").split(" ");
         const [authRefreshType, authRefreshToken] = (refreshtoken ?? "").split(" ");

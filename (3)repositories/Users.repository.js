@@ -55,6 +55,11 @@ class UserRepository {
         const authCode = await redisClient.get(phoneNumber)
         return authCode
     };
+    findId = async (nickname) => {
+        const loginUser = await this.usersModel.findOne({ where: { nickname } });
+        return loginUser;
+    };
+
 
 }
 
