@@ -22,7 +22,7 @@ class PoosController {
     getPooDetail = async (req, res, next) => {
         const { pooId } = req.params
         const originalUrl = req.originalUrl
-        console.log(originalUrl)
+
         const getPooData = await this.poosService.getPooDetail(pooId, originalUrl);
 
         return res.status(201).json(getPooData)
