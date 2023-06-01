@@ -21,7 +21,7 @@ router.use("/posts", [childCommentRouter, commentRouter, postRouter]);
 
 router.use("/search", searchRouter);
 
-router.use("/map", pooRouter);
+router.use("/map/poo", pooRouter);
 
 router.use("/notifications", notificationRouter);
 

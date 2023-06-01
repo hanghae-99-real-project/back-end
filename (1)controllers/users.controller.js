@@ -14,6 +14,7 @@ class UserController {
       position,
     } = req.body;
     const { userPhoto } = req;
+    console.log(userPhoto)
     try {
       const passwordFilter = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
       const phoneNumberFilter = /^\d+$/;
@@ -42,8 +43,8 @@ class UserController {
         nickname,
         password,
         phoneNumber,
-        userPhoto,
         position,
+        userPhoto,
       );
       res.status(200).json({ message: "회원 가입에 성공하였습니다." });
     } catch (error) {
@@ -131,7 +132,7 @@ class UserController {
       await this.userService.saveToken(loginUser, refreshToken);
 
       res.cookie("accesstoken", `Bearer ${accessToken}`);
-      res.cookie("refreshtoken", `Bearer ${refreshToken}`);
+      res.cookie("refreshtoken", `${refreshToken}`);
 
       return res.status(200).json({ accessToken, refreshToken });
     } catch (error) {
@@ -160,7 +161,6 @@ class UserController {
       await this.userService.logout(userId);
       res.clearCookie("accesstoken");
       res.clearCookie("refreshtoken");
-      delete res.locals.user
 
       return res.status(200).json({ message: "로그아웃에 성공하였습니다." });
     } catch (error) {
