@@ -174,8 +174,9 @@ class UserService {
                 },
             }
         );
+        console.log("뭘 얼마나 많이 던져주는지 보자",response.data)
         const { access_token } = response.data;
-        console.log(access_token)
+        console.log("요건 내가 뽑아쓰는 엑세스 토큰",access_token)
         return access_token;
     };
 
