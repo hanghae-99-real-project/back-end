@@ -178,7 +178,9 @@ class UserController {
   //카카오로그인
   signInKakao = async (req, res) => {
     const headers = req.headers["authorization"];
+    console.log(headers)
     const authCode = headers.split(" ")[1];
+    console.log(authCode)
     const kakaoToken = await this.userService.getTokens(authCode);
     const { accessToken } = await this.userService.signInKakao(kakaoToken);
     const refreshToken = await this.userService.createRefreshToken();
