@@ -121,9 +121,11 @@ class UserService {
         });
 
         const { data } = result;
+        console.log("데이터 전문",data)
         const nickname = data.properties.nickname;
         const email = data.kakao_account.email;
         const profileImage = data.properties.profile_image;
+
 
         if (!nickname || !email) throw new Error("KEY_ERROR", 400);
 
