@@ -1,9 +1,8 @@
-const { Posts } = require("../models");
-
 class myPagesRepository {
-    constructor(Users) {
+    constructor(Users, Posts, BookMarks) {
         this.Users = Users;
-        this.Posts = Posts
+        this.Posts = Posts;
+        this.BookMarks = BookMarks;
     }
 
     getMyInfo = async (userId) => {
@@ -16,20 +15,31 @@ class myPagesRepository {
 
     getMyPost = async (userId) => {
         const getMyPostData = await this.Posts.findAll({
-            where: { userId },
-            attributes: ["postId", "title", "content", "lostPhotoUrl", "lostLocation", "createdAt", "updatedAt"],
+            where: { UserId: userId },
+            attributes: ["postId", "title", "content", "lostPhotoUrl", "createdAt", "updatedAt"],
         })
         return getMyPostData
     };
 
     getMyBookmark = async (userId) => {
-        const getMyBookmarData = await this.Posts.findAll({
+        const getMyBookmarData = await this.BookMarks.findAll({
+            where: { UserId: userId },
+            attributes: ["bookmarkId"],
+            include: [
+                {
+                    model: this.Posts,
+                    attributes: ["postId", "title", "content", "lostPhotoUrl", "createdAt", "updatedAt"],
 
+                }
+            ]
         })
         return getMyBookmarData
     };
 
 
 }
+//1. 내가 북마크한 게시글을 모두조회
+//2. userId = 1 , postId = 1 , 2 ,3  북마크추가
+//3. BookMarks 테이블에서 존재하는 게시글모두  postId = 1,2 ,3  userId = 1
 
 module.exports = myPagesRepository;

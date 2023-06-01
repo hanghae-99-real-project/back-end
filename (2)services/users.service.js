@@ -1,4 +1,4 @@
-const UserRepository = require("../(3)repositories/Users.repository");
+const UserRepository = require("../(3)repositories/users.repository");
 const TokenRepository = require("../(3)repositories/tokens.repository");
 const createAuthCode = require("../modules/utils")
 const send_message = require("../modules/smsService")
@@ -22,16 +22,16 @@ class UserService {
     signup = async (
         nickname,
         password,
-        userPhoto,
-        position,
         phoneNumber,
+        position,
+        userPhoto,
     ) => {
         const signupData = await this.userRepository.signup(
             nickname,
             password,
-            userPhoto,
-            position,
             phoneNumber,
+            position,
+            userPhoto,
         );
         return signupData;
     };
@@ -113,9 +113,9 @@ class UserService {
     // 카카오 로그인
     signInKakao = async (kakaoToken) => {
         const result = await axios.get("https://kapi.kakao.com/v2/user/me", {
-        headers: {
-            Authorization: `Bearer ${kakaoToken}`,
-        },
+            headers: {
+                Authorization: `Bearer ${kakaoToken}`,
+            },
         });
 
         const { data } = result;
@@ -123,22 +123,22 @@ class UserService {
         const email = data.kakao_account.email;
         const profileImage = data.properties.profile_image;
 
-        if (!nickname || !email ) throw new Error("KEY_ERROR", 400);
+        if (!nickname || !email) throw new Error("KEY_ERROR", 400);
 
         let user = await UserDao.findOne({
-        where: {
-            email: email,
-        },
+            where: {
+                email: email,
+            },
         });
 
         if (!user) {
-        user = await UserDao.create({
-            email: email,
-            nickname: nickname,
-            profileImage: profileImage,
-        });
+            user = await UserDao.create({
+                email: email,
+                nickname: nickname,
+                profileImage: profileImage,
+            });
         }
-        
+
         const { kakaouserid } = await this.userRepository.findId(nickname)
         const { userId } = kakaouserid.userId
 
@@ -148,22 +148,22 @@ class UserService {
     // 엑세스 토큰 받아오기
     getTokens = async (authCode) => {
         const response = await axios.post(
-        "https://kauth.kakao.com/oauth/token",
-        querystring.stringify({
-            grant_type: "authorization_code",
-            client_id: process.env.KAKAO_CLIENT_ID,
-            redirect_uri: process.env.KAKAO_REDIRECT_URI,
-            code: authCode,
-        }),
-        {
-            headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-            },
-        }
+            "https://kauth.kakao.com/oauth/token",
+            querystring.stringify({
+                grant_type: "authorization_code",
+                client_id: process.env.KAKAO_CLIENT_ID,
+                redirect_uri: process.env.KAKAO_REDIRECT_URI,
+                code: authCode,
+            }),
+            {
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+            }
         );
 
-    const { access_token } = response.data;
-    return access_token;
+        const { access_token } = response.data;
+        return access_token;
     };
 
 };

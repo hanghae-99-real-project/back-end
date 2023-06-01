@@ -4,7 +4,7 @@ const redisClient = redis.createClient({
     url: `redis://${process.env.REDIS_USERNAME}:${process.env.REDIS_PASSWORD}@${process.env.REDIS_HOST}:${process.env.REDIS_PORT}/0`,
     // legacyMode 옵션은 Redis v2 호환성 모드를 사용합니다.
     // 따라서, Redis v4 사용시에는 필요 없습니다.
-    legacyMode: true,
+    //legacyMode: true,
 });
 
 redisClient.on('error', (err) => {
