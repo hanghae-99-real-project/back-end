@@ -1,4 +1,4 @@
-const UserRepository = require("../(3)repositories/users.repository.js");
+const UserRepository = require("../(3)repositories/Users.repository.js");
 const TokenRepository = require("../(3)repositories/tokens.repository.js");
 const createAuthCode = require("../modules/utils")
 const send_message = require("../modules/smsService")
