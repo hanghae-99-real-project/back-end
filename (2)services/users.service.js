@@ -151,13 +151,21 @@ class UserService {
 
     // 엑세스 토큰 받아오기
     getTokens = async (authCode) => {
+        console.log(authCode)
+        console.log(querystring.stringify({
+            grant_type: "authorization_code",
+            client_id: process.env.KAKAO_CLIENT_ID,
+            client_secret: process.env.REACT_APP_KAKAO_CLIENT_SECRET,
+            redirect_uri: process.env.KAKAO_REDIRECT_URI,
+            code: authCode,
+        }))
         const response = await axios.post(
             "https://kauth.kakao.com/oauth/token",
             querystring.stringify({
                 grant_type: "authorization_code",
                 client_id: process.env.KAKAO_CLIENT_ID,
                 client_secret: process.env.REACT_APP_KAKAO_CLIENT_SECRET,
-                redirect_uri: process.env.KAKAO_REDIRECT_URI,
+                redirect_uri: 'http://13.125.250.60:3000/api/auth/kakao/signin',
                 code: authCode,
             }),
             {
