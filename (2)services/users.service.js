@@ -4,11 +4,12 @@ const createAuthCode = require("../modules/utils")
 const send_message = require("../modules/smsService")
 const jwt = require("jsonwebtoken");
 const { Users } = require("../models");
-const axios = require("axios");
+// const axios = require("axios");
 const { UserDao } = require("../models");
 require('dotenv').config();
 const querystring = require('querystring');
 const qs = require('qs');
+import axios from "axios";
 
 
 class UserService {
