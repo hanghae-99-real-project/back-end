@@ -7,8 +7,6 @@ const tokenRepository = new TokenRepository();
 module.exports = async (req, res, next) => {
 
     let { accesstoken, refreshtoken } = req.headers;
-    console.log('이거보여주셈1', accesstoken, req.headers.refreshtoken, refreshtoken)
-
 
 
     try {
@@ -18,7 +16,7 @@ module.exports = async (req, res, next) => {
 
         const [authAccessType, authAccessToken] = (accesstoken ?? "").split(" ");
 
-        console.log('이거보여주셈2', refreshtoken)
+
 
         if ((!refreshtoken) || (authAccessType !== "Bearer" || !authAccessToken)) {
             res.locals.user = { userId: null }; // 가짜 사용자 객체를 만듭니다
@@ -27,7 +25,6 @@ module.exports = async (req, res, next) => {
 
         const isAccessTokenValidate = validateAccessToken(authAccessToken);
         const isRefreshTokenValidate = validateRefreshToken(refreshtoken);
-        console.log('이거보여주셈3', isRefreshTokenValidate)
 
 
         if (!isRefreshTokenValidate) {

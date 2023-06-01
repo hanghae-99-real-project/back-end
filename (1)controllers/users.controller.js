@@ -14,7 +14,6 @@ class UserController {
       position,
     } = req.body;
     const { userPhoto } = req;
-    console.log(userPhoto)
     try {
       const passwordFilter = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
       const phoneNumberFilter = /^\d+$/;
@@ -85,6 +84,8 @@ class UserController {
       }
       if (userId === existUser.userId) {
         await this.userService.deleteSignup(userId);
+        //회원탈퇴시 세션제거
+        await req.session.destroy()
         return res.status(200).json({ message: "회원탈퇴에 성공하였습니다." });
       }
     } catch (error) {
@@ -107,7 +108,6 @@ class UserController {
       }
 
       const loginUser = await this.userService.loginUser(phoneNumber);
-      console.log(loginUser.userId);
       const userId = loginUser.userId;
       if (!loginUser || loginUser.password !== password) {
         return res
@@ -128,13 +128,22 @@ class UserController {
       const accessToken = await this.userService.createAccessToken(loginUser);
       const refreshToken = await this.userService.createRefreshToken();
 
-
       await this.userService.saveToken(loginUser, refreshToken);
-
       res.cookie("accesstoken", `Bearer ${accessToken}`);
       res.cookie("refreshtoken", `${refreshToken}`);
 
+      const sessionData = {
+        userId: loginUser.userId,
+        phoneNumber: loginUser.phoneNumber,
+        nickname: loginUser.nickname,
+        isLogined: true
+      };
+
+      req.session.sessionData = sessionData
+      await req.session.save()
       return res.status(200).json({ accessToken, refreshToken });
+
+
     } catch (error) {
       console.error(error);
       return res.status(400).json({ errorMessage: "로그인에 실패하였습니다." });
@@ -161,6 +170,7 @@ class UserController {
       await this.userService.logout(userId);
       res.clearCookie("accesstoken");
       res.clearCookie("refreshtoken");
+      req.session.destroy()
 
       return res.status(200).json({ message: "로그아웃에 성공하였습니다." });
     } catch (error) {
