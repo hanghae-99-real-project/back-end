@@ -5,7 +5,7 @@ if [[ $pm2_list == *"0      "|*"online"* ]]; then
 fi
 
 if pgrep -f node > /dev/null; then
-    kill $(pgrep -f node)
+    sudo kill $(pgrep -f node)
 fi
 
 sudo rm -rf /home/ubuntu/back-end
