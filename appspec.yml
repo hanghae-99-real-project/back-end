@@ -10,8 +10,8 @@ permissions:
 hooks:
   BeforInstall:
     - location: scripts/karyl.sh
-      runas: root
+      runas: ubuntu
 
   AfterInstall:
     - location: scripts/deploy.sh
-      runas: root
+      runas: ubuntu
