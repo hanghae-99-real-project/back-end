@@ -1,5 +1,5 @@
-const UserRepository = require("../(3)repositories/users.repository");
-const TokenRepository = require("../(3)repositories/tokens.repository");
+const UserRepository = require("../(3)repositories/users.repository.js");
+const TokenRepository = require("../(3)repositories/tokens.repository.js");
 const createAuthCode = require("../modules/utils")
 const send_message = require("../modules/smsService")
 const jwt = require("jsonwebtoken");
