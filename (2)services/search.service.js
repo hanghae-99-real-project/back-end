@@ -1,4 +1,4 @@
-const SearchRepository = require("../(3)repositories/search.repository");
+const SearchRepository = require("../(3)repositories/search.repository.js");
 const { Users, Posts, Poos } = require("../models");
 
 class SearchService {
