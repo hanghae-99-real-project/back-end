@@ -1,11 +1,14 @@
 const ChildCommentRepository = require("../(3)repositories/childComment.repository.js");
 const CommentRepository = require("../(3)repositories/comment.repository.js");
+const NotificationRepository = require("../(3)repositories/notification.repository.js");
 
-const { ChildComments, Comments, Users, Posts } = require("../models");
+
+const { ChildComments, Comments, Users, Posts, Notifications } = require("../models");
 
 class ChildCommentService {
     childCommentRepository = new ChildCommentRepository(ChildComments);
     commentRepository = new CommentRepository(Comments, Users, Posts);
+    notificationRepository = new NotificationRepository(Notifications);
 
     /*
     1. 일반 댓글 작성 - 로그인한 유저는 게시물에 일반 댓글을 작성 가능
@@ -28,7 +31,8 @@ class ChildCommentService {
     createChildComment = async (userId, postId, commentId, childComment, isPrivate) => {
         // 상위 댓글 가져오기
         const parentComment = await this.commentRepository.findCommentById(commentId);
-
+        // 상위 게시글 가져오기
+        const parentPost = await this.commentRepository.findPostById(postId)
         // 상위 댓글이 비밀 댓글인 경우 체크
         if (parentComment.isPrivate) {
             // 비밀 대댓글이 아니라면 에러 발생
@@ -39,9 +43,6 @@ class ChildCommentService {
             // 상위 댓글의 작성자 ID 가져오기
             const parentCommentUserId = parentComment.UserId;
 
-            // 상위 게시글 가져오기
-            const parentPost = await this.commentRepository.findPostById(postId)
-
             // 게시물 작성자 ID 가져오기
             const postUserId = parentPost.UserId;
 
@@ -49,8 +50,22 @@ class ChildCommentService {
             if (parentCommentUserId !== userId && postUserId !== userId) {
                 throw new Error("404/비밀 댓글에는 댓글 작성자 또는 게시물 작성자만 대댓글을 작성할 수 있습니다.");
             }
+
         };
-        return await this.childCommentRepository.createChildComment(userId, postId, commentId, childComment, isPrivate);
+        const createChildComment = await this.childCommentRepository.createChildComment(userId, postId, commentId, childComment, isPrivate);
+
+        // 알림 생성
+        // 대댓글 작성자가 댓글 작성자와 다른 경우 댓글 작성자에게 알림
+        if (userId !== parentComment.UserId) {
+            await this.notificationRepository.createNotification(parentComment.UserId, postId, commentId, createChildComment.childCommentId);
+        }
+
+        // 대댓글 작성자가 게시글 작성자와 다른 경우 게시글 작성자에게 알림
+        if (userId !== parentPost.UserId) {
+            await this.notificationRepository.createNotification(parentPost.UserId, postId, commentId, createChildComment.childCommentId);
+        }
+
+        return createChildComment;
     };
 
     // 대댓글과 비밀 대댓글 조회
