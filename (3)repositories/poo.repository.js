@@ -37,6 +37,7 @@ class PoosRepository {
                 "createdAt",
                 "updatedAt",
             ],
+            order: [["createdAt", "DESC"]] // 수정된 부분
         })
     }
 

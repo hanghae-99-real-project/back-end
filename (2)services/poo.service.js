@@ -38,42 +38,34 @@ class PoosService {
         }
     };
 
-    getPoo = async () => {
+    getPoo = async (originalUrl) => {
         try {
-            const getPooBoxAll = await redisClient.get('pooBoxAll')
-            console.log(getPooBoxAll)
-            if (getPooBoxAll) {
-                console.log('Cashe Hit')
-                return (JSON.parse(getPooBoxAll))
-            } else {
-                console.log('Cashe Miss')
-                const getPooData = await this.poosRepository.findAllPoo()
-                const response = await Promise.all(
-                    getPooData.map((poo) => {
-                        return {
-                            pooId: poo.pooId,
-                            UserId: poo.UserId,
-                            pooLatitude: poo.pooLatitude,
-                            pooLongitude: poo.pooLongitude,
-                            address: poo.address,
-                            createdAt: poo.createdAt,
-                            updatedAt: poo.updatedAt,
-                        };
-                    })
-                )
-                response.sort((a, b) => b.createdAt - a.createdAt);
-                redisClient.SETEX('pooBoxAll', DEFAULT_EXPIRATION, JSON.stringify(response))
-                return response;
-            }
+            const getPooData = await this.poosRepository.findAllPoo()
+            const getPooDataAll = await Promise.all(
+                getPooData.map((poo) => {
+                    return {
+                        pooId: poo.pooId,
+                        UserId: poo.UserId,
+                        pooLatitude: poo.pooLatitude,
+                        pooLongitude: poo.pooLongitude,
+                        address: poo.address,
+                        createdAt: poo.createdAt,
+                        updatedAt: poo.updatedAt,
+                    };
+                })
+            )
+            await redisClient.SETEX(originalUrl, DEFAULT_EXPIRATION, JSON.stringify(getPooDataAll))
+            return getPooDataAll;
+
         } catch (error) {
-            error.failedApi = "푸박스 조회";
+            error.failedApi = "푸박스 조회에러";
             throw error;
         }
 
     };
 
 
-    getPooDetail = async (pooId) => {
+    getPooDetail = async (pooId, originalUrl) => {
         try {
             const getPooData = await this.poosRepository.getPooDetail(pooId);
 
@@ -83,6 +75,7 @@ class PoosService {
             if (!getPooData) {
                 throw new Error("403/등록된 푸박스가 없습니다.")
             }
+            redisClient.SETEX(originalUrl, DEFAULT_EXPIRATION, JSON.stringify(getPooData))
             return getPooData
         } catch (error) {
             error.failedApi = "푸박스 상세조회";
