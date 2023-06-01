@@ -1,5 +1,4 @@
 const CommentRepository = require("../(3)repositories/comment.repository.js");
-// const NotificationService = require("../(2)services/notification.service.js");
 const NotificationRepository = require("../(3)repositories/notification.repository.js");
 const getAddress = require("../modules/kakao")
 
@@ -7,8 +6,10 @@ const { Comments, Users, Posts, Notifications } = require("../models");
 
 class CommentService {
     commentRepository = new CommentRepository(Comments, Users, Posts);
-    // notificationService = new NotificationService();
     notificationRepository = new NotificationRepository(Notifications);
+
+    // 댓글 생성 시에 게시글 작성자에게만 알림이 가도록 설정
+    // 게시글 작성자가 자신의 개시글에 댓글을 달면 알림이 가지 않도록 하기
 
     // 댓글 생성
     createComment = async (userId, postId, comment, commentPhotoUrl, isPrivate, commentLatitude, commentLongitude) => {
@@ -18,18 +19,18 @@ class CommentService {
         }
         const createcomment = await this.commentRepository.createComment(userId, postId, comment, commentPhotoUrl, isPrivate, commentLatitude, commentLongitude, address);
 
-        // // 댓글 생성 후 알림을 생성
-        // const post = await this.commentRepository.findPostById(postId);
-        // const postUserId = post ? post.UserId : null; // 게시물의 작성자 Id를 갖고옴
-        // const commentId = createcomment.commentId; // 방금 생성된 댓글의 Id를 갖고옴
+        // 댓글 생성 후 알림을 생성
+        const post = await this.commentRepository.findPostById(postId);
+        const postUserId = post ? post.UserId : null; // 게시물의 작성자 Id를 갖고옴
+        const commentId = createcomment.commentId; // 방금 생성된 댓글의 Id를 갖고옴
 
-        // // 게시글 작성자가 있으면 알림 생성 // 사실상 필요 없는데 예상치 못한 상황을 방지하기 위해 추가
-        // if (postUserId) {
-        //     await this.notificationRepository.createNotification(postId, commentId)
-        // }
+        // 게시글 작성자가 있고, 게시글 작성자와 댓글 작성자가 다르면 알림 생성
+        if (postUserId && postUserId !== userId) {
+            await this.notificationRepository.createNotification(postUserId, postId, commentId)
+        }
 
         return createcomment
-    }
+    };
 
     // 게시글 단순 조회
     findPostById = async (postId) => {
