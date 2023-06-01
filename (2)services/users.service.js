@@ -141,6 +141,8 @@ class UserService {
 
         const { kakaouserid } = await this.userRepository.findId(nickname)
         const { userId } = kakaouserid.userId
+        console.log(userId)
+        console.log(kakaouserid)
 
         return jwt.sign({ userId }, process.env.ACCESS_KEY);
     };
@@ -152,6 +154,7 @@ class UserService {
             querystring.stringify({
                 grant_type: "authorization_code",
                 client_id: process.env.KAKAO_CLIENT_ID,
+                client_secret: process.env.REACT_APP_KAKAO_CLIENT_SECRET,
                 redirect_uri: process.env.KAKAO_REDIRECT_URI,
                 code: authCode,
             }),
@@ -161,8 +164,8 @@ class UserService {
                 },
             }
         );
-
         const { access_token } = response.data;
+        console.log(access_token)
         return access_token;
     };
 
