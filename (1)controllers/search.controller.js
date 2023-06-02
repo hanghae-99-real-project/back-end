@@ -16,7 +16,7 @@ class SearchController {
             res.status(200).json(result);
         } catch (error) {
             error.failedApi = "검색";
-            throw error;
+            next(error);
         }
     };
 
@@ -33,7 +33,7 @@ class SearchController {
             res.status(200).json(result);
         } catch (error) {
             error.failedApi = "검색";
-            throw error;
+            next(error);
         }
     };
 
@@ -50,7 +50,7 @@ class SearchController {
             res.status(200).json(result);
         } catch (error) {
             error.failedApi = "검색";
-            throw error;
+            next(error);
         }
     };
 };

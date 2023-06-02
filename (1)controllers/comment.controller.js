@@ -18,7 +18,6 @@ class CommentController {
             }
 
             // 게시글이 존재하는지 여부 확인
-            // const post = await this.postsService.xxxx(postId); 
             const post = await this.commentService.findPostById(postId);
 
             if (!post) {
@@ -30,7 +29,7 @@ class CommentController {
             res.status(201).json({ message: "댓글을 작성하였습니다." });
         } catch (error) {
             error.failedApi = "댓글 생성";
-            throw error;
+            next(error);
         }
     };
 
@@ -55,7 +54,7 @@ class CommentController {
             return res.status(200).json({ commentsData: comments });
         } catch (error) {
             error.failedApi = "댓글 조회";
-            throw error;
+            next(error);
         }
     };
 
@@ -81,7 +80,7 @@ class CommentController {
             return res.status(200).json({ message: "댓글을 수정하였습니다." });
         } catch (error) {
             error.failedApi = "댓글 수정";
-            throw error;
+            next(error);
         }
     }
 
@@ -110,7 +109,7 @@ class CommentController {
             return res.status(200).json({ message: "댓글을 지웠습니다." });
         } catch (error) {
             error.failedApi = "댓글 삭제";
-            throw error;
+            next(error);
         }
     };
 };
