@@ -9,8 +9,8 @@ const notificationController = new NotificationController();
 // 특정 유저의 모든 알림 조회
 router.get("/", authMiddleware, notificationController.getNotificationForUser);
 
-// // 알림 상태 변경 // 읽음 or 안읽음 //isRead로 진실 혹은 거짓 표시
-// router.put("/:notificationId", authMiddleware, notificationController.markAsRead);
+// 알림 상태 변경 // 읽음 or 안읽음 //isRead로 진실 혹은 거짓 표시
+router.put("/:notificationId", authMiddleware, notificationController.markAsRead);
 
 module.exports = router;
 
