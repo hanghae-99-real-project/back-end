@@ -17,10 +17,12 @@ module.exports = async (req, res, next) => {
         const [authAccessType, authAccessToken] = (accesstoken ?? "").split(" ");
 
 
-
+        // refreshtoken이 없거나 accesstoken의 형식이 올바르지 않을 때
         if ((!refreshtoken) || (authAccessType !== "Bearer" || !authAccessToken)) {
-            res.locals.user = { userId: null }; // 가짜 사용자 객체를 만듭니다
-            return next(); // 다음 핸들러로 이동
+            // 로컬에 사용자 정보를 null로 설정 // 가짜 사용자 객체를 만듬
+            res.locals.user = { userId: null };
+            // 다음 미들웨어로 진행
+            return next();
         }
 
         const isAccessTokenValidate = validateAccessToken(authAccessToken);

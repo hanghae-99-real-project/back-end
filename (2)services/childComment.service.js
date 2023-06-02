@@ -74,7 +74,8 @@ class ChildCommentService {
         const parentComment = await this.commentRepository.findCommentById(commentId);
 
         // 상위 댓글의 작성자 ID 가져오기
-        const parentCommentUserId = parentComment ? parentComment.UserId : null;
+        // const parentCommentUserId = parentComment ? parentComment.UserId : null;
+        const parentCommentUserId = parentComment.UserId;
 
         // 게시물 작성자 ID 가져오기
         const post = await this.commentRepository.findPostById(postId);
