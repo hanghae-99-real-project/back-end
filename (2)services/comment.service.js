@@ -21,11 +21,11 @@ class CommentService {
 
         // 댓글 생성 후 알림을 생성
         const post = await this.commentRepository.findPostById(postId);
-        const postUserId = post ? post.UserId : null; // 게시물의 작성자 Id를 갖고옴
+        const postUserId = post.UserId; // 게시물의 작성자 Id를 갖고옴
         const commentId = createcomment.commentId; // 방금 생성된 댓글의 Id를 갖고옴
 
-        // 게시글 작성자가 있고, 게시글 작성자와 댓글 작성자가 다르면 알림 생성
-        if (postUserId && postUserId !== userId) {
+        // 게시글 작성자와 댓글 작성자가 다르면 알림 생성
+        if (postUserId !== userId) {
             await this.notificationRepository.createNotification(postUserId, postId, commentId)
         }
 
