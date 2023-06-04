@@ -32,6 +32,7 @@ class BookmarkRepository {
 
 
 
+
     cancelBookmark = async (userId, postId) => {
         const destroyBookmark = await this.bookMarksModel.destroy(
             {

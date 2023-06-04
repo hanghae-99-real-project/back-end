@@ -13,7 +13,7 @@
   "paths": {
     "/auth/signup": {
       "post": {
-        "description": "",
+        "description": "회원가입입니다",
         "parameters": [],
         "responses": {}
       }

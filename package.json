@@ -23,6 +23,8 @@
   },
   "homepage": "https://github.com/ystar5008/back-end#readme",
   "dependencies": {
+    "@sentry/node": "^7.54.0",
+    "@slack/client": "^5.0.2",
     "aws-sdk": "^2.1373.0",
     "axios": "^1.4.0",
     "body-parser": "^1.20.2",
@@ -36,6 +38,7 @@
     "express-rate-limit": "^6.7.0",
     "express-session": "^1.17.3",
     "gridfs-stream": "^1.1.1",
+    "helmet": "^7.0.0",
     "http-server": "^14.1.1",
     "ioredis": "^5.3.2",
     "jsonwebtoken": "^9.0.0",

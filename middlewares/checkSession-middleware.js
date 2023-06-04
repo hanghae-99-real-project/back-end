@@ -1,6 +1,7 @@
 const redisClient = require('../modules/redisClient')
 //세션체크를 위한 미들웨어
-checkSession = async (req, res, next) => {
+
+module.exports = async (req, res, next) => {
     try {
         const getSession = await redisClient.get(`sess:${req.sessionID}`)
         if (getSession) {
@@ -15,5 +16,3 @@ checkSession = async (req, res, next) => {
     }
 
 }
-    ;
-module.exports = checkSession

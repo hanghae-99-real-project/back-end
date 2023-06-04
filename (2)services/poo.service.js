@@ -7,7 +7,7 @@ const DEFAULT_EXPIRATION = 3600
 class PoosService {
     poosRepository = new PoosRepository(Poos, Users, redisClient)
 
-    postPoo = async (userId, content, pooPhotoUrl, pooLatitude, pooLongitude) => {
+    postPoo = async (userId, content, pooPhotoUrl, pooLatitude, pooLongitude, originalUrl) => {
         try {
 
             let address = await getAddress(pooLatitude, pooLongitude);
@@ -15,7 +15,8 @@ class PoosService {
                 address = `${pooLatitude}, ${pooLongitude}`
             }
             const postPooData = await this.poosRepository.postPoo(userId, content, pooPhotoUrl, pooLatitude, pooLongitude, address)
-
+            const getPooAll = await this.poosRepository.findAllPoo()
+            await redisClient.setEx(originalUrl, DEFAULT_EXPIRATION, JSON.stringify(getPooAll));
             if (!userId) {
                 throw new Error("403/마이페이지 권한이 없습니다.")
             }
@@ -54,8 +55,11 @@ class PoosService {
                     };
                 })
             )
+
             await redisClient.SETEX(originalUrl, DEFAULT_EXPIRATION, JSON.stringify(getPooDataAll))
+
             return getPooDataAll;
+
 
         } catch (error) {
             error.failedApi = "푸박스 조회에러";
