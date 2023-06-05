@@ -22,6 +22,10 @@ const config = {
 };
 const ms = require("ms");
 const app = express();
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server);
 
 
 
@@ -45,7 +49,6 @@ Sentry.init({
 
 
 //요청과 관련된 트랜잭션,스팬,브레드크럼 추적
-
 app.use(morgan("dev"))
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -71,27 +74,27 @@ app.use(session({
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 
-const webhook = new IncomingWebhook(config.SlackWebhook);
-webhook
-  .send({
-    attachments: [
-      {
-        color: 'danger',
-        text: '백엔드 에러 발생',
-        fields: [
-          {
-            title: '에러가 발생했습니다',
-            value: 'sentry에서 확인하세요',
-            short: false,
-          },
-        ],
-        ts: Math.floor(new Date().getTime() / 1000).toString(),
-      },
-    ],
-  })
-  .catch((err) => {
-    if (err) Sentry.captureException(err);
-  });
+// const webhook = new IncomingWebhook(config.SlackWebhook);
+// webhook
+//   .send({
+//     attachments: [
+//       {
+//         color: 'danger',
+//         text: '백엔드 에러 발생',
+//         fields: [
+//           {
+//             title: '에러가 발생했습니다',
+//             value: 'sentry에서 확인하세요',
+//             short: false,
+//           },
+//         ],
+//         ts: Math.floor(new Date().getTime() / 1000).toString(),
+//       },
+//     ],
+//   })
+//   .catch((err) => {
+//     if (err) Sentry.captureException(err);
+//   });
 app.use(Sentry.Handlers.requestHandler());
 app.use(Sentry.Handlers.tracingHandler());
 // https로 접속했을 때 http로 가지 않게 하기 위해 약 1년간 https로 묶어둔다.
@@ -116,9 +119,16 @@ app.use(Sentry.Handlers.errorHandler());
 
 
 app.get('/', (req, res) => {
-  res.send('Hello, World!');
+  res.sendFile(__dirname + '/index.html');
 });
 //에러핸들러 미들웨어를 추가함 발생한 오류를  sentry로 보내고 처리
+app.use(express.static(__dirname));
+io.on('connection', (socket) => {
+  console.log('a user connected');
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
+});
 
 
 app.listen(process.env.PORT, () => {
