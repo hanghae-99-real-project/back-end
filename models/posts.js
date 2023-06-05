@@ -81,13 +81,13 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: Sequelize.DATE
       },
-      views: {
-        allowNull: true,
-        type: DataTypes.INTEGER
-      },
-      status: {
-        allowNull: true,
-        type: DataTypes.INTEGER
+      //views: {
+      //  allowNull: true,
+      //  type: DataTypes.INTEGER
+      //},
+      //status: {
+      //  allowNull: true,
+      //  type: DataTypes.INTEGER
       },
     },
     {
