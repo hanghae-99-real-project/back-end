@@ -31,7 +31,7 @@ class PostController {
 
       const postData = {
         dogname,
-        UserId: userId,
+        userId: userId,
         nickname,
         title,
         content,
@@ -42,7 +42,8 @@ class PostController {
         views: 0,
         likeCount: 0,
         commentCount: 0,
-        address
+        address,
+        status: 0
       };
       await postService.createPost(postData);
       return res.status(201).json({ message: "게시글 작성에 성공하였습니다." });
@@ -115,6 +116,18 @@ class PostController {
     } catch (err) {
       console.error(err);
       res.status(400).send({ errorMessage: "게시글 삭제에 실패하였습니다." });
+    }
+  };
+
+  endPost = async (req, res) => {
+    try {
+      const { userId } = res.locals.user;
+      const { postId } = req.params;
+      await postService.endPost(userId, postId);
+      res.status(200).json({ message: "게시글 상태 변경이 완료되었습니다." });
+    } catch (err) {
+      console.error(err);
+      res.status(400).send({ errorMessage: "게시글 상태 변경에 실패하였습니다." });
     }
   };
 

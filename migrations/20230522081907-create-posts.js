@@ -31,19 +31,19 @@ module.exports = {
         type: Sequelize.STRING,
       },
       lostPhotoUrl: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.JSON,
       },
       lostLatitude: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DECIMAL(17, 14)
       },
       lostLongitude: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DECIMAL(17, 14)
       },
       address: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING
       },
       createdAt: {

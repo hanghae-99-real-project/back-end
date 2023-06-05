@@ -44,4 +44,9 @@ router.delete(
     postController.deletePost
 );
 
+router.post(
+    "/end",
+    postController.endPost);
+
+
 module.exports = router;
