@@ -1,11 +1,9 @@
 const redisClient = require('../modules/redisClient');
 
 class UserRepository {
-    constructor(UsersModel) {
+    constructor(UsersModel, UserDaosModel) {
         this.usersModel = UsersModel;
-    }
-    constructor(UserDaosModel) {
-        this.usersDaosModel = UserDaosModel;
+        this.userDaosModel = UserDaosModel;
     }
 
 
