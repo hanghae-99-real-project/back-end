@@ -155,7 +155,7 @@ class UserService {
     getTokens = async (authCode) => {
         console.log("어쓰코드",authCode)
         console.log("쿼리스트링",qs.stringify({
-            grant_type: "authorization_code",
+            Content_Type: "authorization_code",
             client_id: process.env.KAKAO_CLIENT_ID,
             client_secret: process.env.REACT_APP_KAKAO_CLIENT_SECRET,
             redirect_uri: process.env.KAKAO_REDIRECT_URI,
@@ -172,7 +172,7 @@ class UserService {
             }),
             {
                 headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
+                    "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
                 },
             }
         );
