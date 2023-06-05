@@ -20,15 +20,10 @@ class PostService {
                         nickname: item.nickname,
                         title: item.title,
                         content: item.content,
-                        like: item.like,
-                        views: item.views,
                         createdAt: item.createdAt,
                         updatedAt: item.updatedAt,
-                        lostPhotoUrl: item.lostPhotoUrl,
-                        commentCount: null,
                         lostLatitude: item.lostLatitude,
                         lostLongitude: item.lostLocation,
-                        address: item.address
                     };
 
                     return post;
@@ -93,26 +88,21 @@ class PostService {
         await postRepository.deletePostById(postId);
     };
 
-    // createSamplePost = async () => {
-    //     try {
-    //         const postData = {
-    //             UserId: 1,
-    //             dogname: '메이',
-    //             title: '귀요미 잃어버렸어요',
-    //             content: '귀요미 분 계실까요?',
-    //             photoUrl: 'https://example.com/dogPhoto.jpg'
-    //         };
+    endPost = async (userId, postId) => {
+        const post = await postRepository.findPostById(postId);
 
-    //         const post = await postRepository.create(postData);
-    //         console.log('Post created:', post);
-    //         return post;
-    //     } catch (error) {
-    //         console.error('Error creating post:', error);
-    //     }
-    // };
+        if (!post) {
+            throw new Error("게시글이 존재하지 않습니다.");
+        }
+
+        if (userId !== post.userId) {
+            throw new Error("게시글 삭제 권한이 없습니다.");
+        }
+
+        await postRepository.deletePostById(postId);
+    };
 
 }
-// const postService = new PostService();
-// postService.createSamplePost();
+
 
 module.exports = PostService;

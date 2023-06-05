@@ -62,16 +62,16 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true
       },
       lostLatitude: {
-        allowNull: false,
+        allowNull: true,
         type: DataTypes.DECIMAL(17, 14)
       },
       lostLongitude: {
-        allowNull: false,
+        allowNull: true,
         type: DataTypes.DECIMAL(17, 14)
       },
       address: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
       },
       createdAt: {
         allowNull: false,
@@ -80,10 +80,6 @@ module.exports = (sequelize, DataTypes) => {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      },
-      address: {
-        type: DataTypes.STRING,
-        allowNull: true
       },
     },
     {

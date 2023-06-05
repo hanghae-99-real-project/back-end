@@ -48,6 +48,10 @@ class PostRepository {
         });
     };
 
+    endPost = async (postId) => {
+        await Posts.increment('status', { where: { postId } });
+    };
+
 };
 
 module.exports = PostRepository;
