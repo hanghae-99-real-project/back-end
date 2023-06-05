@@ -154,7 +154,7 @@ class UserService {
     // 엑세스 토큰 받아오기
     getTokens = async (authCode) => {
         console.log("어쓰코드",authCode)
-        console.log("쿼리스트링",querystring.stringify({
+        console.log("쿼리스트링",qs.stringify({
             grant_type: "authorization_code",
             client_id: process.env.KAKAO_CLIENT_ID,
             client_secret: process.env.REACT_APP_KAKAO_CLIENT_SECRET,
