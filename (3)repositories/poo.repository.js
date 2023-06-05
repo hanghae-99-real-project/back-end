@@ -28,27 +28,18 @@ class PoosRepository {
                     attribues: ['userId'],
                 },
             ],
-            attributes: [
-                "pooId",
-                "UserId",
-                "pooLatitude",
-                "pooLongitude",
-                "address",
-                "createdAt",
-                "updatedAt",
-            ],
             order: [["createdAt", "DESC"]] // 수정된 부분
         })
     }
 
 
-    getPooDetail = async (pooId) => {
-        const getPooData = await this.poo.findOne(
-            { where: { pooId } }
-        );
+    // getPooDetail = async (pooId) => {
+    //     const getPooData = await this.poo.findOne(
+    //         { where: { pooId } }
+    //     );
 
-        return getPooData
-    };
+    //     return getPooData
+    // };
 
 }
 

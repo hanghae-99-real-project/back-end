@@ -47,6 +47,8 @@ class PoosService {
                     return {
                         pooId: poo.pooId,
                         UserId: poo.UserId,
+                        content: poo.content,
+                        pooPhotoUrl: poo.pooPhotoUrl,
                         pooLatitude: poo.pooLatitude,
                         pooLongitude: poo.pooLongitude,
                         address: poo.address,
@@ -56,7 +58,7 @@ class PoosService {
                 })
             )
 
-            await redisClient.SETEX(originalUrl, DEFAULT_EXPIRATION, JSON.stringify(getPooDataAll))
+            await redisClient.setEx(originalUrl, DEFAULT_EXPIRATION, JSON.stringify(getPooDataAll))
 
             return getPooDataAll;
 
@@ -69,24 +71,24 @@ class PoosService {
     };
 
 
-    getPooDetail = async (pooId, originalUrl) => {
-        try {
-            const getPooData = await this.poosRepository.getPooDetail(pooId);
+    // getPooDetail = async (pooId, originalUrl) => {
+    //     try {
+    //         const getPooData = await this.poosRepository.getPooDetail(pooId);
 
-            if (!pooId) {
-                throw new Error("403/푸박스를 찾을 수 없습니다.")
-            }
-            if (!getPooData) {
-                throw new Error("403/등록된 푸박스가 없습니다.")
-            }
-            redisClient.SETEX(originalUrl, DEFAULT_EXPIRATION, JSON.stringify(getPooData))
-            return getPooData
-        } catch (error) {
-            error.failedApi = "푸박스 상세조회";
-            throw error;
-        }
+    //         if (!pooId) {
+    //             throw new Error("403/푸박스를 찾을 수 없습니다.")
+    //         }
+    //         if (!getPooData) {
+    //             throw new Error("403/등록된 푸박스가 없습니다.")
+    //         }
+    //         redisClient.SETEX(originalUrl, DEFAULT_EXPIRATION, JSON.stringify(getPooData))
+    //         return getPooData
+    //     } catch (error) {
+    //         error.failedApi = "푸박스 상세조회";
+    //         throw error;
+    //     }
 
-    };
+    // };
 }
 
 module.exports = PoosService;
