@@ -88,7 +88,7 @@ module.exports = (sequelize, DataTypes) => {
       //status: {
       //  allowNull: true,
       //  type: DataTypes.INTEGER
-      },
+      //},
     },
     {
       sequelize,
