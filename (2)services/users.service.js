@@ -7,7 +7,6 @@ const { Users } = require("../models");
 const axios = require("axios");
 const { UserDao } = require("../models");
 require('dotenv').config();
-const querystring = require('querystring');
 const qs = require('qs');
 const redisClient = require('../modules/redisClient');
 
@@ -164,7 +163,7 @@ class UserService {
         }))
         const response = await axios.post(
             "https://kauth.kakao.com/oauth/token",
-            querystring.stringify({
+            qs.stringify({
                 grant_type: "authorization_code",
                 client_id: process.env.KAKAO_CLIENT_ID,
                 client_secret: process.env.REACT_APP_KAKAO_CLIENT_SECRET,
