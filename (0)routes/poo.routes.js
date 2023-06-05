@@ -15,6 +15,6 @@ router.post("/", authMiddleware, uploadpooImage.single("pooPhotoUrl"), pooContro
 router.get("/", casheCheck, pooController.getPoo);
 
 //푸박스 상세조회
-router.get("/:pooId", casheCheck, pooController.getPooDetail);
+//router.get("/:pooId", casheCheck, pooController.getPooDetail);
 
 module.exports = router;

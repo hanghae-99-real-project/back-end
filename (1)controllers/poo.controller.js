@@ -20,14 +20,14 @@ class PoosController {
         return res.status(201).json({ getPooData })
     };
 
-    getPooDetail = async (req, res, next) => {
-        const { pooId } = req.params
-        const originalUrl = req.originalUrl
+    // getPooDetail = async (req, res, next) => {
+    //     const { pooId } = req.params
+    //     const originalUrl = req.originalUrl
 
-        const getPooData = await this.poosService.getPooDetail(pooId, originalUrl);
+    //     const getPooData = await this.poosService.getPooDetail(pooId, originalUrl);
 
-        return res.status(201).json(getPooData)
-    };
+    //     return res.status(201).json(getPooData)
+    // };
 
 }
 
