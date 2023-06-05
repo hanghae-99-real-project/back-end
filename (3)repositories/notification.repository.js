@@ -41,10 +41,27 @@ class NotificationRepository {
         return notifications
     }
 
-    // // 알림 상태 변경 // 읽음 or 안읽음 //isRead로 진실 혹은 거짓 표시
-    // markAsRead = async (notificationId, isRead) => {
-    //     return await this.notificationsModel.update({ isRead: true }, { where: { notificationId } });
-    // }
+    // 알림 상태 변경 // 읽음 or 안읽음 //isRead로 진실 혹은 거짓 표시
+    updateNotification = async (notificationId, userId) => {
+        return await this.notificationsModel.update({
+            isRead: true
+        },
+            {
+                where: {
+                    notificationId,
+                    UserId: userId
+                }
+            });
+    }
+
+    getNotificationByIdAndUserId = async (notificationId, userId) => {
+        return await this.notificationsModel.findOne({
+            where: {
+                notificationId,
+                UserId: userId
+            }
+        });
+    }
 }
 
 module.exports = NotificationRepository;

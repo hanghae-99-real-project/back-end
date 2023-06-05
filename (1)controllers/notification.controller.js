@@ -14,22 +14,29 @@ class NotificationController {
             res.status(200).json({ notificationsData: notifications });
         } catch (error) {
             error.failedApi = "알림 조회"
-            throw error
+            next(error);
         }
     }
 
-    // // 알림 상태 변경 // 읽음 or 안읽음 //isRead로 진실 혹은 거짓 표시
-    // markAsRead = async (req, res, next) => {
-    //     try {
-    //         const { notificationId, isRead } = req.params;
+    // 알림 상태 변경 // 읽음 or 안읽음 //isRead로 진실 혹은 거짓 표시
+    markAsRead = async (req, res, next) => {
+        try {
+            const { userId } = res.locals.user;
+            const { notificationId } = req.params;
 
-    //         await this.notificationService.markAsRead(notificationId, isRead);
+            const notification = await this.notificationService.getNotificationsByUserIds(notificationId, userId);
 
-    //         res.status(200).json({ message: "알림 읽음" })
-    //     } catch (error) {
-    //         error.failedApi = "알림 읽음 or 안읽음"
-    //         throw error
-    //     }
-    // }
+            if (!notification) {
+                throw new Error("403/해당 알림을 확인할 수 없습니다.");
+            }
+
+            await this.notificationService.markAsRead(notificationId, userId);
+
+            res.status(200).json({ message: "알림을 확인하였습니다." })
+        } catch (error) {
+            error.failedApi = "알림 확인"
+            next(error);
+        }
+    }
 }
 module.exports = NotificationController;

@@ -21,11 +21,11 @@ class CommentService {
 
         // 댓글 생성 후 알림을 생성
         const post = await this.commentRepository.findPostById(postId);
-        const postUserId = post ? post.UserId : null; // 게시물의 작성자 Id를 갖고옴
+        const postUserId = post.UserId; // 게시물의 작성자 Id를 갖고옴
         const commentId = createcomment.commentId; // 방금 생성된 댓글의 Id를 갖고옴
 
-        // 게시글 작성자가 있고, 게시글 작성자와 댓글 작성자가 다르면 알림 생성
-        if (postUserId && postUserId !== userId) {
+        // 게시글 작성자와 댓글 작성자가 다르면 알림 생성
+        if (postUserId !== userId) {
             await this.notificationRepository.createNotification(postUserId, postId, commentId)
         }
 
@@ -41,7 +41,8 @@ class CommentService {
     findCommentsByPostId = async (postId, userId) => {
         const comments = await this.commentRepository.findCommentsByPostId(postId);
         const post = await this.commentRepository.findPostById(postId);
-        const postUserId = post ? post.UserId : null; // 해당 게시물의 작성자 ID를 가져옴 (게시물이 존재하면 작성자 ID, 없으면 null)
+        // const postUserId = post ? post.UserId : null; // 해당 게시물의 작성자 ID를 가져옴 (게시물이 존재하면 작성자 ID, 없으면 null)
+        const postUserId = post.UserId
 
         const commentsWithDetail = await Promise.all(
             comments.map(async (comment) => {
@@ -65,13 +66,14 @@ class CommentService {
                     commentLatitude: comment.commentLatitude,
                     commentLongitude: comment.commentLongitude,
                     address: comment.address,
+                    isPrivate: comment.isPrivate,
                     createdAt: comment.createdAt,
                     updatedAt: comment.updatedAt,
                 };
             }),
         )
 
-        return commentsWithDetail.filter(comment => comment !== null).sort((a, b) => b.createdAt - a.createdAt); // null 값이 있으면 filter 사용 가능. 없어도 추 후를 위해 굳이 없애지 않아도 됨
+        return commentsWithDetail.filter(comment => comment !== null).sort((a, b) => b.createdAt - a.createdAt);
     };
 
     // 댓글 아이디로 댓글 조회
