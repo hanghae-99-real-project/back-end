@@ -39,11 +39,11 @@ class PostController {
         lostLatitude,
         lostLongitude,
         likes: 0,
-        views: 0,
+        //views: 0,
         likeCount: 0,
         commentCount: 0,
         address,
-        status: 0
+        //status: 0
       };
       await postService.createPost(postData);
       return res.status(201).json({ message: "게시글 작성에 성공하였습니다." });
