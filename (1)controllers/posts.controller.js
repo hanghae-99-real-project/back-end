@@ -31,7 +31,7 @@ class PostController {
 
       const postData = {
         dogname,
-        userId: userId,
+        UserId: userId,
         nickname,
         title,
         content,
