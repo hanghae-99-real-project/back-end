@@ -140,6 +140,7 @@ class UserController {
       };
 
       req.session.sessionData = sessionData
+
       await req.session.save()
       return res.status(200).json({ accessToken, refreshToken });
 
@@ -188,9 +189,9 @@ class UserController {
   //카카오로그인
   signInKakao = async (req, res) => {
     const headers = req.headers["authorization"];
-    console.log("헤더에 담긴 내용",headers)
+    console.log("헤더에 담긴 내용", headers)
     const authCode = headers.split(" ")[1];
-    console.log("스플릿 해서 담은 결과",authCode)
+    console.log("스플릿 해서 담은 결과", authCode)
     const kakaoToken = await this.userService.getTokens(authCode);
     console.log("1차전 마치고 나온 결과물.", kakaoToken)
     const { accessToken } = await this.userService.signInKakao(kakaoToken);
