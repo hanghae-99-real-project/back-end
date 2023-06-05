@@ -9,6 +9,7 @@ const { UserDao } = require("../models");
 require('dotenv').config();
 const querystring = require('querystring');
 const qs = require('qs');
+const redisClient = require('../modules/redisClient');
 
 
 class UserService {
