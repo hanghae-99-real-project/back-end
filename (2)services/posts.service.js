@@ -8,9 +8,13 @@ class PostService {
         return await postRepository.create(postData);
     }
 
-    async getPosts() {
+    async getPosts(
+        // limit, offset
+    ) {
         try {
-            const posts = await postRepository.getPosts();
+            const posts = await postRepository.getPosts(
+                // limit, offset
+            );
             const results = await Promise.all(
                 posts.map(async (item) => {
                     const post = {
