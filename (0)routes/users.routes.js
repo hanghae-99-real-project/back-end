@@ -49,5 +49,13 @@ router.post(
     '/kakao/signin',
     userController.signInKakao)
 
+
+    router.put(
+        "/",
+        authMiddleware,
+        uploaduserImage.single("userPhoto"),
+        userController.updatePost
+    );
+
     
 module.exports = router;
