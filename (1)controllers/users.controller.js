@@ -112,7 +112,7 @@ class UserController {
       const loginUser = await this.userService.loginUser(phoneNumber);
       const userId = loginUser.userId;
   
-      const passwordMatch = await bcrypt.compare(password, loginUser.password);
+      const passwordMatch = await bcrypt.hash(password, 10);
       if (!loginUser || !passwordMatch) {
         return res
           .status(412)

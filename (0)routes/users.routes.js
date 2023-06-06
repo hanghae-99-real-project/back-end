@@ -10,7 +10,7 @@ const uploaduserImage = require('../modules/user_s3.js');
 
 router.post(
     "/users",
-    uploaduserImage.single("image"),
+    uploaduserImage.single("userPhoto"),
     userController.signup);
 
 
