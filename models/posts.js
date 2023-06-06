@@ -73,22 +73,22 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: true
       },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
       views: {
         allowNull: true,
-        type: DataTypes.INTEGER
+        type: sDataType.INTEGER
       },
       status: {
         allowNull: true,
-        type: DataTypes.INTEGER
+        type: DataTypes.BOOLEAN
       },
+      createdAt: {
+        allowNull: false,
+        type: DataTypes.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: DataTypes.DATE
+      }
     },
     {
       sequelize,
