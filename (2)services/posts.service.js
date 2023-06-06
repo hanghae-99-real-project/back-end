@@ -81,7 +81,7 @@ class PostService {
             throw new Error("게시글이 존재하지 않습니다.");
         }
 
-        if (userId !== post.userId) {
+        if (userId !== post.UserId) {
             throw new Error("게시글 삭제 권한이 없습니다.");
         }
 
@@ -95,7 +95,7 @@ class PostService {
             throw new Error("게시글이 존재하지 않습니다.");
         }
 
-        if (userId !== post.userId) {
+        if (userId !== post.UserId) {
             throw new Error("게시글 삭제 권한이 없습니다.");
         }
 
