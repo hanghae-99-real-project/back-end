@@ -18,6 +18,7 @@ class PostService {
                         postId: item.postId,
                         userId: item.userId,
                         nickname: item.nickname,
+                        lostPhotoUrl: item.lostPhotoUrl,
                         title: item.title,
                         content: item.content,
                         createdAt: item.createdAt,
