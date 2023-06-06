@@ -1,4 +1,5 @@
 const redisClient = require('../modules/redisClient');
+const bcrypt = require("bcrypt");
 
 class UserRepository {
     constructor(UsersModel, UserDaosModel) {
@@ -19,8 +20,7 @@ class UserRepository {
         password,
         phoneNumber,
         position,
-        userPhoto,
-
+        userPhoto
     ) => {
         const signupData = await this.usersModel.create({
             nickname,
