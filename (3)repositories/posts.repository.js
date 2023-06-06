@@ -18,7 +18,7 @@ class PostRepository {
     }
 
     findPostById = async (postId) => {
-        //await Posts.increment('views', { where: { postId } });
+        await Posts.increment('views', { where: { postId } });
         const post = await Posts.findByPk(postId);
         return post;
     };

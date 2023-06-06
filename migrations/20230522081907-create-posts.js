@@ -56,14 +56,14 @@ module.exports = {
         type: Sequelize.DATE,
         defaultValue: Sequelize.fn("now"),
       },
-      //views: {
-      //  allowNull: true,
-      //  type: DataTypes.INTEGER
-      //},
-      //status: {
-      //  allowNull: true,
-      //  type: DataTypes.INTEGER
-      //},
+      views: {
+        allowNull: true,
+        type: DataTypes.INTEGER
+      },
+      status: {
+        allowNull: true,
+        type: DataTypes.INTEGER
+      },
     });
   },
   async down(queryInterface, Sequelize) {
