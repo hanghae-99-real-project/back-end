@@ -9,6 +9,8 @@ const { UserDao } = require("../models");
 require('dotenv').config();
 const qs = require('qs');
 const redisClient = require('../modules/redisClient');
+const bcrypt = require("bcrypt");
+
 
 
 class UserService {
@@ -26,16 +28,21 @@ class UserService {
         password,
         phoneNumber,
         position,
-        userPhoto,
+        userPhoto
     ) => {
-        const signupData = await this.userRepository.signup(
-            nickname,
-            password,
-            phoneNumber,
-            position,
-            userPhoto,
+        try {
+            const hashedPassword = await bcrypt.hash(password, 10);
+            const signupData = await this.userRepository.signup(
+                nickname,
+                hashedPassword,
+                phoneNumber,
+                position,
+                userPhoto
         );
         return signupData;
+        } catch (error) {
+            throw new Error("회원 가입 중 에러가 발생했습니다.");
+        }
     };
 
     // 회원탈퇴 API
