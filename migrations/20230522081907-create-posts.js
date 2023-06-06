@@ -46,6 +46,14 @@ module.exports = {
         allowNull: true,
         type: Sequelize.STRING
       },
+      views: {
+        allowNull: true,
+        type: Sequelize.INTEGER
+      },
+      status: {
+        allowNull: true,
+        type: Sequelize.BOOLEAN
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -55,15 +63,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.fn("now"),
-      },
-      views: {
-        allowNull: true,
-        type: DataTypes.INTEGER
-      },
-      status: {
-        allowNull: true,
-        type: DataTypes.INTEGER
-      },
+      }
     });
   },
   async down(queryInterface, Sequelize) {
