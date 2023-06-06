@@ -50,12 +50,12 @@ router.post(
     userController.signInKakao)
 
 
-    router.put(
-        "/",
-        authMiddleware,
-        uploaduserImage.single("userPhoto"),
-        userController.updatePost
-    );
+    // router.put(
+    //     "/",
+    //     authMiddleware,
+    //     uploaduserImage.single("userPhoto"),
+    //     userController.updatePost
+    // );
 
     
 module.exports = router;
