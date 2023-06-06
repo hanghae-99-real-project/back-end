@@ -7,6 +7,7 @@ const { Users } = require("../models");
 const axios = require("axios");
 const { UserDao } = require("../models");
 require('dotenv').config();
+const querystring = require('querystring');
 const qs = require('qs');
 const redisClient = require('../modules/redisClient');
 const bcrypt = require("bcrypt");
@@ -161,7 +162,7 @@ class UserService {
     // 엑세스 토큰 받아오기
     getTokens = async (authCode) => {
         console.log("어쓰코드",authCode)
-        console.log("쿼리스트링",qs.stringify({
+        console.log("쿼리스트링",querystring.stringify({
             Content_Type: "authorization_code",
             client_id: process.env.KAKAO_CLIENT_ID,
             client_secret: process.env.REACT_APP_KAKAO_CLIENT_SECRET,
@@ -170,7 +171,7 @@ class UserService {
         }))
         const response = await axios.post(
             "https://kauth.kakao.com/oauth/token",
-            qs.stringify({
+            querystring.stringify({
                 grant_type: "authorization_code",
                 client_id: process.env.KAKAO_CLIENT_ID,
                 client_secret: process.env.REACT_APP_KAKAO_CLIENT_SECRET,
