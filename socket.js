@@ -2,23 +2,24 @@ const SocketIO = require('socket.io');
 // const axios = require('axios');
 
 // 유저 위치를 저장할 객체
-// const userLocations = {};
 
 module.exports = (server, app) => {
     const io = SocketIO(server, { path: '/socket.io' });
     app.set('io', io);
-    // const room = io.of('/room');
-    // const chat = io.of('/chat');
+    const nav = io.of('/navigation');
 
     //서버에서 먼저 통로연걸
-    io.on('connection', (socket) => {
+    nav.on('connection', (socket) => {
 
         console.log('네비게이션 통로에 접속');
         socket.on("send location", (data) => {
 
-            // userLocations[socket.id] = location;
-            console.log(data)
+            //객체를 가지고 반경거리? 계산
+            //반경거리? 무슨 위경도를가지고 데이터를 실시간 조작해서
+            //다시 리시브 로케이션
+            //
             socket.emit("receive location", data);
+            console.log(data)
 
         })
     })

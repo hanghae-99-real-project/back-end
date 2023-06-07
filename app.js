@@ -118,9 +118,8 @@ app.use(Sentry.Handlers.errorHandler());
 
 app.use(express.static(path.join(__dirname)));
 
-app.get('/', (req, res) => {
-  const tmapApiKey = process.env.TMAP_API_KEY;
-  res.sendFile(path.join(__dirname, 'index.html'));
+app.get('/navigation', (req, res) => {
+  res.status(200).sendFile(path.join(__dirname, 'index.html'));
 });
 
 const server = app.listen(process.env.PORT, () => {
