@@ -10,7 +10,12 @@ class CommentController {
         try {
             const { userId } = res.locals.user;
             const { postId } = req.params;
-            const { comment, isPrivate, commentLatitude, commentLongitude } = req.body;
+            const {
+                comment,
+                isPrivate,
+                // commentLatitude, 
+                // commentLongitude 
+            } = req.body;
             const { commentPhotoUrl } = req;
 
             if (!comment) {
@@ -24,7 +29,15 @@ class CommentController {
                 throw new Error("403/게시물이 존재하지 않습니다");
             }
 
-            await this.commentService.createComment(userId, postId, comment, commentPhotoUrl, isPrivate, commentLatitude, commentLongitude);
+            await this.commentService.createComment(
+                userId,
+                postId,
+                comment,
+                commentPhotoUrl,
+                isPrivate,
+                // commentLatitude, 
+                // commentLongitude
+            );
 
             res.status(201).json({ message: "댓글을 작성하였습니다." });
         } catch (error) {
