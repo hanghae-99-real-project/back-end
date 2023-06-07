@@ -5,7 +5,7 @@ const send_message = require("../modules/smsService")
 const jwt = require("jsonwebtoken");
 const { Users } = require("../models");
 const axios = require("axios");
-const { UserDao } = require("../models");
+const { UserDaos } = require("../models");
 require('dotenv').config();
 const querystring = require('querystring');
 const qs = require('qs');
@@ -137,14 +137,14 @@ class UserService {
 
         if (!nickname || !email) throw new Error("KEY_ERROR", 400);
 
-        let user = await UserDao.findOne({
+        let user = await UserDaos.findOne({
             where: {
                 email: email,
             },
         });
 
         if (!user) {
-            user = await UserDao.create({
+            user = await UserDaos.create({
                 email: email,
                 nickname: nickname,
                 profileImage: profileImage,
