@@ -130,9 +130,13 @@ class UserService {
 
         const { data } = result;
         console.log("데이터 전문",data)
-        const {nickname} = data.properties.nickname;
+        const userId = data.id
+        const nickname = data.properties.nickname;
         const email = data.kakao_account.email;
         const profileImage = data.properties.profile_image;
+        console.log("닉네임",nickname)
+        console.log("이메일",email)
+        console.log("프로필 이미지",profileImage)
 
 
         if (!nickname || !email) throw new Error("KEY_ERROR", 400);
@@ -144,7 +148,8 @@ class UserService {
         });
 
         if (!user) {
-            user = await UserDao.create({
+                user = await UserDao.create({
+                userId : userId,
                 email: email,
                 nickname: nickname,
                 profileImage: profileImage,
@@ -152,7 +157,6 @@ class UserService {
         }
 
         const { kakaouserid } = await this.userRepository.findId(nickname)
-        const { userId } = kakaouserid.userId
         console.log(userId)
         console.log(kakaouserid)
 
