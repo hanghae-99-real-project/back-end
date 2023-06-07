@@ -1,4 +1,6 @@
 const redisClient = require('../modules/redisClient');
+const { Users } = require('../models');
+
 const bcrypt = require("bcrypt");
 
 class UserRepository {
@@ -60,6 +62,19 @@ class UserRepository {
     findId = async (nickname) => {
         const loginUser = await this.userDaosModel.findOne({ where: { nickname } });
         return loginUser;
+    };
+
+    updateuserById = async (userId, hashedPassword, nickname, userPhoto) => {
+        await Users.update(
+            {
+                passward : hashedPassword,
+                nickname: nickname,
+                userPhoto: userPhoto,
+            },
+            {
+                where: { userId }
+            }
+        );
     };
 
 
