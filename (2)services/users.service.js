@@ -190,5 +190,28 @@ class UserService {
         return access_token;
     };
 
+
+    updateuser = async (
+        userId,
+        hashedPassword,
+        nickname,
+        userPhoto,
+    ) => {
+        if (!hashedPassword || !nickname) {
+            throw new Error("입력 값이 유효하지 않습니다.");
+        }
+
+        if (userId == null) {
+            throw new Error(" 유저 아이디가 null 입니다");
+        }
+
+        await this.userRepository.updateuserById(
+        userId,
+        hashedPassword,
+        nickname,
+        userPhoto,
+        );
+    };
+
 };
 module.exports = UserService;

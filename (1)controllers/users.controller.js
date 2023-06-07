@@ -203,6 +203,27 @@ class UserController {
     res.cookie("refreshtoken", `Bearer ${refreshToken}`);
     return res.status(200).json({ accessToken, refreshToken });
   };
+
+  updateUser = async (req, res) => {
+    try {
+      const { nickname, } = req.body;
+      const { password } = req.body;
+      const { userPhoto } = req;
+      const { userId } = res.locals.user
+
+      const hashedPassword = await bcrypt.hash(password, 10);
+      await this.userService.updateuser(
+        userId,
+        hashedPassword,
+        nickname,
+        userPhoto,
+      );
+      res.status(200).json({ message: "마이페이지를 수정하였습니다." });
+    } catch (err) {
+      console.error(err);
+      res.status(400).send({ errorMessage: "마이페이지 수정에 실패하였습니다." });
+    }
+  };
 }
 
 module.exports = UserController;
