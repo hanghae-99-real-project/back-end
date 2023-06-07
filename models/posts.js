@@ -75,7 +75,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       views: {
         allowNull: true,
-        type: sDataType.INTEGER
+        type: DataTypes.INTEGER
       },
       status: {
         allowNull: true,

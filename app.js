@@ -55,7 +55,7 @@ app.use(express.json());
 app.use(cookieParser());
 // express사용 정보 숨기기
 app.disable("x-powered-by");
-app.use(cors({  origin: ['http://localhost:3000', 'https://front-end-fork-m30hc9mpj-vegatality.vercel.app'], credentials: true }));
+app.use(cors({ origin: ['http://localhost:3000', 'https://front-end-fork-m30hc9mpj-vegatality.vercel.app'], credentials: true }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(session({
   store: new RedisStore({ client: redisClient }),
@@ -117,18 +117,13 @@ app.use("/api", router);
 app.use(errorHandler);
 app.use(Sentry.Handlers.errorHandler());
 
+app.use(express.static(__dirname));
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
 //에러핸들러 미들웨어를 추가함 발생한 오류를  sentry로 보내고 처리
-app.use(express.static(__dirname));
-io.on('connection', (socket) => {
-  console.log('a user connected');
-  socket.on('disconnect', () => {
-    console.log('user disconnected');
-  });
-});
+
 
 
 app.listen(process.env.PORT, () => {
