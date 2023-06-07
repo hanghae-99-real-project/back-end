@@ -21,11 +21,9 @@ const config = {
   SlackWebhook: process.env.webHookUrl
 };
 const ms = require("ms");
+const path = require('path');
 const app = express();
-const http = require('http');
-const server = http.createServer(app);
-const { Server } = require("socket.io");
-const io = new Server(server);
+const webSocket = require("./socket.js");
 
 
 
@@ -55,7 +53,7 @@ app.use(express.json());
 app.use(cookieParser());
 // express사용 정보 숨기기
 app.disable("x-powered-by");
-app.use(cors({  origin: ['http://localhost:3000', 'https://front-end-fork-m30hc9mpj-vegatality.vercel.app'], credentials: true }));
+app.use(cors({ origin: ['http://localhost:3000', 'https://front-end-fork-m30hc9mpj-vegatality.vercel.app'], credentials: true }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(session({
   store: new RedisStore({ client: redisClient }),
@@ -114,23 +112,20 @@ app.use(helmet.frameguard("deny"));
 // 브라우저에서 파일 형식의 임의 추측 금지
 app.use(helmet.noSniff());
 app.use("/api", router);
+// app.use(webSocket)
 app.use(errorHandler);
 app.use(Sentry.Handlers.errorHandler());
 
+app.use(express.static(path.join(__dirname)));
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
-});
-//에러핸들러 미들웨어를 추가함 발생한 오류를  sentry로 보내고 처리
-app.use(express.static(__dirname));
-io.on('connection', (socket) => {
-  console.log('a user connected');
-  socket.on('disconnect', () => {
-    console.log('user disconnected');
-  });
+  const tmapApiKey = process.env.TMAP_API_KEY;
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-
-app.listen(process.env.PORT, () => {
+const server = app.listen(process.env.PORT, () => {
   console.log(`running http://localhost:${process.env.PORT}`);
 });
+
+
+webSocket(server, app, session);

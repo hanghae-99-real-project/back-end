@@ -9,8 +9,12 @@ class PostRepository {
     };
 
 
-    async getPosts() {
+    async getPosts(
+        // limit, offset
+    ) {
         return await Posts.findAll({
+            // limit: limit,
+            // offset: offset,
             order: [
                 ['createdAt', 'DESC']
             ],

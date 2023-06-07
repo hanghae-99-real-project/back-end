@@ -55,7 +55,13 @@ class PostController {
 
   getPosts = async (req, res) => {
     try {
-      const posts = await postService.getPosts();
+      // const limit = 10;
+      // const page = req.query.page ? req.query.page : 1;
+      // const offset = (page - 1) * limit; // 페이지네이션
+
+      const posts = await postService.getPosts(
+        // limit, offset
+      );
       if (posts.error) {
         throw new Error(posts.message);
       }

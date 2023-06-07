@@ -43,7 +43,7 @@ module.exports = async (req, res, next) => {
 
             console.log(newAccessToken)
             res.cookie("accesstoken", `Bearer ${newAccessToken}`);
-            return res.status(200).json({ newAccessToken });
+            return res.status(203).json({ newAccessToken });
         }
 
         const { userId } = jwt.verify(authAccessToken, process.env.ACCESS_KEY);
