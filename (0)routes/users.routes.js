@@ -10,7 +10,7 @@ const uploaduserImage = require('../modules/user_s3.js');
 
 router.post(
     "/users",
-    uploaduserImage.single("image"),
+    uploaduserImage.single("userPhoto"),
     userController.signup);
 
 
@@ -48,6 +48,14 @@ router.post(
 router.post(
     '/kakao/signin',
     userController.signInKakao)
+
+
+    router.put(
+        "/users",
+        authMiddleware,
+        uploaduserImage.single("userPhoto"),
+        userController.updateUser
+    );
 
     
 module.exports = router;

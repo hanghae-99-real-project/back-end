@@ -10,6 +10,8 @@ require('dotenv').config();
 const querystring = require('querystring');
 const qs = require('qs');
 const redisClient = require('../modules/redisClient');
+const bcrypt = require("bcrypt");
+
 
 
 class UserService {
@@ -27,16 +29,21 @@ class UserService {
         password,
         phoneNumber,
         position,
-        userPhoto,
+        userPhoto
     ) => {
-        const signupData = await this.userRepository.signup(
-            nickname,
-            password,
-            phoneNumber,
-            position,
-            userPhoto,
+        try {
+            const hashedPassword = await bcrypt.hash(password, 10);
+            const signupData = await this.userRepository.signup(
+                nickname,
+                hashedPassword,
+                phoneNumber,
+                position,
+                userPhoto
         );
         return signupData;
+        } catch (error) {
+            throw new Error("회원 가입 중 에러가 발생했습니다.");
+        }
     };
 
     // 회원탈퇴 API
@@ -123,9 +130,13 @@ class UserService {
 
         const { data } = result;
         console.log("데이터 전문",data)
+        const userId = data.id
         const nickname = data.properties.nickname;
         const email = data.kakao_account.email;
         const profileImage = data.properties.profile_image;
+        console.log("닉네임",nickname)
+        console.log("이메일",email)
+        console.log("프로필 이미지",profileImage)
 
 
         if (!nickname || !email) throw new Error("KEY_ERROR", 400);
@@ -137,7 +148,8 @@ class UserService {
         });
 
         if (!user) {
-            user = await UserDao.create({
+                user = await UserDao.create({
+                userId : userId,
                 email: email,
                 nickname: nickname,
                 profileImage: profileImage,
@@ -145,7 +157,6 @@ class UserService {
         }
 
         const { kakaouserid } = await this.userRepository.findId(nickname)
-        const { userId } = kakaouserid.userId
         console.log(userId)
         console.log(kakaouserid)
 
@@ -156,7 +167,7 @@ class UserService {
     getTokens = async (authCode) => {
         console.log("어쓰코드",authCode)
         console.log("쿼리스트링",querystring.stringify({
-            grant_type: "authorization_code",
+            Content_Type: "authorization_code",
             client_id: process.env.KAKAO_CLIENT_ID,
             client_secret: process.env.REACT_APP_KAKAO_CLIENT_SECRET,
             redirect_uri: process.env.KAKAO_REDIRECT_URI,
@@ -173,7 +184,7 @@ class UserService {
             }),
             {
                 headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
+                    "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
                 },
             }
         );
@@ -181,6 +192,29 @@ class UserService {
         const { access_token } = response.data;
         console.log("요건 내가 뽑아쓰는 엑세스 토큰",access_token)
         return access_token;
+    };
+
+
+    updateuser = async (
+        userId,
+        hashedPassword,
+        nickname,
+        userPhoto,
+    ) => {
+        if (!hashedPassword || !nickname) {
+            throw new Error("입력 값이 유효하지 않습니다.");
+        }
+
+        if (userId == null) {
+            throw new Error(" 유저 아이디가 null 입니다");
+        }
+
+        await this.userRepository.updateuserById(
+        userId,
+        hashedPassword,
+        nickname,
+        userPhoto,
+        );
     };
 
 };

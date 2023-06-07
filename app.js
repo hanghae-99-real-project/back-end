@@ -21,11 +21,9 @@ const config = {
   SlackWebhook: process.env.webHookUrl
 };
 const ms = require("ms");
+const path = require('path');
 const app = express();
-const http = require('http');
-const server = http.createServer(app);
-const { Server } = require("socket.io");
-const io = new Server(server);
+const webSocket = require("./socket.js");
 
 
 
@@ -114,9 +112,11 @@ app.use(helmet.frameguard("deny"));
 // 브라우저에서 파일 형식의 임의 추측 금지
 app.use(helmet.noSniff());
 app.use("/api", router);
+// app.use(webSocket)
 app.use(errorHandler);
 app.use(Sentry.Handlers.errorHandler());
 
+<<<<<<< HEAD
 app.use(express.static(__dirname));
 
 app.get('/', (req, res) => {
@@ -124,8 +124,17 @@ app.get('/', (req, res) => {
 });
 //에러핸들러 미들웨어를 추가함 발생한 오류를  sentry로 보내고 처리
 
+=======
+app.use(express.static(path.join(__dirname)));
 
+app.get('/navigation', (req, res) => {
+  res.status(200).sendFile(path.join(__dirname, 'index.html'));
+});
+>>>>>>> 0d6645db0d082b696da1ae019ad730a7480eaae1
 
-app.listen(process.env.PORT, () => {
+const server = app.listen(process.env.PORT, () => {
   console.log(`running http://localhost:${process.env.PORT}`);
 });
+
+
+webSocket(server, app, session);

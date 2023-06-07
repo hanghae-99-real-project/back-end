@@ -8,9 +8,13 @@ class PostService {
         return await postRepository.create(postData);
     }
 
-    async getPosts() {
+    async getPosts(
+        // limit, offset
+    ) {
         try {
-            const posts = await postRepository.getPosts();
+            const posts = await postRepository.getPosts(
+                // limit, offset
+            );
             const results = await Promise.all(
                 posts.map(async (item) => {
                     const post = {
@@ -18,6 +22,7 @@ class PostService {
                         postId: item.postId,
                         userId: item.userId,
                         nickname: item.nickname,
+                        lostPhotoUrl: item.lostPhotoUrl,
                         title: item.title,
                         content: item.content,
                         createdAt: item.createdAt,
@@ -81,7 +86,7 @@ class PostService {
             throw new Error("게시글이 존재하지 않습니다.");
         }
 
-        if (userId !== post.userId) {
+        if (userId !== post.UserId) {
             throw new Error("게시글 삭제 권한이 없습니다.");
         }
 
@@ -95,7 +100,7 @@ class PostService {
             throw new Error("게시글이 존재하지 않습니다.");
         }
 
-        if (userId !== post.userId) {
+        if (userId !== post.UserId) {
             throw new Error("게시글 삭제 권한이 없습니다.");
         }
 
