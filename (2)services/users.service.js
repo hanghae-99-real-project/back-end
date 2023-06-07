@@ -5,7 +5,7 @@ const send_message = require("../modules/smsService")
 const jwt = require("jsonwebtoken");
 const { Users } = require("../models");
 const axios = require("axios");
-const { UserDaos } = require("../models");
+const { UserDao } = require("../models");
 require('dotenv').config();
 const querystring = require('querystring');
 const qs = require('qs');
@@ -130,21 +130,21 @@ class UserService {
 
         const { data } = result;
         console.log("데이터 전문",data)
-        const nickname = data.properties.nickname;
+        const {nickname} = data.properties.nickname;
         const email = data.kakao_account.email;
         const profileImage = data.properties.profile_image;
 
 
         if (!nickname || !email) throw new Error("KEY_ERROR", 400);
 
-        let user = await UserDaos.findOne({
+        let user = await UserDao.findOne({
             where: {
                 email: email,
             },
         });
 
         if (!user) {
-            user = await UserDaos.create({
+            user = await UserDao.create({
                 email: email,
                 nickname: nickname,
                 profileImage: profileImage,
