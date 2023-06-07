@@ -116,11 +116,21 @@ app.use("/api", router);
 app.use(errorHandler);
 app.use(Sentry.Handlers.errorHandler());
 
+<<<<<<< HEAD
+app.use(express.static(__dirname));
+
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/index.html');
+});
+//에러핸들러 미들웨어를 추가함 발생한 오류를  sentry로 보내고 처리
+
+=======
 app.use(express.static(path.join(__dirname)));
 
 app.get('/navigation', (req, res) => {
   res.status(200).sendFile(path.join(__dirname, 'index.html'));
 });
+>>>>>>> 0d6645db0d082b696da1ae019ad730a7480eaae1
 
 const server = app.listen(process.env.PORT, () => {
   console.log(`running http://localhost:${process.env.PORT}`);
