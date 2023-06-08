@@ -141,13 +141,9 @@ class UserService {
 
         if (!nickname || !email) throw new Error("KEY_ERROR", 400);
 
-        let user = await this.UserDaos.findOne({
-            where: {
-                email: email,
-            },
-        });
+        let user = await this.userRepository.findId(nickname);
 
-        if (!user) {
+        if (user==null) {
                 user = await UserDao.create({
                 userId : userId,
                 email: email,
