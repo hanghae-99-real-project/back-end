@@ -60,8 +60,13 @@ class UserRepository {
     };
 
     findId = async (nickname) => {
-        const loginUser = await this.userDaosModel.findOne({ where: { nickname } });
-        return loginUser;
+        try {
+            const loginUser = await this.userDaosModel.findOne({ where: { nickname } });
+            return loginUser;
+        } catch (error) {
+            console.error(error);
+            return null;
+        }
     };
 
     updateuserById = async (userId, hashedPassword, nickname, userPhoto) => {
