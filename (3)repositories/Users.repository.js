@@ -61,7 +61,7 @@ class UserRepository {
 
     findId = async (nickname) => {
         try {
-            const loginUser = await this.userDaosModel.findOne({ where: { nickname } });
+            const loginUser = await Userdaos.findByPk(nickname)
             return loginUser;
         } catch (error) {
             console.error(error);
