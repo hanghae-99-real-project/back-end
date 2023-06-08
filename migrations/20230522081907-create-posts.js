@@ -18,6 +18,10 @@ module.exports = {
         },
         onDelete: "CASCADE",
       },
+      nickname: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
       dogname: {
         allowNull: false,
         type: Sequelize.STRING,
