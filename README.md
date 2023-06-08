@@ -38,7 +38,9 @@ https://www.notion.so/Poo-Daeng-b6a9dfbab28e4295b889bf0040ff1b21
 
 ## ⚙️ ERD
 
-![ERD]()
+<div style="display: flex">
+<img src="https://i.ibb.co/Dp3wVSg/poo-Daeng-ERD.png">
+</div>
 
 <br>
 
