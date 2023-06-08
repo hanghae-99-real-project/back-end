@@ -29,6 +29,7 @@ class PostService {
                         updatedAt: item.updatedAt,
                         lostLatitude: item.lostLatitude,
                         lostLongitude: item.lostLocation,
+                        // setDateTime: item.setDateTime,
                     };
 
                     return post;
