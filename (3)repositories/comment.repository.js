@@ -22,16 +22,25 @@ class CommentRepository {
     };
 
     // 댓글 생성
-    createComment = async (userId, postId, comment, commentPhotoUrl, isPrivate, commentLatitude, commentLongitude, address) => {
+    createComment = async (
+        userId,
+        postId,
+        comment,
+        commentPhotoUrl,
+        isPrivate,
+        // commentLatitude, 
+        // commentLongitude, 
+        // address
+    ) => {
         const createdComment = await this.commentsModel.create({
             UserId: userId,
             PostId: postId,
             comment,
             commentPhotoUrl,
             isPrivate: isPrivate,
-            commentLatitude,
-            commentLongitude,
-            address,
+            // commentLatitude,
+            // commentLongitude,
+            // address,
         });
         return createdComment;
     };

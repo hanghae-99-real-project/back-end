@@ -11,17 +11,14 @@ const searchRouter = require("./search.routes");
 const notificationRouter = require("./notification.routes");
 const reportRouter = require("./reportPoo.routes");
 const bookMarkRouter = require("./bookmark.routes");
+// const navigationRouter = require("./navigation.routes")
 //const passportConfig = require('../passport');
 //passportConfig(app);
 
 
-router.use("/auth", [authRouter, mypageRouter, bookMarkRouter]);
+router.use("/auth", [authRouter, mypageRouter]);
 
-
-
-router.use("/lostposts", [postRouter]);
-
-router.use("/posts", [childCommentRouter, commentRouter, postRouter]);
+router.use("/lostposts", [postRouter, childCommentRouter, commentRouter, bookMarkRouter]);
 
 router.use("/search", searchRouter);
 
@@ -31,8 +28,7 @@ router.use("/notifications", notificationRouter);
 
 router.use("/report", reportRouter);
 
-
-
+// router.use("/navigation", navigationRouter);
 
 
 module.exports = router;
