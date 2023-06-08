@@ -18,9 +18,7 @@ const bookMarkRouter = require("./bookmark.routes");
 
 router.use("/auth", [authRouter, mypageRouter, bookMarkRouter]);
 
-router.use("/lostposts", [postRouter]);
-
-router.use("/posts", [childCommentRouter, commentRouter, postRouter]);
+router.use("/lostposts", [postRouter, childCommentRouter, commentRouter]);
 
 router.use("/search", searchRouter);
 
