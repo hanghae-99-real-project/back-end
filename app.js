@@ -115,6 +115,7 @@ app.use("/api", router);
 app.use(errorHandler);
 app.use(Sentry.Handlers.errorHandler());
 
+
 app.use(express.static(path.join(__dirname)));
 
 app.get('/navigation', (req, res) => {

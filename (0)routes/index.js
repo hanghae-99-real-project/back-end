@@ -16,9 +16,9 @@ const bookMarkRouter = require("./bookmark.routes");
 //passportConfig(app);
 
 
-router.use("/auth", [authRouter, mypageRouter, bookMarkRouter]);
+router.use("/auth", [authRouter, mypageRouter]);
 
-router.use("/lostposts", [postRouter, childCommentRouter, commentRouter]);
+router.use("/lostposts", [postRouter, childCommentRouter, commentRouter, bookMarkRouter]);
 
 router.use("/search", searchRouter);
 
@@ -29,9 +29,6 @@ router.use("/notifications", notificationRouter);
 router.use("/report", reportRouter);
 
 // router.use("/navigation", navigationRouter);
-
-
-
 
 
 module.exports = router;
