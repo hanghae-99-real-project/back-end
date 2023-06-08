@@ -90,7 +90,7 @@ class CommentService {
             }),
         )
 
-        return commentsWithDetail.filter(comment => comment !== null).sort((a, b) => b.createdAt - a.createdAt);
+        return commentsWithDetail.filter(comment => comment !== null).sort((a, b) => a.createdAt - b.createdAt);
     };
 
     // 댓글 아이디로 댓글 조회
