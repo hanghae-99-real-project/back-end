@@ -141,7 +141,7 @@ class UserService {
 
         if (!nickname || !email) throw new Error("KEY_ERROR", 400);
 
-        let user = await this.UserDao.findOne({
+        let user = await this.UserDaos.findOne({
             where: {
                 email: email,
             },
