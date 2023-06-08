@@ -1,17 +1,10 @@
 # 푸댕(pooDaeng)
 
 > 푸댕은 서울시의 반려견 배변 시설 위치와 길 안내, 반려견의 실종 위치와 사용자들의 제보를 제공하는 서비스입니다.
+
 <div style="display: flex">
 <img src="https://i.ibb.co/pr223TM/pooDaeng.png">
 </div>
-<br>
-
-## ⚙️ FE Tech Stack
-
-<div style="display: flex">
-<img src="">
-</div>
-
 <br>
 
 ## ⚙️ BE Tech Stack
@@ -30,9 +23,7 @@ https://www.notion.so/Poo-Daeng-b6a9dfbab28e4295b889bf0040ff1b21
 
 ## 디자인
 
-#### 회원가입 페이지
-
-#### 메인 페이지
+https://www.figma.com/file/w0ztJ9nfwJlS3VYt5l92E9/%ED%91%B8%EB%8C%95-%EC%9E%91%EC%97%85%EC%8B%A4?type=design&node-id=0-1&t=518jBI3pbupL00On-0
 
 <br>
 

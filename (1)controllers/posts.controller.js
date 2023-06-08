@@ -12,6 +12,10 @@ class PostController {
       const { userId, nickname } = res.locals.user;
       const { dogname, title, content, lostLatitude, lostLongitude } = req.body;
       const { lostPhotoUrl } = req;
+      // const { year, month, day, hour, minute } = req.body;
+      // // 자바스크립트 달은 0부터 11까지이므로 month에 -1 을 해줌
+      // const setDateTime = new Date(year, month - 1, day, hour, minute)
+
       let address = await getAddress(lostLatitude, lostLongitude);
       if (!address) {
         address = `${lostLatitude}, ${lostLongitude}`
@@ -43,7 +47,8 @@ class PostController {
         likeCount: 0,
         commentCount: 0,
         address,
-        status: 0
+        status: 0,
+        // setDateTime
       };
       await postService.createPost(postData);
       return res.status(201).json({ message: "게시글 작성에 성공하였습니다." });
