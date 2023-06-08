@@ -3,8 +3,10 @@
 > 푸댕은 서울시의 반려견 배변 시설 위치와 길 안내, 반려견의 실종 위치와 사용자들의 제보를 제공하는 서비스입니다.
 <div style="display: flex">
 <img src="https://i.ibb.co/pr223TM/pooDaeng.png">
-<img src="https://i.ibb.co/dmf7HPm/poo-Daeng1.png">
 <img src="https://i.ibb.co/rb8N4sq/poo-Daeng2.png">
+</div>
+<div style="display: flex">
+<img src="https://i.ibb.co/dmf7HPm/poo-Daeng1.png">
 </div>
 <br>
 
