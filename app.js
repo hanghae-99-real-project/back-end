@@ -53,7 +53,7 @@ app.use(express.json());
 app.use(cookieParser());
 // express사용 정보 숨기기
 app.disable("x-powered-by");
-app.use(cors({ origin: ['http://localhost:3000', 'https://front-end-fork-m30hc9mpj-vegatality.vercel.app'], credentials: true }));
+app.use(cors({ origin: ['http://localhost:3000', 'https://front-end-fork-vegatality.vercel.app'], credentials: true }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(session({
   store: new RedisStore({ client: redisClient }),
@@ -94,7 +94,6 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 //     if (err) Sentry.captureException(err);
 //   });
 app.use(Sentry.Handlers.requestHandler());
-app.use(Sentry.Handlers.tracingHandler());
 // https로 접속했을 때 http로 가지 않게 하기 위해 약 1년간 https로 묶어둔다.
 app.use(helmet.hsts({
   maxAge: ms("1 year"),
@@ -116,11 +115,11 @@ app.use("/api", router);
 app.use(errorHandler);
 app.use(Sentry.Handlers.errorHandler());
 
+
 app.use(express.static(path.join(__dirname)));
 
-app.get('/', (req, res) => {
-  const tmapApiKey = process.env.TMAP_API_KEY;
-  res.sendFile(path.join(__dirname, 'index.html'));
+app.get('/navigation', (req, res) => {
+  res.status(200).sendFile(path.join(__dirname, 'index.html'));
 });
 
 const server = app.listen(process.env.PORT, () => {

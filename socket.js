@@ -1,8 +1,6 @@
 const SocketIO = require('socket.io');
 // const axios = require('axios');
 
-// 유저 위치를 저장할 객체
-// const userLocations = {};
 
 module.exports = (server, app) => {
     const io = SocketIO(server, { path: '/socket.io' });

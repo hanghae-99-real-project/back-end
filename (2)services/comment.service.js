@@ -12,12 +12,29 @@ class CommentService {
     // 게시글 작성자가 자신의 개시글에 댓글을 달면 알림이 가지 않도록 하기
 
     // 댓글 생성
-    createComment = async (userId, postId, comment, commentPhotoUrl, isPrivate, commentLatitude, commentLongitude) => {
-        let address = await getAddress(commentLatitude, commentLongitude);
-        if (!address) {
-            address = `${commentLatitude}, ${commentLongitude}`
-        }
-        const createcomment = await this.commentRepository.createComment(userId, postId, comment, commentPhotoUrl, isPrivate, commentLatitude, commentLongitude, address);
+    createComment = async (
+        userId,
+        postId,
+        comment,
+        commentPhotoUrl,
+        isPrivate,
+        // commentLatitude, 
+        // commentLongitude
+    ) => {
+        // let address = await getAddress(commentLatitude, commentLongitude);
+        // if (!address) {
+        //     address = `${commentLatitude}, ${commentLongitude}`
+        // }
+        const createcomment = await this.commentRepository.createComment(
+            userId,
+            postId,
+            comment,
+            commentPhotoUrl,
+            isPrivate,
+            // commentLatitude, 
+            // commentLongitude, 
+            // address
+        );
 
         // 댓글 생성 후 알림을 생성
         const post = await this.commentRepository.findPostById(postId);
@@ -63,9 +80,9 @@ class CommentService {
                     commentPhotoUrl: comment.commentPhotoUrl, // comment photoUrl
                     nickname: user.nickname,
                     userPhoto: user.userPhoto, // userphotoUrl
-                    commentLatitude: comment.commentLatitude,
-                    commentLongitude: comment.commentLongitude,
-                    address: comment.address,
+                    // commentLatitude: comment.commentLatitude,
+                    // commentLongitude: comment.commentLongitude,
+                    // address: comment.address,
                     isPrivate: comment.isPrivate,
                     createdAt: comment.createdAt,
                     updatedAt: comment.updatedAt,
