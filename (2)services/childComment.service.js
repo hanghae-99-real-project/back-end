@@ -116,7 +116,7 @@ class ChildCommentService {
             })
         )
 
-        return childCommentsWithDetail.filter(comment => comment !== null).sort((a, b) => b.createdAt - a.createdAt);
+        return childCommentsWithDetail.filter(comment => comment !== null).sort((a, b) => a.createdAt - b.createdAt);
     };
 
     // 대댓글 하나 찾기
