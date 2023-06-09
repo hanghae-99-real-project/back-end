@@ -110,6 +110,7 @@ class ChildCommentService {
                     childComment: childComment.childComment,
                     nickname: user.nickname,
                     userPhoto: user.userPhoto, // userphotoUrl
+                    isPrivate: childComment.isPrivate,
                     createdAt: childComment.createdAt,
                     updatedAt: childComment.updatedAt
                 }
