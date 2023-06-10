@@ -20,6 +20,7 @@ const { IncomingWebhook } = require('@slack/webhook');
 const config = {
   SlackWebhook: process.env.webHookUrl
 };
+const checkSession = require("./middlewares/checkSession-middleware")
 const ms = require("ms");
 const path = require('path');
 const app = express();
@@ -58,7 +59,7 @@ app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(session({
   store: new RedisStore({ client: redisClient }),
   secret: process.env.COOKIE_SECRET,
-  saveUninitialized: true,
+  saveUninitialized: false,
   resave: false,
   name: 'connect.sid',
   cookie: {
