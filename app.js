@@ -65,7 +65,7 @@ app.use(session({
   cookie: {
     secure: false, // if true: only transmit cookie over https, in prod, always activate this
     httpOnly: true, // if true: prevents client side JS from reading the cookie
-    maxAge: 1000 * 120 * 30, // session max age in milliseconds
+    maxAge: 1000 * 60 * 30, // session max age in milliseconds
     sameSite: 'lax',
   },
 }));
