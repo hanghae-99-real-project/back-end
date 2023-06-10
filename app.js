@@ -13,7 +13,7 @@ const errorHandler = require("./middlewares/error-handler");
 const swaggerUi = require("swagger-ui-express");
 const swaggerFile = require("./swagger-output.json");
 const morgan = require('morgan')
-const router = require("./(0)routes");
+const router = require("./routes");
 const Sentry = require("@sentry/node")
 //const sentryInterceptor = require("./middlewares/sentry-middleware")
 const { IncomingWebhook } = require('@slack/webhook');
@@ -118,8 +118,8 @@ app.use(Sentry.Handlers.errorHandler());
 
 app.use(express.static(path.join(__dirname)));
 
-app.get('/navigation', (req, res) => {
-  res.status(200).sendFile(path.join(__dirname, 'index.html'));
+app.get('/', (req, res) => {
+  res.send("안녕")
 });
 
 const server = app.listen(process.env.PORT, () => {
