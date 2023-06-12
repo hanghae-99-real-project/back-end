@@ -64,6 +64,23 @@ class UserRepository {
         nickname,
         userPhoto
     ) => {
+        if (Array.isArray(nickname)) {
+            nickname = nickname[0].toString();
+        } else if (typeof nickname === 'object') {
+            nickname = JSON.stringify(nickname);
+        }
+
+        if (Array.isArray(email)) {
+            email = email[0].toString();
+        } else if (typeof email === 'object') {
+            email = JSON.stringify(email);
+        }
+
+        if (Array.isArray(userPhoto)) {
+            userPhoto = userPhoto[0].toString();
+        } else if (typeof userPhoto === 'object') {
+            userPhoto = JSON.stringify(userPhoto);
+        }
         const signupData = await this.usersModel.create({
             email,
             nickname,
