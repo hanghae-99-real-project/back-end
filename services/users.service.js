@@ -136,8 +136,9 @@ class UserService {
         console.log("닉네임", nickname)
         console.log("이메일", email)
         console.log("프로필 이미지", userPhoto)
-
-
+        if (Array.isArray(nickname)) {
+            nickname = nickname.join(", ");
+        }
         if (!nickname || !email) throw new Error("KEY_ERROR", 400);
 
         const user = await this.userRepository.loginkakao(email);
