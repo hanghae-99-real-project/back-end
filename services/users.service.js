@@ -138,7 +138,7 @@ class UserService {
         console.log("프로필 이미지", userPhoto)
 
 
-        if (!userId || !email) throw new Error("KEY_ERROR", 400);
+        if (!nickname || !email) throw new Error("KEY_ERROR", 400);
 
         const user = await this.userRepository.loginkakao(email);
 
