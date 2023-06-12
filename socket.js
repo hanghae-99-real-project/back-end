@@ -5,11 +5,11 @@ const SocketIO = require('socket.io');
 module.exports = (server, app) => {
     const io = SocketIO(server, { path: '/socket.io' });
     app.set('io', io);
-    // const room = io.of('/room');
+    const nav = io.of('/navation');
     // const chat = io.of('/chat');
 
     //서버에서 먼저 통로연걸
-    io.on('connection', (socket) => {
+    nav.on('connection', (socket) => {
 
         console.log('네비게이션 통로에 접속');
         socket.on("send location", (data) => {

@@ -13,13 +13,14 @@ const errorHandler = require("./middlewares/error-handler");
 const swaggerUi = require("swagger-ui-express");
 const swaggerFile = require("./swagger-output.json");
 const morgan = require('morgan')
-const router = require("./(0)routes");
+const router = require("./routes");
 const Sentry = require("@sentry/node")
 //const sentryInterceptor = require("./middlewares/sentry-middleware")
 const { IncomingWebhook } = require('@slack/webhook');
 const config = {
   SlackWebhook: process.env.webHookUrl
 };
+const checkSession = require("./middlewares/checkSession-middleware")
 const ms = require("ms");
 const path = require('path');
 const app = express();
@@ -58,13 +59,13 @@ app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(session({
   store: new RedisStore({ client: redisClient }),
   secret: process.env.COOKIE_SECRET,
-  saveUninitialized: true,
+  saveUninitialized: false,
   resave: false,
   name: 'connect.sid',
   cookie: {
     secure: false, // if true: only transmit cookie over https, in prod, always activate this
     httpOnly: true, // if true: prevents client side JS from reading the cookie
-    maxAge: 1000 * 120 * 30, // session max age in milliseconds
+    maxAge: 1000 * 60 * 30, // session max age in milliseconds
     sameSite: 'lax',
   },
 }));
@@ -118,8 +119,8 @@ app.use(Sentry.Handlers.errorHandler());
 
 app.use(express.static(path.join(__dirname)));
 
-app.get('/navigation', (req, res) => {
-  res.status(200).sendFile(path.join(__dirname, 'index.html'));
+app.get('/', (req, res) => {
+  res.send("안녕")
 });
 
 const server = app.listen(process.env.PORT, () => {
