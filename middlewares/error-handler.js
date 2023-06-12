@@ -16,7 +16,8 @@ module.exports = async (error, req, res, next) => {
   }
 
   const [status, errorMessage] = error.message.split("/");
-  console.error(error);
+  console.error("ERROR!!!:", status, errorMessage);
+
 
   // status를 넘버로 형변환
   return res.status(status).json({ errorMessage });

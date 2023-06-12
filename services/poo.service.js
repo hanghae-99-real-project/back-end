@@ -9,6 +9,10 @@ class PoosService {
 
     postPoo = async (userId, content, pooPhotoUrl, pooLatitude, pooLongitude, originalUrl) => {
         try {
+            const nearbyPoos = await this.poosRepository.distanceBetweenPooLocation(pooLatitude, pooLongitude);
+            if (nearbyPoos.length > 0) {
+                throw new Error("403/등록하려는 푸박스가 이미 등록된 푸박스인지 확인해주세요.")
+            }
 
             let address = await getAddress(pooLatitude, pooLongitude);
             if (!address) {
@@ -32,11 +36,12 @@ class PoosService {
             if (!pooLongitude) {
                 throw new Error("403/위도가 입력되지 않았습니다.")
             }
-            return { "msg": "푸박스 등록 성공" }
-        } catch (err) {
-            console.error(err)
-            throw new Error("400/에러 케이스에서 처리 할 수 없는 에러")
+            return { message: "푸박스 등록 성공" }
+        } catch (error) {
+            error.failedApi = "푸박스 등록";
+            throw error
         }
+
     };
 
     getPoo = async (originalUrl) => {

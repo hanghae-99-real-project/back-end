@@ -26,7 +26,7 @@ class CommentController {
             const post = await this.commentService.findPostById(postId);
 
             if (!post) {
-                throw new Error("403/게시물이 존재하지 않습니다");
+                throw new Error("403/게시물이 존재하지 않습니다.");
             }
 
             await this.commentService.createComment(
@@ -39,10 +39,10 @@ class CommentController {
                 // commentLongitude
             );
 
-            res.status(201).json({ message: "댓글을 작성하였습니다." });
+            return res.status(201).json({ message: "댓글을 작성하였습니다." });
         } catch (error) {
             error.failedApi = "댓글 생성";
-            next(error);
+            throw error;
         }
     };
 
@@ -67,7 +67,7 @@ class CommentController {
             return res.status(200).json({ commentsData: comments });
         } catch (error) {
             error.failedApi = "댓글 조회";
-            next(error);
+            throw error;
         }
     };
 
@@ -93,7 +93,7 @@ class CommentController {
             return res.status(200).json({ message: "댓글을 수정하였습니다." });
         } catch (error) {
             error.failedApi = "댓글 수정";
-            next(error);
+            throw error;
         }
     }
 
@@ -122,7 +122,7 @@ class CommentController {
             return res.status(200).json({ message: "댓글을 지웠습니다." });
         } catch (error) {
             error.failedApi = "댓글 삭제";
-            next(error);
+            throw error;
         }
     };
 };
