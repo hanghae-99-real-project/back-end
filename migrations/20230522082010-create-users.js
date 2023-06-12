@@ -22,6 +22,10 @@ module.exports = {
         allowNull: true,
         type: Sequelize.STRING
       },
+      email: {
+        allowNull: true,
+        type: Sequelize.STRING
+      },
       userPhoto: {
         allowNull: true,
         type: Sequelize.JSON

@@ -59,14 +59,21 @@ class UserRepository {
         return authCode
     };
 
-    findId = async (userId) => {
-        try {
-            const loginUser = await UserDaos.findByPk(userId)
-            return loginUser;
-        } catch (error) {
-            console.error(error);
-            return null;
-        }
+    signupkakao = async (
+        nickname,
+        password,
+        phoneNumber,
+        position,
+        userPhoto
+    ) => {
+        const signupData = await this.usersModel.create({
+            nickname,
+            password,
+            phoneNumber,
+            position,
+            userPhoto,
+        });
+        return signupData;
     };
 
     updateuserById = async (userId, hashedPassword, nickname, userPhoto) => {
