@@ -65,9 +65,9 @@ class UserRepository {
         userPhoto
     ) => {
 
-        const { email } = email.email
-        const { nickname } = email.nickname
-        const { userPhoto } = email.userPhoto
+        email  = email.email
+        nickname = email.nickname
+        userPhoto = email.userPhoto
         const signupData = await this.usersModel.create({
             email,
             nickname,
