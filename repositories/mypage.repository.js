@@ -1,8 +1,9 @@
 class myPagesRepository {
-    constructor(Users, Posts, BookMarks) {
+    constructor(Users, Posts, BookMarks, Poos) {
         this.Users = Users;
         this.Posts = Posts;
         this.BookMarks = BookMarks;
+        this.Poos = Poos;
     }
 
     getMyInfo = async (userId) => {
@@ -34,6 +35,15 @@ class myPagesRepository {
             ]
         })
         return getMyBookmarData
+    };
+
+
+    getMyPoo = async (userId) => {
+        const getMyPooData = await this.Poos.findAll({
+            where: { UserId: userId }
+
+        })
+        return getMyPooData
     };
 
 

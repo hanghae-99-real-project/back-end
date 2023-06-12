@@ -6,6 +6,7 @@ class BookmarkController {
     postBookmark = async (req, res, next) => {
         const { userId } = res.locals.user;
         const { postId } = req.params
+        console.log(postId)
 
         const createBookmark = await this.bookmarkService.postBookmark(userId, postId);
 
