@@ -10,6 +10,7 @@ const myPagesController = new MyPagesController();
 router.get("/mypage/", authMiddleware, myPagesController.getMyInfo);
 router.get("/mypage/mypost", authMiddleware, myPagesController.getMyPost);
 router.get("/mypage/bookmark", authMiddleware, myPagesController.getMyBookmark);
+router.get("/mypage/mypoo", authMiddleware, myPagesController.getMyPoo);
 
 
 module.exports = router;

@@ -25,6 +25,12 @@ class myPagesController {
         return res.status(201).json({ getMyBookmarkData })
     };
 
+    getMyPoo = async (req, res, next) => {
+        const { userId } = res.locals.user
+        const getMyPooData = await this.mypagesService.getMyPoo(userId, next)
+        return res.status(201).json({ getMyPooData })
+    };
+
 }
 
 module.exports = myPagesController;

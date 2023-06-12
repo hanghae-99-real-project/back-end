@@ -1,4 +1,5 @@
-const { Posts, Likes } = require('../models');
+const { model } = require('mongoose');
+const { Posts, Likes, BookMarks } = require('../models');
 require('dotenv').config();
 
 
@@ -23,7 +24,16 @@ class PostRepository {
 
     findPostById = async (postId) => {
         await Posts.increment('views', { where: { postId } });
-        const post = await Posts.findByPk(postId);
+        const post = await Posts.findOne({
+            where: { postId },
+            include: [
+                {
+                    model: BookMarks,
+                    attributes: ["isBookmarked"]
+                }
+            ]
+        });
+        console.log(post)
         return post;
     };
 

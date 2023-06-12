@@ -37,7 +37,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false
       },
-      isPrivate: {
+      isBookmarked: {
         allowNull: false,
         type: Sequelize.BOOLEAN,
         defaultValue: true,
