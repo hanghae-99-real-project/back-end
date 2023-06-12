@@ -141,6 +141,18 @@ class UserService {
         } else if (typeof nickname === 'object') {
             nickname = JSON.stringify(nickname);
         }
+
+        if (Array.isArray(email)) {
+            email = email[0].toString();
+        } else if (typeof email === 'object') {
+            email = JSON.stringify(email);
+        }
+
+        if (Array.isArray(userPhoto)) {
+            userPhoto = userPhoto[0].toString();
+        } else if (typeof userPhoto === 'object') {
+            userPhoto = JSON.stringify(userPhoto);
+        }
         if (!nickname || !email) throw new Error("KEY_ERROR", 400);
 
         const user = await this.userRepository.loginkakao(email);
