@@ -131,29 +131,13 @@ class UserService {
         const { data } = result;
         console.log("데이터 전문", data)
         console.log("email 타입:", typeof data.kakao_account.email);
-        let nickname = data.properties.nickname;
-        let email = data.kakao_account.email;
-        let userPhoto = data.properties.profile_image;
+        const nickname = data.properties.nickname;
+        const email = data.kakao_account.email;
+        const userPhoto = data.properties.profile_image;
         console.log("닉네임", nickname)
         console.log("이메일", email)
         console.log("프로필 이미지", userPhoto)
-        if (Array.isArray(nickname)) {
-            nickname = nickname[0].toString();
-        } else if (typeof nickname === 'object') {
-            nickname = JSON.stringify(nickname);
-        }
 
-        if (Array.isArray(email)) {
-            email = email[0].toString();
-        } else if (typeof email === 'object') {
-            email = JSON.stringify(email);
-        }
-
-        if (Array.isArray(userPhoto)) {
-            userPhoto = userPhoto[0].toString();
-        } else if (typeof userPhoto === 'object') {
-            userPhoto = JSON.stringify(userPhoto);
-        }
         if (!nickname || !email) throw new Error("KEY_ERROR", 400);
 
         const user = await this.userRepository.loginkakao(email);
