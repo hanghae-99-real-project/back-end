@@ -57,9 +57,8 @@ class CommentService {
     // 게시물 아이디의 전체 댓글 조회
     findCommentsByPostId = async (postId, userId) => {
         const comments = await this.commentRepository.findCommentsByPostId(postId);
-        const post = await this.commentRepository.findPostById(postId);
-        // const postUserId = post ? post.UserId : null; // 해당 게시물의 작성자 ID를 가져옴 (게시물이 존재하면 작성자 ID, 없으면 null)
-        const postUserId = post.UserId
+        // const post = await this.commentRepository.findPostById(postId);
+        // const postUserId = post.UserId // 해당 게시물의 작성자 ID를 가져옴
 
         const commentsWithDetail = await Promise.all(
             comments.map(async (comment) => {
@@ -68,9 +67,9 @@ class CommentService {
                 // 로그인하지 않은 유저가 비밀 댓글 조회 X
                 // 비밀 댓글 작성자가 아닐 때 비밀 댓글 조회 X
                 // 게시글 작성자가 아닐 때 비밀 댓글 조회 X
-                if ((!userId && comment.isPrivate) || (comment.isPrivate && comment.UserId !== userId && postUserId !== userId)) {
-                    return null;
-                }
+                // if ((!userId && comment.isPrivate) || (comment.isPrivate && comment.UserId !== userId && postUserId !== userId)) {
+                //     return null;
+                // }
 
                 return {
                     commentId: comment.commentId,

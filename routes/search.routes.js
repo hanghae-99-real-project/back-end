@@ -12,7 +12,7 @@ router.get("/users",
     searchController.searchUsers);
 
 // 실종 신고 게시물 검색 기능
-router.get("/posts",
+router.get("/lostposts",
     // authMiddleware, 
     searchController.searchPosts)
 

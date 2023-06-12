@@ -70,22 +70,21 @@ class ChildCommentService {
 
     // 대댓글과 비밀 대댓글 조회
     findChildCommentsByCommentId = async (postId, commentId, userId) => {
-        // 상위 댓글 가져오기
-        const parentComment = await this.commentRepository.findCommentById(commentId);
+        // // 상위 댓글 가져오기
+        // const parentComment = await this.commentRepository.findCommentById(commentId);
 
-        // 상위 댓글의 작성자 ID 가져오기
-        // const parentCommentUserId = parentComment ? parentComment.UserId : null;
-        const parentCommentUserId = parentComment.UserId;
+        // // 상위 댓글의 작성자 ID 가져오기
+        // const parentCommentUserId = parentComment.UserId;
 
-        // 게시물 작성자 ID 가져오기
-        const post = await this.commentRepository.findPostById(postId);
-        const postUserId = post.UserId;
+        // // 게시물 작성자 ID 가져오기
+        // const post = await this.commentRepository.findPostById(postId);
+        // const postUserId = post.UserId;
 
-        // 비밀 댓글 작성자가 아닐 때 비밀 대댓글 조회 X
-        // 게시물 작성자가 아닐 때 비밀 대댓글 조회 X
-        if (parentComment.isPrivate && parentCommentUserId !== userId && postUserId !== userId) {
-            throw new Error("404/비밀 댓글에 대한 비밀 대댓글은 비밀 댓글 작성자 또는 게시물 작성자만 볼 수 있습니다.");
-        }
+        // // 비밀 댓글 작성자가 아닐 때 비밀 대댓글 조회 X
+        // // 게시물 작성자가 아닐 때 비밀 대댓글 조회 X
+        // if (parentComment.isPrivate && parentCommentUserId !== userId && postUserId !== userId) {
+        //     throw new Error("404/비밀 댓글에 대한 비밀 대댓글은 비밀 댓글 작성자 또는 게시물 작성자만 볼 수 있습니다.");
+        // }
 
         // 상위 댓글이 비밀 댓글이 아니거나 조회하려는 유저가 댓글 작성자 또는 게시물 작성자인 경우에만 대댓글 조회
         const childComments = await this.childCommentRepository.findChildCommentsByCommentId(commentId);
@@ -98,9 +97,9 @@ class ChildCommentService {
                 // 비밀 대댓글인 경우 다음 조건들을 확인
                 // 대댓글 작성자가 현재 조회하는 사용자와 다른 경우
                 // 또는 상위 댓글 작성자 또는 게시물 작성자만 조회 가능
-                if (childComment.isPrivate && childComment.UserId !== userId && parentCommentUserId !== userId && postUserId !== userId) {
-                    return null;
-                }
+                // if (childComment.isPrivate && childComment.UserId !== userId && parentCommentUserId !== userId && postUserId !== userId) {
+                //     return null;
+                // }
 
                 return {
                     childCommentId: childComment.childCommentId,
