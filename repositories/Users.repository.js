@@ -60,14 +60,14 @@ class UserRepository {
     };
 
     signupkakao = async (
-        nickname,
         email,
+        nickname,
         userPhoto
     ) => {
         const signupData = await this.usersModel.create({
-            nickname,
             email,
-            userPhoto,
+            nickname,
+            userPhoto
         });
         return signupData;
     };
