@@ -135,7 +135,7 @@ class UserService {
         const userPhoto = data.properties.profile_image;
         console.log("닉네임", nickname)
         console.log("이메일", email)
-        console.log("프로필 이미지", profileImage)
+        console.log("프로필 이미지", userPhoto)
 
 
         if (!userId || !email) throw new Error("KEY_ERROR", 400);
