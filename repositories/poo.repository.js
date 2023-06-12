@@ -1,3 +1,4 @@
+const { Sequelize } = require("../models");
 
 
 class PoosRepository {
@@ -40,6 +41,14 @@ class PoosRepository {
 
     //     return getPooData
     // };
+
+    // 두 위치 사이의 거리를 미터 단위로 계산해주는 ST_Distance_Sphere SQL 함수
+    distanceBetweenPooLocation = async (latitude, longitude) => {
+        const nearbyPoos = await this.poo.findAll({
+            where: Sequelize.literal(`ST_Distance_Sphere(point(${longitude}, ${latitude}), point(pooLongitude, pooLatitude)) <= 30`) //30미터
+        })
+        return nearbyPoos
+    }
 
 }
 

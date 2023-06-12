@@ -9,6 +9,7 @@ const session = require('express-session');
 const rateLimit = require("express-rate-limit");
 const helmet = require("helmet");
 //const checkSession = require("./middlewares/checkSession-middleware")
+require("express-async-errors");
 const errorHandler = require("./middlewares/error-handler");
 const swaggerUi = require("swagger-ui-express");
 const swaggerFile = require("./swagger-output.json");

@@ -37,7 +37,7 @@ class ChildCommentController {
             res.status(201).json({ message: "대댓글을 작성하였습니다." })
         } catch (error) {
             error.failedApi = "대댓글 생성";
-            next(error);
+            throw error;
         }
     };
 
@@ -62,7 +62,7 @@ class ChildCommentController {
             return res.status(200).json({ childCommentsData: childComments })
         } catch (error) {
             error.failedApi = "대댓글 조회";
-            next(error);
+            throw error;
         }
     };
 
@@ -101,7 +101,7 @@ class ChildCommentController {
             return res.status(200).json({ message: "댓글을 삭제하였습니다." });
         } catch (error) {
             error.failedApi = "대댓글 삭제";
-            next(error);
+            throw error;
         }
     };
 }
