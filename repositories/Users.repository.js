@@ -64,23 +64,13 @@ class UserRepository {
         nickname,
         userPhoto
     ) => {
-        if (Array.isArray(nickname)) {
-            nickname = nickname[0].toString();
-        } else if (typeof nickname === 'object') {
-            nickname = JSON.stringify(nickname);
-        }
+        console.log("레퍼지 이메일",email)
+        console.log("레퍼지 닉네임",nickname)
+        console.log("레퍼지 유저포토",userPhoto)
 
-        if (Array.isArray(email)) {
-            email = email[0].toString();
-        } else if (typeof email === 'object') {
-            email = JSON.stringify(email);
-        }
-
-        if (Array.isArray(userPhoto)) {
-            userPhoto = userPhoto[0].toString();
-        } else if (typeof userPhoto === 'object') {
-            userPhoto = JSON.stringify(userPhoto);
-        }
+        email  = email.email
+        nickname = nickname
+        userPhoto = userPhoto
         const signupData = await this.usersModel.create({
             email,
             nickname,
