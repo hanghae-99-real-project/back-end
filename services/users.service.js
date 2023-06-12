@@ -130,10 +130,9 @@ class UserService {
 
         const { data } = result;
         console.log("데이터 전문", data)
-        const userId = data.id
         const nickname = data.properties.nickname;
         const email = data.kakao_account.email;
-        const profileImage = data.properties.profile_image;
+        const userPhoto = data.properties.profile_image;
         console.log("닉네임", nickname)
         console.log("이메일", email)
         console.log("프로필 이미지", profileImage)
@@ -141,22 +140,23 @@ class UserService {
 
         if (!userId || !email) throw new Error("KEY_ERROR", 400);
 
-        let user = await this.userRepository.findId(userId);
+        const user = await this.userRepository.loginkakao(email);
 
         if (user == null) {
-            user = await UserDao.create({
-                userId: userId,
+            const kakaouser = await this.userRepository.signupkakao({
                 email: email,
                 nickname: nickname,
-                profileImage: profileImage,
+                userPhoto: userPhoto,
             });
+            const kakaoid = await this.userRepository.loginkakao(kakaouser.email);
+            const userId  = kakaoid.userId
+            console.log(userId)
+            return jwt.sign({ userId }, process.env.ACCESS_KEY);
+        } else {
+            const userId  = user.userId
+            console.log(userId)
+            return jwt.sign({ userId }, process.env.ACCESS_KEY);
         }
-
-        const { kakaouserid } = await this.userRepository.findId(userId)
-        console.log(userId)
-        console.log(kakaouserid)
-
-        return jwt.sign({ userId }, process.env.ACCESS_KEY);
     };
 
     // 엑세스 토큰 받아오기
