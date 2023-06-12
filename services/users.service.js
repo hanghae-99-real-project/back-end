@@ -139,9 +139,9 @@ class UserService {
         console.log("프로필 이미지", profileImage)
 
 
-        if (!nickname || !email) throw new Error("KEY_ERROR", 400);
+        if (!userId || !email) throw new Error("KEY_ERROR", 400);
 
-        let user = await this.userRepository.findId(nickname);
+        let user = await this.userRepository.findId(userId);
 
         if (user == null) {
             user = await UserDao.create({
@@ -152,7 +152,7 @@ class UserService {
             });
         }
 
-        const { kakaouserid } = await this.userRepository.findId(nickname)
+        const { kakaouserid } = await this.userRepository.findId(userId)
         console.log(userId)
         console.log(kakaouserid)
 

@@ -59,9 +59,9 @@ class UserRepository {
         return authCode
     };
 
-    findId = async (nickname) => {
+    findId = async (userId) => {
         try {
-            const loginUser = await UserDaos.findByPk(nickname)
+            const loginUser = await UserDaos.findByPk(userId)
             return loginUser;
         } catch (error) {
             console.error(error);
