@@ -61,16 +61,12 @@ class UserRepository {
 
     signupkakao = async (
         nickname,
-        password,
-        phoneNumber,
-        position,
+        email,
         userPhoto
     ) => {
         const signupData = await this.usersModel.create({
             nickname,
-            password,
-            phoneNumber,
-            position,
+            email,
             userPhoto,
         });
         return signupData;
@@ -87,6 +83,11 @@ class UserRepository {
                 where: { userId }
             }
         );
+    };
+
+    loginkakao = async (email) => {
+        const loginUser = await this.usersModel.findOne({ where: { email } });
+        return loginUser;
     };
 
 
