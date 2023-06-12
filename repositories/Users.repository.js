@@ -64,10 +64,13 @@ class UserRepository {
         nickname,
         userPhoto
     ) => {
+        console.log("레퍼지 이메일",email)
+        console.log("레퍼지 닉네임",nickname)
+        console.log("레퍼지 유저포토",userPhoto)
 
         email  = email.email
-        nickname = email.nickname
-        userPhoto = email.userPhoto
+        nickname = nickname
+        userPhoto = userPhoto
         const signupData = await this.usersModel.create({
             email,
             nickname,
