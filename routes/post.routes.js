@@ -34,7 +34,7 @@ router.get(
 router.put(
     "/:postId",
     authMiddleware,
-    uploadImage.single("image"),
+    uploadImage.array("image", 5),
     postController.updatePost
 );
 
