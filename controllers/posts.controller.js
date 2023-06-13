@@ -20,16 +20,7 @@ class PostController {
       if (!address) {
         address = `${lostLatitude}, ${lostLongitude}`
       }
-            const today = new Date();
-            const currentYear = today.getFullYear();
-            const currentMonth = today.getMonth() + 1;
-            const currentDate = today.getDate();
-            const currentHour = today.getHours();
-            const currentMinute = today.getMinutes();
-            const currentSecond = today.getSeconds();
-            const date = `${currentYear}-${currentMonth}-${currentDate}-${currentHour}-${currentMinute}-${currentSecond}`;
-            const createdAt = date
-            const updatedAt = date 
+      
 
       if (!title) {
         return res
@@ -56,8 +47,6 @@ class PostController {
         views: 0,
         likeCount: 0,
         commentCount: 0,
-        createdAt,
-        updatedAt,
         address,
         status: 0,
         // setDateTime

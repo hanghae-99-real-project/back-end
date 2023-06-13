@@ -39,14 +39,7 @@ class PostRepository {
 
 
     updatePostById = async (dogname, userId, postId, title, content, lostPhotoUrl, lostLatitude, lostLongitude) => {
-            const today = new Date();
-            const currentYear = today.getFullYear();
-            const currentMonth = today.getMonth() + 1;
-            const currentDate = today.getDate();
-            const currentHour = today.getHours();
-            const currentMinute = today.getMinutes();
-            const currentSecond = today.getSeconds();
-            const date = `${currentYear}-${currentMonth}-${currentDate}-${currentHour}-${currentMinute}-${currentSecond}`;
+        const date = new Date();
         await Posts.update(
             {
                 dogname: dogname,
