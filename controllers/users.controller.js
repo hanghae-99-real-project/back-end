@@ -200,7 +200,8 @@ class UserController {
     const { accessToken } = await this.userService.signInKakao(kakaoToken);
     const refreshToken = await this.userService.createRefreshToken();
     res.cookie("accesstoken", `Bearer ${accessToken}`);
-    res.cookie("refreshtoken", `Bearer ${refreshToken}`);
+    console.log("엑세스 토큰.", accessToken)
+    res.cookie("리프레쉬 토큰", refreshToken);
     return res.status(200).json({ accessToken, refreshToken });
   };
 
