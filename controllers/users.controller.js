@@ -18,18 +18,20 @@ class UserController {
 
       if (!passwordFilter.test(password)) {
         return res
-          .status(412)
+          .status(401)
           .json({ errorMessage: "패스워드 형식이 일치하지 않습니다." });
       }
 
       if (!phoneNumberFilter.test(phoneNumber)) {
         return res
-          .status(412)
+          .status(401)
           .json({ errorMessage: "핸드폰 번호 형식이 일치하지 않습니다." });
       }
 
       if (existNickname) {
-        return res.status(412).json({ errorMessage: "중복된 닉네임입니다." });
+        return res
+          .status(401)
+          .json({ errorMessage: "중복된 닉네임입니다." });
       }
 
       const hashedPassword = await bcrypt.hash(password, 10);
@@ -43,10 +45,8 @@ class UserController {
       );
       res.status(200).json({ message: "회원 가입에 성공하였습니다." });
     } catch (error) {
-      console.error(error);
-      return res
-        .status(400)
-        .json({ errorMessage: "데이터 형식이 올바르지 않습니다." });
+      error.failedApi = "회원가입";
+      throw error
     }
   };
 
@@ -59,9 +59,8 @@ class UserController {
       return res.status(200).json({ message: true });
     } catch (error) {
       console.error(error);
-      return res
-        .status(412)
-        .json({ errorMessage: "닉네임 중복 확인에 실패하였습니다." });
+      error.failedApi = "닉네임 중복확인";
+      throw error
     }
   };
 
@@ -75,7 +74,7 @@ class UserController {
 
       if (existUser.nickname === nickname && existUser.password === password) {
         return res
-          .status(412)
+          .status(401)
           .json({ errorMessage: "닉네임 또는 패스워드를 확인해주세요." });
       }
       if (userId === existUser.userId) {
@@ -86,9 +85,8 @@ class UserController {
       }
     } catch (error) {
       console.error(error);
-      return res
-        .status(400)
-        .json({ errorMessage: "회원탈퇴에 실패하였습니다." });
+      error.failedApi = "회원가입 탈퇴";
+      throw error
     }
   };
 
@@ -105,7 +103,7 @@ class UserController {
 
       if (!phoneNumber || !password) {
         return res
-          .status(412)
+          .status(401)
           .json({ errorMessage: "데이터의 형식이 일치하지 않습니다." });
       }
 
@@ -115,7 +113,7 @@ class UserController {
       const passwordMatch = await bcrypt.hash(password, 10);
       if (!loginUser || !passwordMatch) {
         return res
-          .status(412)
+          .status(401)
           .json({ errorMessage: "닉네임 또는 패스워드를 확인해주세요." });
       }
 
@@ -149,8 +147,8 @@ class UserController {
       await req.session.save();
       return res.status(200).json({ accessToken, refreshToken });
     } catch (error) {
-      console.error(error);
-      return res.status(400).json({ errorMessage: "로그인에 실패하였습니다." });
+      error.failedApi = "로그인";
+      throw error
     }
   };
 
@@ -167,10 +165,8 @@ class UserController {
 
       return res.status(200).json({ message: "로그아웃에 성공하였습니다." });
     } catch (error) {
-      console.error(error);
-      return res
-        .status(400)
-        .json({ errorMessage: "못.. 도망친다..." });
+      error.failedApi = "로그아웃";
+      throw error
     }
   };
 
@@ -192,19 +188,13 @@ class UserController {
   //카카오로그인
   signInKakao = async (req, res) => {
     const headers = req.headers["authorization"];
-    console.log("헤더에 담긴 내용", headers)
     const authCode = headers.split(" ")[1];
-    console.log("스플릿 해서 담은 결과", authCode)
     const kakaoToken = await this.userService.getTokens(authCode);
-    console.log("1차전 마치고 나온 결과물.", kakaoToken)
     const jaja = await this.userService.signInKakao(kakaoToken);
-    console.log("자자에 유저아이디 잘 들어가는지 확인", jaja)
     const accessToken = await this.userService.createKAccessToken(jaja)
     const refreshToken = await this.userService.createRefreshToken();
     res.cookie("accesstoken", `Bearer ${accessToken}`);
-    console.log("엑세스토큰", accessToken)
     res.cookie("refreshtoken", `Bearer ${refreshToken}`);
-    console.log("리프레쉬토큰", refreshToken)
     return res.status(200).json({ accessToken, refreshToken });
   };
 
@@ -223,11 +213,10 @@ class UserController {
         userPhoto,
       );
       res.status(200).json({ message: "마이페이지를 수정하였습니다." });
-    } catch (err) {
-      console.error(err);
-      res.status(400).send({ errorMessage: "마이페이지 수정에 실패하였습니다." });
-    }
-  };
+    } catch (error) {
+      error.failedApi = "마이페이지 수정";
+      throw error
+    };
+  }
 }
-
 module.exports = UserController;

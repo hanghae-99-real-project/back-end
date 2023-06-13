@@ -30,7 +30,7 @@ module.exports = async (req, res, next) => {
 
 
         if (!isRefreshTokenValidate) {
-            return res.status(419).json({ errorMessage: "Refresh Token이 만료되었습니다." });
+            return res.status(403).json({ errorMessage: "Refresh Token이 만료되었습니다." });
         }
 
 
