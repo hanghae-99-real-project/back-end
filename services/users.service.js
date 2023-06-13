@@ -67,6 +67,15 @@ class UserService {
         return accessToken;
     };
 
+    createKAccessToken = async (jaja) => {
+        const userId = jaja;
+        console.log("유저아이디 잘 들어갔는지 확인",userId)
+        const accessToken = jwt.sign({ userId: userId }, process.env.ACCESS_KEY, {
+            expiresIn: process.env.ACCESS_EXPIRES,
+        });
+        return accessToken;
+    };
+
 
     createRefreshToken = async () => {
         const refreshToken = jwt.sign({}, process.env.REFRESH_KEY, {
@@ -151,11 +160,11 @@ class UserService {
             const kakaocall  = await this.userRepository.loginkakao(datata);
             const userId = kakaocall.userId
             console.log(userId)
-            return jwt.sign({ userId }, process.env.ACCESS_KEY);
+            return userId;
         } else {
             const userId  = user.userId
             console.log(userId)
-            return jwt.sign({ userId }, process.env.ACCESS_KEY);
+            return userId;
         }
     };
 
