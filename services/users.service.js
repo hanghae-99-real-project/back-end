@@ -69,7 +69,7 @@ class UserService {
 
     createKAccessToken = async (jaja) => {
         const userId = jaja;
-        console.log("유저아이디 잘 들어갔는지 확인", userId)
+        // console.log("유저아이디 잘 들어갔는지 확인", userId)
         const accessToken = jwt.sign({ userId }, process.env.ACCESS_KEY, {
             expiresIn: process.env.ACCESS_EXPIRES,
         });

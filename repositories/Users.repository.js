@@ -64,17 +64,17 @@ class UserRepository {
         nicknamee,
         userPhotoo
     ) => {
-        console.log("레퍼지 이메일",datata)
-        console.log("레퍼지 닉네임",nicknamee)
-        console.log("레퍼지 유저포토",userPhotoo)
+        console.log("레퍼지 이메일", datata)
+        console.log("레퍼지 닉네임", nicknamee)
+        console.log("레퍼지 유저포토", userPhotoo)
 
         const { malmla, nickname, userPhoto } = datata
-        console.log("이놈에는 뭐가 담길까",malmla)
+        // console.log("이놈에는 뭐가 담길까",malmla)
         const email = datata.datata
 
-        console.log("다시담은 레퍼지 이메일",email)
-        console.log("다시담은 레퍼지 닉네임",nickname)
-        console.log("다시담은 레퍼지 유저포토",userPhoto)
+        // console.log("다시담은 레퍼지 이메일",email)
+        // console.log("다시담은 레퍼지 닉네임",nickname)
+        // console.log("다시담은 레퍼지 유저포토",userPhoto)
         const signupData = await this.usersModel.create({
             email,
             nickname,
@@ -86,7 +86,7 @@ class UserRepository {
     updateuserById = async (userId, hashedPassword, nickname, userPhoto) => {
         await Users.update(
             {
-                passward : hashedPassword,
+                passward: hashedPassword,
                 nickname: nickname,
                 userPhoto: userPhoto,
             },

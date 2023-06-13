@@ -74,7 +74,7 @@ class PostController {
         throw new Error(posts.message);
       }
 
-      res.status(200).json(posts);
+      res.status(200).json({ lostPostsData: posts });
     } catch (err) {
       console.error(err);
       res.status(400).send({ message: "게시글 조회에 실패하였습니다." });

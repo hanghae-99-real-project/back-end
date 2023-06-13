@@ -84,7 +84,6 @@ class PostRepository {
             },
             attributes: ['userLongitude', 'userLatitude',]
         })
-        console.log("할렐루야할렐루야할렐루야할렐루야할렐루야할렐루야할렐루야할렐루야할렐루야할렐루야", result)
         return result
     }
 
