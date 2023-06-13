@@ -69,7 +69,8 @@ class UserRepository {
         console.log("레퍼지 유저포토",userPhotoo)
 
         const { malmla, nickname, userPhoto } = datata
-        const email = malmla
+        console.log("이놈에는 뭐가 담길까",malmla)
+        const email = datata.datata
 
         console.log("다시담은 레퍼지 이메일",email)
         console.log("다시담은 레퍼지 닉네임",nickname)
