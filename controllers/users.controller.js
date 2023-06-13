@@ -197,7 +197,9 @@ class UserController {
     console.log("스플릿 해서 담은 결과", authCode)
     const kakaoToken = await this.userService.getTokens(authCode);
     console.log("1차전 마치고 나온 결과물.", kakaoToken)
-    const { accessToken } = await this.userService.signInKakao(kakaoToken);
+    const jaja = await this.userService.signInKakao(kakaoToken);
+    console.log("자자에 유저아이디 잘 들어가는지 확인", jaja)
+    const accessToken = await this.userService.createKAccessToken(jaja)
     const refreshToken = await this.userService.createRefreshToken();
     res.cookie("accesstoken", `Bearer ${accessToken}`);
     console.log("엑세스토큰", accesstoken)
