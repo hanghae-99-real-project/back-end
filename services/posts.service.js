@@ -95,6 +95,7 @@ class PostService {
 
         await postRepository.updatePostById(
             dogname,
+            userId,
             postId,
             title,
             content,
