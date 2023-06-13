@@ -86,18 +86,19 @@ class PostService {
         address
     ) => {
         const post = await postRepository.findPostById(postId);
+        const UserId = userId
 
         if (!title || !content) {
             throw new Error("입력 값이 유효하지 않습니다.");
         }
 
-        if (userId !== post.userId) {
+        if (userId !== post.UserId) {
             throw new Error("게시글 수정 권한이 없습니다.");
         }
 
         await postRepository.updatePostById(
             dogname,
-            userId,
+            UserId,
             postId,
             title,
             content,
