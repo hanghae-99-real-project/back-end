@@ -1,7 +1,6 @@
 const { Posts, Users, BookMarks, Sequelize } = require('../models');
 require('dotenv').config();
 
-
 class PostRepository {
 
     async create(postData) {
