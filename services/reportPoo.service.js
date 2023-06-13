@@ -21,7 +21,7 @@ class ReportPooService {
 
                 if (findOneReportPoo) {
                     await this.reportPooRepository.incrementReportCount(findOneReportPoo);
-                    if (findOneReportPoo.reportCount >= 5) {
+                    if (findOneReportPoo.reportCount >= 1) { // 테스트 때문에 1개로 수정, 나중에 5개로 늘리기
                         await this.reportPooRepository.destroyPoo(pooId);
                         return { msg: "게시글삭제 완료" };
                     }
