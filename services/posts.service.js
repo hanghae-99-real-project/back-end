@@ -16,7 +16,9 @@ class PostService {
                 // limit, offset
             );
             const findNearbyPosts = await postRepository.findNearbyPosts(userId); // 유저의 현위치에서부터 가까운 게시글 순부터 조회
+            // console.log("할렐루야할렐루야할렐루야할렐루야할렐루야할렐루야할렐루야할렐루야할렐루야할렐루야", findNearbyPosts)
             const userLocation = await postRepository.findUserLocation(userId); // 유저 위치정보 찾기. 위치정보 동의 했으면 유저 위치 있음.
+            // console.log("할렐루야할렐루야할렐루야할렐루야할렐루야할렐루야할렐루야할렐루야할렐루야할렐루야", userLocation)
             if (userLocation) { // 만약 userlocation이 존재한다면 주변 반경 가까운 게시글 순부터 조회
                 const results = await Promise.all(
                     findNearbyPosts.map(async (item) => {
