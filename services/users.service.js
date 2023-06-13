@@ -69,7 +69,7 @@ class UserService {
 
     createKAccessToken = async (jaja) => {
         const userId = jaja;
-        console.log("유저아이디 잘 들어갔는지 확인",userId)
+        console.log("유저아이디 잘 들어갔는지 확인", userId)
         const accessToken = jwt.sign({ userId }, process.env.ACCESS_KEY, {
             expiresIn: process.env.ACCESS_EXPIRES,
         });
@@ -104,8 +104,8 @@ class UserService {
             send_message(phoneNumber, authcode)
             return { "message": "메세지 발송완료" }
         } catch (error) {
-            console.error(error);
-            return { "errorMessage": "인증번호 요청에 실패하였습니다." }
+            error.failedApi = "인증번호 요청에";
+            throw error;
         }
     };
 
@@ -113,13 +113,13 @@ class UserService {
         try {
             const authCode = await this.userRepository.authCodeValidation(phoneNumber)
             if (!code) {
-                throw new Error("400/인증코드가 입력되지 않았습니다.")
+                throw new Error("401/인증코드가 입력되지 않았습니다.")
             }
             if (authCode !== code) {
-                throw new Error("400/입력된 코드가 일치하지 않습니다.")
+                throw new Error("401/입력된 코드가 일치하지 않습니다.")
             }
             if (!authCode) {
-                throw new Error("400/인증코드가 만료 되었습니다.")
+                throw new Error("401/인증코드가 만료 되었습니다.")
             }
             return { "message": "인증번호 확인완료" }
         } catch (error) {
@@ -138,14 +138,9 @@ class UserService {
         });
 
         const { data } = result;
-        console.log("데이터 전문", data)
-        console.log("email 타입:", typeof data.kakao_account.email);
         let nicknamee = data.properties.nickname;
         let datata = data.kakao_account.email;
         let userPhotoo = data.properties.profile_image;
-        console.log("닉네임", nicknamee)
-        console.log("이메일", datata)
-        console.log("프로필 이미지", userPhotoo)
 
         if (!nicknamee || !datata) throw new Error("KEY_ERROR", 400);
 
@@ -157,27 +152,17 @@ class UserService {
                 nickname: nicknamee,
                 userPhoto: userPhotoo,
             });
-            const kakaocall  = await this.userRepository.loginkakao(datata);
+            const kakaocall = await this.userRepository.loginkakao(datata);
             const userId = kakaocall.userId
-            console.log(userId)
             return userId;
         } else {
-            const userId  = user.userId
-            console.log(userId)
+            const userId = user.userId
             return userId;
         }
     };
 
     // 엑세스 토큰 받아오기
     getTokens = async (authCode) => {
-        console.log("어쓰코드", authCode)
-        console.log("쿼리스트링", querystring.stringify({
-            Content_Type: "authorization_code",
-            client_id: process.env.KAKAO_CLIENT_ID,
-            client_secret: process.env.REACT_APP_KAKAO_CLIENT_SECRET,
-            redirect_uri: process.env.KAKAO_REDIRECT_URI,
-            code: authCode,
-        }))
         const response = await axios.post(
             "https://kauth.kakao.com/oauth/token",
             querystring.stringify({
@@ -193,25 +178,18 @@ class UserService {
                 },
             }
         );
-        console.log("뭘 얼마나 많이 던져주는지 보자", response.data)
         const { access_token } = response.data;
-        console.log("요건 내가 뽑아쓰는 엑세스 토큰", access_token)
         return access_token;
     };
 
 
-    updateuser = async (
-        userId,
-        hashedPassword,
-        nickname,
-        userPhoto,
-    ) => {
+    updateuser = async (userId, hashedPassword, nickname, userPhoto,) => {
         if (!hashedPassword || !nickname) {
-            throw new Error("입력 값이 유효하지 않습니다.");
+            throw new Error("401/입력 값이 유효하지 않습니다.");
         }
 
         if (userId == null) {
-            throw new Error(" 유저 아이디가 null 입니다");
+            throw new Error("401/유저 아이디가 null 입니다");
         }
 
         await this.userRepository.updateuserById(

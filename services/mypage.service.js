@@ -61,13 +61,20 @@ class myPagesService {
             if (!userId) {
                 throw new Error("401/마이페이지 권한이 없습니다.")
             }
+
+            console.log(getMyPoo)
+            console.log(getMyPoo.length)
+            console.log(getMyPoo.length === 0)
+
             if (getMyPoo.length === 0) {
                 throw new Error("401/작성한 푸박스가 없습니다.")
             }
             return getMyPoo
+
         } catch (error) {
             error.failedApi = "에러처리";
             throw error
+
         }
     };
 }
