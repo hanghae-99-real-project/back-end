@@ -68,7 +68,8 @@ class UserRepository {
         console.log("레퍼지 닉네임",nicknamee)
         console.log("레퍼지 유저포토",userPhotoo)
 
-        const { email, nickname, userPhoto } = datata
+        const { nickname, userPhoto } = datata
+        const {email} = datata.email
 
         console.log("다시담은 레퍼지 이메일",email)
         console.log("다시담은 레퍼지 닉네임",nickname)
