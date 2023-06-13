@@ -1,5 +1,5 @@
-const { model } = require('mongoose');
-const { Posts, Likes, BookMarks } = require('../models');
+// const { model } = require('mongoose');
+const { Posts, Users, BookMarks, Sequelize } = require('../models');
 require('dotenv').config();
 
 
@@ -65,6 +65,27 @@ class PostRepository {
     endPost = async (postId) => {
         await Posts.increment('status', { where: { postId } });
     };
+
+    // 위치가 가까운 순으로 조회
+    findNearbyPosts = async (userId) => {
+        const user = await Users.findOne({ where: userId });
+        const { userLatitude, userLongitude } = user
+
+        return await Posts.findAll({
+            order: Sequelize.literal(`ST_Distance_Sphere(point(${userLongitude}, ${userLatitude}), point(lostLongitude, lostLatitude))`),
+        })
+    };
+
+
+    // user 위경도 찾기
+    findUserLocation = async (userId) => {
+        return await Users.findOne({
+            where: {
+                UserId: userId
+            },
+            attributes: ['userLongitude', 'userLatitude',]
+        })
+    }
 
 };
 

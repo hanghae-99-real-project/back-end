@@ -10,7 +10,7 @@ class PoosService {
     postPoo = async (userId, content, pooPhotoUrl, pooLatitude, pooLongitude, originalUrl) => {
         try {
             const nearbyPoos = await this.poosRepository.distanceBetweenPooLocation(pooLatitude, pooLongitude);
-            if (nearbyPoos.length > 0) {
+            if (nearbyPoos.length > 0) { // 30미터 이내에 푸박스가 있는지 확인하는 조건문
                 throw new Error("403/등록하려는 푸박스가 이미 등록된 푸박스인지 확인해주세요.")
             }
 
