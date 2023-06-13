@@ -97,9 +97,9 @@ class PostController {
       const { userId } = res.locals.user;
       const { postId } = req.params;
       const { title, content, dogname,  } = req.body;
-      let { lostLatitude, lostLongitude} = req.body;
+      const { lostLatitude, lostLongitude} = req.body;
       const { lostPhotoUrl } = req;
-      const { address } = await getAddress(lostLatitude, lostLongitude);
+      let address = await getAddress(lostLatitude, lostLongitude);
       if (!address) {
         address = `${lostLatitude}, ${lostLongitude}`
       }
