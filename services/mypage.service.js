@@ -32,8 +32,7 @@ class myPagesService {
 
         } catch (err) {
             console.error(err)
-            throw new Error("500/예외처리")
-
+            throw new Error("500/ 예외처리")
         }
     };
 
@@ -51,23 +50,6 @@ class myPagesService {
         } catch (err) {
             console.error(err)
             throw new Error("500/ 예외처리")
-        }
-    };
-
-
-    getMyPoo = async (userId) => {
-        try {
-            const getMyPoo = await this.mypageRepository.getMyPoo(userId)
-            if (!userId) {
-                throw new Error("403/마이페이지 권한이 없습니다.")
-            }
-            if (getMyPoo.length === 0) {
-                throw new Error("400/작성한 푸박스가 없습니다.")
-            }
-            return getMyPoo
-        } catch (error) {
-            error.failedApi = "에러처리";
-            throw error
         }
     };
 }

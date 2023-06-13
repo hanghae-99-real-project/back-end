@@ -1,4 +1,3 @@
-// const { model } = require('mongoose');
 const { Posts, Users, BookMarks, Sequelize } = require('../models');
 require('dotenv').config();
 
