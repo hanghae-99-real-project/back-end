@@ -4,38 +4,63 @@ const postRepository = new PostRepository();
 
 class PostService {
     async createPost(postData) {
-        console.log("postData:", postData);
         return await postRepository.create(postData);
     }
 
     async getPosts(
         // limit, offset
+        userId
     ) {
         try {
             const posts = await postRepository.getPosts(
                 // limit, offset
             );
-            const results = await Promise.all(
-                posts.map(async (item) => {
-                    const post = {
-                        dogname: item.dogname,
-                        postId: item.postId,
-                        userId: item.userId,
-                        nickname: item.nickname,
-                        lostPhotoUrl: item.lostPhotoUrl,
-                        title: item.title,
-                        content: item.content,
-                        createdAt: item.createdAt,
-                        updatedAt: item.updatedAt,
-                        lostLatitude: item.lostLatitude,
-                        lostLongitude: item.lostLocation,
-                        // setDateTime: item.setDateTime,
-                    };
+            const findNearbyPosts = await postRepository.findNearbyPosts(userId); // 유저의 현위치에서부터 가까운 게시글 순부터 조회
+            const userLocation = await postRepository.findUserLocation(userId); // 유저 위치정보 찾기. 위치정보 동의 했으면 유저 위치 있음.
+            if (userLocation) { // 만약 userlocation이 존재한다면 주변 반경 가까운 게시글 순부터 조회
+                const results = await Promise.all(
+                    findNearbyPosts.map(async (item) => {
+                        const post = {
+                            dogname: item.dogname,
+                            postId: item.postId,
+                            userId: item.userId,
+                            nickname: item.nickname,
+                            lostPhotoUrl: item.lostPhotoUrl,
+                            title: item.title,
+                            content: item.content,
+                            createdAt: item.createdAt,
+                            updatedAt: item.updatedAt,
+                            lostLatitude: item.lostLatitude,
+                            lostLongitude: item.lostLongitude,
+                            // setDateTime: item.setDateTime,
+                        };
+                        return post;
+                    })
+                );
+                return results;
+            } else {
+                const results = await Promise.all(
+                    posts.map(async (item) => { // userlocation이 존재하지 않는다면 내림차순 조회
+                        const post = {
+                            dogname: item.dogname,
+                            postId: item.postId,
+                            userId: item.userId,
+                            nickname: item.nickname,
+                            lostPhotoUrl: item.lostPhotoUrl,
+                            title: item.title,
+                            content: item.content,
+                            createdAt: item.createdAt,
+                            updatedAt: item.updatedAt,
+                            lostLatitude: item.lostLatitude,
+                            lostLongitude: item.lostLongitude,
+                            // setDateTime: item.setDateTime,
+                        };
 
-                    return post;
-                })
-            );
-            return results;
+                        return post;
+                    })
+                );
+                return results;
+            }
         } catch (error) {
             return { error: true, message: error.message };
         }

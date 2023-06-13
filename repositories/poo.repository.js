@@ -45,7 +45,7 @@ class PoosRepository {
     // 두 위치 사이의 거리를 미터 단위로 계산해주는 ST_Distance_Sphere SQL 함수
     distanceBetweenPooLocation = async (latitude, longitude) => {
         const nearbyPoos = await this.poo.findAll({
-            where: Sequelize.literal(`ST_Distance_Sphere(point(${longitude}, ${latitude}), point(pooLongitude, pooLatitude)) <= 30`) //30미터
+            where: Sequelize.literal(`ST_Distance_Sphere(point(${longitude}, ${latitude}), point(pooLongitude, pooLatitude)) <= 30`) // 두 지점 사이의 거리가 30미터 이내인지 확인
         })
         return nearbyPoos
     }
