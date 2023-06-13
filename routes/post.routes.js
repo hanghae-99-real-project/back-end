@@ -21,6 +21,7 @@ router.post(
 
 router.get(
     "/",
+    authMiddleware,
     async (req, res) => {
         postController.getPosts(req, res);
     });
