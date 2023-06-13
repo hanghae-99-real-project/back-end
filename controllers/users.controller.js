@@ -202,7 +202,7 @@ class UserController {
     const accessToken = await this.userService.createKAccessToken(jaja)
     const refreshToken = await this.userService.createRefreshToken();
     res.cookie("accesstoken", `Bearer ${accessToken}`);
-    console.log("엑세스토큰", accesstoken)
+    console.log("엑세스토큰", accessToken)
     res.cookie("refreshtoken", `Bearer ${refreshToken}`);
     console.log("리프레쉬토큰", refreshToken)
     return res.status(200).json({ accessToken, refreshToken });
