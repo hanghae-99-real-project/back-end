@@ -63,8 +63,7 @@ class PostController {
       // const limit = 10;
       // const page = req.query.page ? req.query.page : 1;
       // const offset = (page - 1) * limit; // 페이지네이션
-      //const userId = res.locals.user ? res.locals.user.userId : null; // 로그인을 했을 때와 로그인을 하지 않았을 때의 사용자 구분
-      const userId = 1
+      const userId = res.locals.user ? res.locals.user.userId : null; // 로그인을 했을 때와 로그인을 하지 않았을 때의 사용자 구분
 
       const posts = await postService.getPosts(
         // limit, offset

@@ -78,14 +78,16 @@ class PostRepository {
     };
 
 
-    // user 위경도 찾기
+    // post를 조회하려는 유저의 위경도 찾기
     findUserLocation = async (userId) => {
-        return await Users.findOne({
+        const result = await Users.findOne({
             where: {
-                UserId: userId
+                userId
             },
             attributes: ['userLongitude', 'userLatitude',]
         })
+        console.log("할렐루야할렐루야할렐루야할렐루야할렐루야할렐루야할렐루야할렐루야할렐루야할렐루야", result)
+        return result
     }
 
 };
