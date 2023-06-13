@@ -60,17 +60,16 @@ class UserRepository {
     };
 
     signupkakao = async (
-        email,
-        nickname,
-        userPhoto
+        datata,
+        nicknamee,
+        userPhotoo
     ) => {
-        console.log("레퍼지 이메일",email)
-        console.log("레퍼지 닉네임",nickname)
-        console.log("레퍼지 유저포토",userPhoto)
+        console.log("레퍼지 이메일",datata)
+        console.log("레퍼지 닉네임",nicknamee)
+        console.log("레퍼지 유저포토",userPhotoo)
 
-        email  = email[0]
-        nickname = email[1]
-        userPhoto = email[2]
+        const { email, nickname, userPhoto } = datata
+
         console.log("다시담은 레퍼지 이메일",email)
         console.log("다시담은 레퍼지 닉네임",nickname)
         console.log("다시담은 레퍼지 유저포토",userPhoto)
