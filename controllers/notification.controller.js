@@ -27,7 +27,7 @@ class NotificationController {
             const notification = await this.notificationService.getNotificationsByUserIds(notificationId, userId);
 
             if (!notification) {
-                throw new Error("403/해당 알림을 확인할 수 없습니다.");
+                throw new Error("401/해당 알림을 확인할 수 없습니다.");
             }
 
             await this.notificationService.markAsRead(notificationId, userId);

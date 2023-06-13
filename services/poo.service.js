@@ -22,19 +22,19 @@ class PoosService {
             const getPooAll = await this.poosRepository.findAllPoo()
             await redisClient.setEx(originalUrl, DEFAULT_EXPIRATION, JSON.stringify(getPooAll));
             if (!userId) {
-                throw new Error("403/마이페이지 권한이 없습니다.")
+                throw new Error("401/마이페이지 권한이 없습니다.")
             }
             if (!content) {
-                throw new Error("403/입력된 설명이 존재하지 않습니다.")
+                throw new Error("401/입력된 설명이 존재하지 않습니다.")
             }
             if (!pooPhotoUrl) {
-                throw new Error("403/사진이 등록되지 않았습니다.")
+                throw new Error("401/사진이 등록되지 않았습니다.")
             }
             if (!pooLatitude) {
-                throw new Error("403/경도가 입력되지 않았습니다.")
+                throw new Error("401/경도가 입력되지 않았습니다.")
             }
             if (!pooLongitude) {
-                throw new Error("403/위도가 입력되지 않았습니다.")
+                throw new Error("401/위도가 입력되지 않았습니다.")
             }
             return { message: "푸박스 등록 성공" }
         } catch (error) {
