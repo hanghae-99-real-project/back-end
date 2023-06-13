@@ -25,7 +25,7 @@ class RandomLostpostsService {
                 return await this.fetchAllPostsRandomly();
             }
 
-            // 5km 안에 등록된 게시글 조회
+            // 5km 안에 등록된 게시글 랜덤 조회
             const results = await Promise.all(
                 findNearbyPostsRandomly.map(async (item) => this.mapPost(item))
             );
@@ -52,8 +52,9 @@ class RandomLostpostsService {
         };
     }
 
+    // 전체 게시글 랜덤 조회
     fetchAllPostsRandomly = async () => {
-        const getAllPosts = await this.randomLostpostsRepository.getAllPosts(); // 전체 게시글 랜덤 조회
+        const getAllPosts = await this.randomLostpostsRepository.getAllPosts();
         const results = await Promise.all(
             getAllPosts.map(async (item) => this.mapPost(item))
         );
