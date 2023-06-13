@@ -15,7 +15,7 @@ class ChildCommentController {
             const { childComment, isPrivate } = req.body;
 
             if (!childComment) {
-                throw new Error("403/대댓글 작성에 실패하였습니다.");
+                throw new Error("401/대댓글 작성에 실패하였습니다.");
             }
 
             // 게시글이 존재하는지 여부 확인
@@ -23,13 +23,13 @@ class ChildCommentController {
             const post = await this.commentService.findPostById(postId);
 
             if (!post) {
-                throw new Error("403/게시물이 존재하지 않습니다");
+                throw new Error("401/게시물이 존재하지 않습니다");
             }
 
             // 댓글이 존재하는지 여부 확인
             const comments = await this.commentService.findCommentById(commentId);
             if (!comments) {
-                throw new Error("403/댓글이 존재하지 않습니다.");
+                throw new Error("401/댓글이 존재하지 않습니다.");
             }
 
             await this.childCommentService.createChildComment(userId, postId, commentId, childComment, isPrivate);
@@ -50,13 +50,13 @@ class ChildCommentController {
             // 댓글이 존재하는지 여부 확인
             const comments = await this.commentService.findCommentById(commentId);
             if (!comments) {
-                throw new Error("403/댓글이 존재하지 않습니다.");
+                throw new Error("401/댓글이 존재하지 않습니다.");
             }
 
             // 대댓글 존재 여부 확인
             const childComments = await this.childCommentService.findChildCommentsByCommentId(postId, commentId, userId);
             if (!childComments) {
-                throw new Error("403/대댓글이 존재하지 않습니다");
+                throw new Error("401/대댓글이 존재하지 않습니다");
             }
 
             return res.status(200).json({ childCommentsData: childComments })
@@ -76,24 +76,24 @@ class ChildCommentController {
             // const post = await this.postsService.xxxx(postId); 
             const post = await this.commentService.findPostById(postId);
             if (!post) {
-                throw new Error("403/게시물이 존재하지 않습니다");
+                throw new Error("401/게시물이 존재하지 않습니다");
             }
 
             // 댓글이 존재하는지 여부 확인
             const comment = await this.commentService.findCommentById(commentId);
             if (!comment) {
-                throw new Error("403/댓글이 존재하지 않습니다.");
+                throw new Error("401/댓글이 존재하지 않습니다.");
             }
 
             // 대댓글 존재 여부 확인
             const childComments = await this.childCommentService.findChildCommentById(childCommentId);
             if (!childComments) {
-                throw new Error("403/대댓글이 존재하지 않습니다");
+                throw new Error("401/대댓글이 존재하지 않습니다");
             }
 
             // 유저 아이디가 일치하지 않을 때
             if (childComments.UserId !== userId) {
-                throw new Error("403/대댓글 삭제 권한이 존재하지 않습니다.");
+                throw new Error("401/대댓글 삭제 권한이 존재하지 않습니다.");
             }
 
             await this.childCommentService.deleteChildComment(userId, postId, commentId, childCommentId);

@@ -20,16 +20,16 @@ class PostController {
       if (!address) {
         address = `${lostLatitude}, ${lostLongitude}`
       }
-      
+
 
       if (!title) {
         return res
-          .status(412)
+          .status(401)
           .json({ message: "모든 필드의 값은 필수 값 입니다." });
       }
       if (!content) {
         return res
-          .status(412)
+          .status(401)
           .json({ message: "모든 필드의 값은 필수 값 입니다." });
       }
 
@@ -96,8 +96,8 @@ class PostController {
     try {
       const { userId } = res.locals.user;
       const { postId } = req.params;
-      const { title, content, dogname,  } = req.body;
-      const { lostLatitude, lostLongitude} = req.body;
+      const { title, content, dogname, } = req.body;
+      const { lostLatitude, lostLongitude } = req.body;
       const { lostPhotoUrl } = req;
       let address = await getAddress(lostLatitude, lostLongitude);
       if (!address) {

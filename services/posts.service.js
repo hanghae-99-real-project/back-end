@@ -89,11 +89,11 @@ class PostService {
         const UserId = userId
 
         if (!title || !content) {
-            throw new Error("입력 값이 유효하지 않습니다.");
+            throw new Error("401/입력 값이 유효하지 않습니다.");
         }
 
         if (userId !== post.UserId) {
-            throw new Error("게시글 수정 권한이 없습니다.");
+            throw new Error("401/게시글 수정 권한이 없습니다.");
         }
 
         await postRepository.updatePostById(
@@ -113,11 +113,11 @@ class PostService {
         const post = await postRepository.findPostById(postId);
 
         if (!post) {
-            throw new Error("게시글이 존재하지 않습니다.");
+            throw new Error("401/게시글이 존재하지 않습니다.");
         }
 
         if (userId !== post.UserId) {
-            throw new Error("게시글 삭제 권한이 없습니다.");
+            throw new Error("401/게시글 삭제 권한이 없습니다.");
         }
 
         await postRepository.deletePostById(postId);
@@ -127,11 +127,11 @@ class PostService {
         const post = await postRepository.findPostById(postId);
 
         if (!post) {
-            throw new Error("게시글이 존재하지 않습니다.");
+            throw new Error("401/게시글이 존재하지 않습니다.");
         }
 
         if (userId !== post.UserId) {
-            throw new Error("게시글 삭제 권한이 없습니다.");
+            throw new Error("401/게시글 삭제 권한이 없습니다.");
         }
 
         await postRepository.deletePostById(postId);

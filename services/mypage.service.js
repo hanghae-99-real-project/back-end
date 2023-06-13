@@ -9,7 +9,7 @@ class myPagesService {
         try {
             const getMyInfoData = await this.mypageRepository.getMyInfo(userId)
             if (!userId) {
-                throw new Error("403/마이페이지 권한이 없습니다.")
+                throw new Error("401/마이페이지 권한이 없습니다.")
             }
             return getMyInfoData
 
@@ -23,16 +23,16 @@ class myPagesService {
         try {
             const getMyPostData = await this.mypageRepository.getMyPost(userId)
             if (!userId) {
-                throw new Error("403/마이페이지 권한이 없습니다.")
+                throw new Error("401/마이페이지 권한이 없습니다.")
             }
             if (!getMyPostData) {
-                throw new Error("400/작성한 게시글이 존재하지 않습니다.")
+                throw new Error("401/작성한 게시글이 존재하지 않습니다.")
             }
             return getMyPostData
 
         } catch (err) {
             console.error(err)
-            throw new Error("500/ 예외처리")
+            throw new Error("400/내가 작성한 게시글")
 
         }
     };
@@ -41,16 +41,16 @@ class myPagesService {
         try {
             const getMyBookmark = await this.mypageRepository.getMyBookmark(userId)
             if (!userId) {
-                throw new Error("403/마이페이지 권한이 없습니다.")
+                throw new Error("401/마이페이지 권한이 없습니다.")
             }
             if (!getMyBookmark) {
-                throw new Error("400/데이터가 존재하지 않습니다.")
+                throw new Error("401/데이터가 존재하지 않습니다.")
             }
             return getMyBookmark
 
         } catch (err) {
             console.error(err)
-            throw new Error("500/ 예외처리")
+            throw new Error("400/예외처리")
         }
     };
 
@@ -59,10 +59,10 @@ class myPagesService {
         try {
             const getMyPoo = await this.mypageRepository.getMyPoo(userId)
             if (!userId) {
-                throw new Error("403/마이페이지 권한이 없습니다.")
+                throw new Error("401/마이페이지 권한이 없습니다.")
             }
             if (getMyPoo.length === 0) {
-                throw new Error("400/작성한 푸박스가 없습니다.")
+                throw new Error("401/작성한 푸박스가 없습니다.")
             }
             return getMyPoo
         } catch (error) {
