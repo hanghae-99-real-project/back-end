@@ -68,9 +68,9 @@ class UserRepository {
         console.log("레퍼지 닉네임",nickname)
         console.log("레퍼지 유저포토",userPhoto)
 
-        email  = email.email
-        nickname = email.nickname
-        userPhoto = email.userPhoto
+        email  = email[0]
+        nickname = email[1]
+        userPhoto = email[2]
         console.log("다시담은 레퍼지 이메일",email)
         console.log("다시담은 레퍼지 닉네임",nickname)
         console.log("다시담은 레퍼지 유저포토",userPhoto)
