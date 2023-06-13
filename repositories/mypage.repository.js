@@ -9,7 +9,7 @@ class myPagesRepository {
     getMyInfo = async (userId) => {
         const getMyInfoData = await this.Users.findOne({
             where: { userId },
-            attributes: ["userId", "phoneNumber", "nickname", "userPhoto"],
+            attributes: ["userId", "phoneNumber", "nickname", "userPhoto", "position"],
         })
         return getMyInfoData
     };
