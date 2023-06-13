@@ -38,11 +38,12 @@ class PostRepository {
     };
 
 
-    updatePostById = async (dogname, postId, title, content, lostPhotoUrl, lostLatitude, lostLongitude) => {
+    updatePostById = async (dogname, userId, postId, title, content, lostPhotoUrl, lostLatitude, lostLongitude) => {
         const date = new Date();
         await Posts.update(
             {
                 dogname: dogname,
+                userId: userId,
                 title: title,
                 content: content,
                 updatedAt: date,
