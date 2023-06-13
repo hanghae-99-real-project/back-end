@@ -23,16 +23,16 @@ class myPagesService {
         try {
             const getMyPostData = await this.mypageRepository.getMyPost(userId)
             if (!userId) {
-                throw new Error("403/마이페이지 권한이 없습니다.")
+                throw new Error("401/마이페이지 권한이 없습니다.")
             }
             if (!getMyPostData) {
-                throw new Error("400/작성한 게시글이 존재하지 않습니다.")
+                throw new Error("401/작성한 게시글이 존재하지 않습니다.")
             }
             return getMyPostData
 
         } catch (err) {
             console.error(err)
-            throw new Error("500/ 예외처리")
+            throw new Error("500/예외처리")
 
         }
     };
