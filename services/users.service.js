@@ -148,7 +148,8 @@ class UserService {
                 nickname: nicknamee,
                 userPhoto: userPhotoo,
             });
-            const userId  = kakaouser.userId
+            const kakaocall  = await this.userRepository.loginkakao(datata);
+            const userId = kakaocall.userId
             console.log(userId)
             return jwt.sign({ userId }, process.env.ACCESS_KEY);
         } else {
