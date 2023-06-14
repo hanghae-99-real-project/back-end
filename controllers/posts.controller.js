@@ -85,7 +85,8 @@ class PostController {
     try {
       const { postId } = req.params;
       const post = await postService.getPostById(postId);
-      res.json({ data: post });
+      console.log(post)
+      res.json(post);
     } catch (err) {
       console.error(err);
       res.status(400).send({ message: "게시글 조회에 실패하였습니다." });

@@ -12,10 +12,7 @@ module.exports = async (req, res, next) => {
     try {
         accesstoken = !req.headers.refreshtoken ? req.cookies.accesstoken : accesstoken;
         refreshtoken = !req.headers.refreshtoken ? req.cookies.refreshtoken : refreshtoken;
-
-
         const [authAccessType, authAccessToken] = (accesstoken ?? "").split(" ");
-
 
         // refreshtoken이 없거나 accesstoken의 형식이 올바르지 않을 때
         if ((!refreshtoken) || (authAccessType !== "Bearer" || !authAccessToken)) {
@@ -28,11 +25,9 @@ module.exports = async (req, res, next) => {
         const isAccessTokenValidate = validateAccessToken(authAccessToken);
         const isRefreshTokenValidate = validateRefreshToken(refreshtoken);
 
-
         if (!isRefreshTokenValidate) {
             return res.status(403).json({ errorMessage: "Refresh Token이 만료되었습니다." });
         }
-
 
         if (!isAccessTokenValidate) {
             const accessTokenId = await tokenRepository.findTokenId(refreshtoken);
@@ -40,12 +35,9 @@ module.exports = async (req, res, next) => {
                 return res.json({ errorMessage: "Refresh Token의 정보가 서버에 존재하지 않습니다.", });
             }
             const newAccessToken = createAccessToken(accessTokenId);
-
-            console.log(newAccessToken)
             res.cookie("accesstoken", `Bearer ${newAccessToken}`);
             return res.status(203).json({ newAccessToken });
         }
-
         const { userId } = jwt.verify(authAccessToken, process.env.ACCESS_KEY);
         const user = await Users.findOne({ where: { userId: userId } });
         res.locals.user = user;
