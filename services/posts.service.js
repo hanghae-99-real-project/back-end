@@ -119,8 +119,7 @@ class PostService {
         if (userId !== post.UserId) {
             throw new Error("401/게시글 삭제 권한이 없습니다.");
         }
-
-        await this.postRepository.deletePostById(postId);
+        await postRepository.endPost(postId);
     };
 
 }
