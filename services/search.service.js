@@ -34,6 +34,7 @@ class SearchService {
                     dogname: post.dogname,
                     lostPhotoUrl: post.lostPhotoUrl,
                     address: post.address,
+                    createdAt: post.createdAt
                 };
             })
         );
