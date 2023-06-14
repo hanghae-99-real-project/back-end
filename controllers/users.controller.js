@@ -222,7 +222,7 @@ class UserController {
 
   updatenickname =async (req, res) => {
     try {
-      const { nickname } = req.body;
+      const nickname = req.body.nickname;
       const { userId } = res.locals.user
       
       await this.userService.updatenickname(
@@ -239,7 +239,7 @@ class UserController {
 
   updatepass = async (req, res) => {
     try {
-      const { password } = req.body;
+      const password  = req.body.password;
       const { userId } = res.locals.user
 
       const hashedPassword = await bcrypt.hash(password, 10);
