@@ -96,6 +96,42 @@ class UserRepository {
         );
     };
 
+    updatenicknameById = async (userId, nickname) => {
+        await Users.update(
+            {
+                nickname: nickname,
+            },
+            {
+                where: { userId }
+            }
+        );
+    };
+
+    updatepassById = async (userId, hashedPassword) => {
+        await Users.update(
+            {
+                passward: hashedPassword
+            },
+            {
+                where: { userId }
+            }
+        );
+    };
+
+    updateimageById = async (userId, userPhoto) => {
+        await Users.update(
+            {
+                userPhoto: userPhoto,
+            },
+            {
+                where: { userId }
+            }
+        );
+    };
+
+
+
+
     loginkakao = async (email) => {
         const loginUser = await this.usersModel.findOne({ where: { email } });
         return loginUser;

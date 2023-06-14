@@ -51,11 +51,25 @@ router.post(
 
 
 router.put(
-    "/users",
+    "/nickname",
+    authMiddleware,
+    userController.updatenickname
+);
+
+router.put(
+    "/image",
     authMiddleware,
     uploaduserImage.single("userPhoto"),
-    userController.updateUser
+    userController.updateimage
 );
+
+
+router.put(
+    "/pass",
+    authMiddleware,
+    userController.updatepass
+);
+
 
 
 module.exports = router;

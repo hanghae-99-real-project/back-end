@@ -47,6 +47,7 @@ router.delete(
 
 router.post(
     "/end/:postId",
+    authMiddleware,
     postController.endPost);
 
 
