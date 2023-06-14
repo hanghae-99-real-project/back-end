@@ -222,7 +222,7 @@ class UserController {
 
   updatenickname =async (req, res) => {
     try {
-      const {nickname} = req.body.nickname;
+      const {nickname} = req.body;
       const { userId } = res.locals.user
       console.log("닉네임", nickname)
       
@@ -240,7 +240,7 @@ class UserController {
 
   updatepass = async (req, res) => {
     try {
-      const {password}  = req.body.password;
+      const {password}  = req.body;
       const { userId } = res.locals.user
       console.log("패스워드", password)
 
