@@ -60,25 +60,17 @@ class PostController {
   };
 
   getPosts = async (req, res) => {
-    try {
-      // const limit = 10;
-      // const page = req.query.page ? req.query.page : 1;
-      // const offset = (page - 1) * limit; // 페이지네이션
-      const userId = res.locals.user ? res.locals.user.userId : null; // 로그인을 했을 때와 로그인을 하지 않았을 때의 사용자 구분
+    // const limit = 10;
+    // const page = req.query.page ? req.query.page : 1;
+    // const offset = (page - 1) * limit; // 페이지네이션
+    const userId = res.locals.user ? res.locals.user.userId : null; // 로그인을 했을 때와 로그인을 하지 않았을 때의 사용자 구분
 
-      const posts = await postService.getPosts(
-        // limit, offset
-        userId
-      );
-      if (posts.error) {
-        throw new Error(posts.message);
-      }
+    const posts = await postService.getPosts(
+      // limit, offset
+      userId
+    );
 
-      res.status(200).json({ lostPostsData: posts });
-    } catch (err) {
-      console.error(err);
-      res.status(400).send({ message: "게시글 조회에 실패하였습니다." });
-    }
+    res.status(200).json({ lostPostsData: posts });
   };
 
   getPostById = async (req, res) => {

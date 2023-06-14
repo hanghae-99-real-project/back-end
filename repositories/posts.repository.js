@@ -1,17 +1,21 @@
-const { Posts, Users, BookMarks, Sequelize } = require('../models');
-require('dotenv').config();
+const { BookMarks } = require('../models');
 
 class PostRepository {
+    constructor(postsModel, usersModel, Sequelize) {
+        this.postsModel = postsModel;
+        this.usersModel = usersModel;
+        this.Sequelize = Sequelize;
+    }
 
     async create(postData) {
-        return await Posts.create(postData);
+        return await this.postsModel.create(postData);
     };
 
 
-    async getPosts(
+    getPosts = async (
         // limit, offset
-    ) {
-        return await Posts.findAll({
+    ) => {
+        return await this.postsModel.findAll({
             // limit: limit,
             // offset: offset,
             order: [
@@ -21,8 +25,8 @@ class PostRepository {
     }
 
     findPostById = async (postId) => {
-        await Posts.increment('views', { where: { postId } });
-        const post = await Posts.findOne({
+        await this.postsModel.increment('views', { where: { postId } });
+        const post = await this.postsModel.findOne({
             where: { postId },
             include: [
                 {
@@ -38,7 +42,7 @@ class PostRepository {
 
     updatePostById = async (dogname, userId, postId, title, content, lostPhotoUrl, lostLatitude, lostLongitude) => {
         const date = new Date();
-        await Posts.update(
+        await this.postsModel.update(
             {
                 dogname: dogname,
                 userId: userId,
@@ -56,33 +60,34 @@ class PostRepository {
     };
 
     deletePostById = async (postId) => {
-        await Posts.destroy({
+        await this.postsModel.destroy({
             where: { postId }
         });
     };
 
     endPost = async (postId) => {
-        await Posts.increment('status', { where: { postId } });
+        await this.postsModel.increment('status', { where: { postId } });
     };
 
     // 위치가 가까운 순으로 조회
     findNearbyPosts = async (userId) => {
-        const user = await Users.findOne({ where: userId });
+        const user = await this.usersModel.findOne({ where: userId });
         const { userLatitude, userLongitude } = user
 
-        return await Posts.findAll({
-            order: Sequelize.literal(`ST_Distance_Sphere(point(${userLongitude}, ${userLatitude}), point(lostLongitude, lostLatitude))`),
+        return await this.postsModel.findAll({
+            order: this.Sequelize.literal(`ST_Distance_Sphere(point(${userLongitude}, ${userLatitude}), point(lostLongitude, lostLatitude))`),
         })
     };
 
 
     // post를 조회하려는 유저의 위경도 찾기
     findUserLocation = async (userId) => {
-        const result = await Users.findOne({
+        const result = await this.usersModel.findOne({
             where: {
                 userId
             },
-            attributes: ['userLongitude', 'userLatitude',]
+            // attributes: ['userLongitude', 'userLatitude']
+            attributes: ['position']
         })
         return result
     }
