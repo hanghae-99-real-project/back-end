@@ -46,7 +46,7 @@ router.delete(
 );
 
 router.post(
-    "/end",
+    "/end/:postId",
     postController.endPost);
 
 
