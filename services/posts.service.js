@@ -40,6 +40,7 @@ class PostService {
             nickname: item.nickname,
             lostPhotoUrl: item.lostPhotoUrl,
             title: item.title,
+            status:item.status,
             content: item.content,
             createdAt: item.createdAt,
             updatedAt: item.updatedAt,
@@ -121,8 +122,7 @@ class PostService {
         if (userId !== post.UserId) {
             throw new Error("401/게시글 삭제 권한이 없습니다.");
         }
-
-        await this.postRepository.deletePostById(postId);
+        await this.postRepository.endPost(postId);
     };
 
 }

@@ -200,5 +200,54 @@ class UserService {
         );
     };
 
+    updateimage = async (userId, userPhoto,) => {
+        if (!userPhoto) {
+            console.log(userPhoto)
+            throw new Error("401/유저 포토가 입력되지 않았습니다.");
+        }
+
+        if (userId == null) {
+            throw new Error("401/유저 아이디가 null 입니다");
+        }
+
+        await this.userRepository.updateimageById(
+            userId,
+            userPhoto,
+        );
+    };
+
+    updatepass = async (userId, hashedPassword) => {
+        if (!hashedPassword) {
+            console.log(hashedPassword)
+            throw new Error("401/바꿀 패스워드 값을 입력해주세요.");
+        }
+
+        if (userId == null) {
+            throw new Error("401/유저 아이디가 null 입니다");
+        }
+
+        await this.userRepository.updatepassById(
+            userId,
+            hashedPassword,
+        );
+    };
+
+
+    updatenickname = async (userId,nickname) => {
+        if (!nickname) {
+            console.log(nickname)
+            throw new Error("401/닉네임이 들어오지 않았습니다.");
+        }
+
+        if (userId == null) {
+            throw new Error("401/유저 아이디가 null 입니다");
+        }
+
+        await this.userRepository.updatenicknameById(
+            userId,
+            nickname
+        );
+    };
+
 };
 module.exports = UserService;
