@@ -53,27 +53,22 @@ router.post(
 router.put(
     "/nickname",
     authMiddleware,
-    async (req, res) => {
-        userController.updatenickname(req, res);
-    }
+    uploaduserImage.single("userPhoto"),
+    userController.updatenickname
+);
+
+router.put(
+    "/pass",
+    authMiddleware,
+    uploaduserImage.single("userPhoto"),
+    userController.updatepass
 );
 
 router.put(
     "/image",
     authMiddleware,
     uploaduserImage.single("userPhoto"),
-    async (req, res) => {
-        userController.updateimage(req, res);
-    }
-);
-
-
-router.put(
-    "/pass",
-    authMiddleware,
-    async (req, res) => {
-        userController.updatepass(req, res);
-    }
+    userController.updateimage
 );
 
 
