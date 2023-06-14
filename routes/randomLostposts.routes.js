@@ -6,6 +6,4 @@ const randomLostpostsController = new RandomLostpostsController();
 
 router.get("/lostposts", authMiddleware, randomLostpostsController.getNearbyRandomPosts);
 
-
-
 module.exports = router;

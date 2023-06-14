@@ -5,7 +5,6 @@ class ReportPooController {
 
     // 신고 5회 이상 시 poo 게시글 삭제
     postReportPoo = async (req, res, next) => {
-
         const { userId } = res.locals.user;
         const { pooId } = req.params;
         const { reportContent } = req.body;

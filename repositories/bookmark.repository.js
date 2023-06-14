@@ -4,7 +4,6 @@ class BookmarkRepository {
         this.postsModel = postsModel
     };
 
-    // 게시글 한 개 조회
     findPostById = async (postId) => {
         return await this.postsModel.findOne({
             where: { PostId: postId },
@@ -23,15 +22,10 @@ class BookmarkRepository {
         return findOneBookrmark
     }
 
-
-    postBookmark = async (userId, postId) => {
+    createBookmark = async (userId, postId) => {
         const createBookmark = await this.bookMarksModel.create({ UserId: userId, PostId: postId })
         return createBookmark
     }
-
-
-
-
 
     cancelBookmark = async (userId, postId) => {
         const destroyBookmark = await this.bookMarksModel.destroy(
@@ -41,9 +35,6 @@ class BookmarkRepository {
         )
         return destroyBookmark
     }
-
-
-
 };
 
 module.exports = BookmarkRepository;

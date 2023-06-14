@@ -1,11 +1,11 @@
 const PoosRepository = require('../repositories/poo.repository')
-const { Poos, Users } = require("../models");
+const { Poos, Users, Sequelize } = require("../models");
 const getAddress = require("../modules/kakao")
 const redisClient = require("../modules/redisClient")
 const DEFAULT_EXPIRATION = 3600
 
 class PoosService {
-    poosRepository = new PoosRepository(Poos, Users, redisClient)
+    poosRepository = new PoosRepository(Poos, Users, Sequelize, redisClient)
 
     postPoo = async (userId, content, pooPhotoUrl, pooLatitude, pooLongitude, originalUrl) => {
         try {
@@ -18,9 +18,10 @@ class PoosService {
             if (!address) {
                 address = `${pooLatitude}, ${pooLongitude}`
             }
-            const postPooData = await this.poosRepository.postPoo(userId, content, pooPhotoUrl, pooLatitude, pooLongitude, address)
+            await this.poosRepository.postPoo(userId, content, pooPhotoUrl, pooLatitude, pooLongitude, address)
             const getPooAll = await this.poosRepository.findAllPoo()
-            await redisClient.setEx(originalUrl, DEFAULT_EXPIRATION, JSON.stringify(getPooAll));
+            await this.poosRepository.cashingPoo(originalUrl, DEFAULT_EXPIRATION, getPooAll)
+
             if (!userId) {
                 throw new Error("401/마이페이지 권한이 없습니다.")
             }
@@ -43,8 +44,7 @@ class PoosService {
         }
 
     };
-
-    getPoo = async (originalUrl) => {
+    findAllPoo = async (originalUrl) => {
         try {
             const getPooData = await this.poosRepository.findAllPoo()
             const getPooDataAll = await Promise.all(
@@ -62,38 +62,14 @@ class PoosService {
                     };
                 })
             )
-
-            await redisClient.setEx(originalUrl, DEFAULT_EXPIRATION, JSON.stringify(getPooDataAll))
-
+            await this.poosRepository.cashingPoo(originalUrl, DEFAULT_EXPIRATION, getPooAll)
             return getPooDataAll;
-
-
         } catch (error) {
-            error.failedApi = "푸박스 조회에러";
+            error.failedApi = "푸박스 조회";
             throw error;
         }
-
     };
 
-
-    // getPooDetail = async (pooId, originalUrl) => {
-    //     try {
-    //         const getPooData = await this.poosRepository.getPooDetail(pooId);
-
-    //         if (!pooId) {
-    //             throw new Error("403/푸박스를 찾을 수 없습니다.")
-    //         }
-    //         if (!getPooData) {
-    //             throw new Error("403/등록된 푸박스가 없습니다.")
-    //         }
-    //         redisClient.SETEX(originalUrl, DEFAULT_EXPIRATION, JSON.stringify(getPooData))
-    //         return getPooData
-    //     } catch (error) {
-    //         error.failedApi = "푸박스 상세조회";
-    //         throw error;
-    //     }
-
-    // };
 }
 
 module.exports = PoosService;

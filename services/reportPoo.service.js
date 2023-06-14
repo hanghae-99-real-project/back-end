@@ -21,7 +21,7 @@ class ReportPooService {
 
                 if (findOneReportPoo) {
                     await this.reportPooRepository.incrementReportCount(findOneReportPoo);
-                    if (findOneReportPoo.reportCount >= 1) { // 테스트 때문에 1개로 수정, 나중에 5개로 늘리기
+                    if (findOneReportPoo.reportCount === 5) {
                         await this.reportPooRepository.destroyPoo(pooId);
                         return { msg: "게시글삭제 완료" };
                     }
@@ -33,7 +33,7 @@ class ReportPooService {
                 return { msg: "신고 취소" };
             }
         } catch (error) {
-            error.failedApi = "신고 실패";
+            error.failedApi = "게시글 신고";
             throw error;
         }
     };

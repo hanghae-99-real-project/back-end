@@ -29,104 +29,151 @@ class ChildCommentService {
 
     // 대댓글과 비밀 대댓글 생성
     createChildComment = async (userId, postId, commentId, childComment, isPrivate) => {
-        // 상위 댓글 가져오기
-        const parentComment = await this.commentRepository.findCommentById(commentId);
-        // 상위 게시글 가져오기
-        const parentPost = await this.commentRepository.findPostById(postId)
-        // 상위 댓글이 비밀 댓글인 경우 체크
-        if (parentComment.isPrivate) {
-            // 비밀 대댓글이 아니라면 에러 발생
-            if (!isPrivate) {
-                throw new Error("404/비밀 댓글에는 비밀 대댓글만 작성할 수 있습니다.");
+        try {
+            if (!childComment) {
+                throw new Error("401/대댓글 작성에 실패하였습니다.");
+            }
+            // 상위 댓글 가져오기
+            const parentComment = await this.commentRepository.findCommentById(commentId);
+            // 댓글이 존재하는지 여부 확인
+            if (!parentComment) {
+                throw new Error("401/댓글이 존재하지 않습니다.");
+            }
+            // 상위 게시글 가져오기
+            const parentPost = await this.commentRepository.findPostById(postId)
+            // 게시글이 존재하는지 여부 확인
+            if (!parentPost) {
+                throw new Error("401/게시물이 존재하지 않습니다");
+            }
+            // 상위 댓글이 비밀 댓글인 경우 체크
+            if (parentComment.isPrivate) {
+                // 비밀 대댓글이 아니라면 에러 발생
+                if (!isPrivate) {
+                    throw new Error("404/비밀 댓글에는 비밀 대댓글만 작성할 수 있습니다.");
+                }
+
+                // 상위 댓글의 작성자 ID 가져오기
+                const parentCommentUserId = parentComment.UserId;
+
+                // 게시물 작성자 ID 가져오기
+                const postUserId = parentPost.UserId;
+
+                // 비밀 댓글 작성자 또는 게시물 작성자가 아닌 경우 에러 발생
+                if (parentCommentUserId !== userId && postUserId !== userId) {
+                    throw new Error("404/비밀 댓글에는 댓글 작성자 또는 게시물 작성자만 대댓글을 작성할 수 있습니다.");
+                }
+
+            };
+            const createChildComment = await this.childCommentRepository.createChildComment(userId, postId, commentId, childComment, isPrivate);
+
+            // 알림 생성
+            // 대댓글 작성자가 댓글 작성자와 다른 경우 댓글 작성자에게 알림
+            if (userId !== parentComment.UserId) {
+                await this.notificationRepository.createNotification(parentComment.UserId, postId, commentId, createChildComment.childCommentId);
             }
 
-            // 상위 댓글의 작성자 ID 가져오기
-            const parentCommentUserId = parentComment.UserId;
-
-            // 게시물 작성자 ID 가져오기
-            const postUserId = parentPost.UserId;
-
-            // 비밀 댓글 작성자 또는 게시물 작성자가 아닌 경우 에러 발생
-            if (parentCommentUserId !== userId && postUserId !== userId) {
-                throw new Error("404/비밀 댓글에는 댓글 작성자 또는 게시물 작성자만 대댓글을 작성할 수 있습니다.");
+            // 대댓글 작성자가 게시글 작성자와 다른 경우 게시글 작성자에게 알림
+            if (userId !== parentPost.UserId) {
+                await this.notificationRepository.createNotification(parentPost.UserId, postId, commentId, createChildComment.childCommentId);
             }
 
-        };
-        const createChildComment = await this.childCommentRepository.createChildComment(userId, postId, commentId, childComment, isPrivate);
-
-        // 알림 생성
-        // 대댓글 작성자가 댓글 작성자와 다른 경우 댓글 작성자에게 알림
-        if (userId !== parentComment.UserId) {
-            await this.notificationRepository.createNotification(parentComment.UserId, postId, commentId, createChildComment.childCommentId);
+            return createChildComment;
+        } catch (error) {
+            error.failedApi = "대댓글 생성";
+            throw error;
         }
-
-        // 대댓글 작성자가 게시글 작성자와 다른 경우 게시글 작성자에게 알림
-        if (userId !== parentPost.UserId) {
-            await this.notificationRepository.createNotification(parentPost.UserId, postId, commentId, createChildComment.childCommentId);
-        }
-
-        return createChildComment;
     };
 
     // 대댓글과 비밀 대댓글 조회
     findChildCommentsByCommentId = async (postId, commentId, userId) => {
-        // // 상위 댓글 가져오기
-        // const parentComment = await this.commentRepository.findCommentById(commentId);
+        try {
+            // 상위 댓글 가져오기
+            const parentComment = await this.commentRepository.findCommentById(commentId);
+            // 댓글이 존재하는지 여부 확인
+            if (!parentComment) {
+                throw new Error("401/댓글이 존재하지 않습니다.");
+            }
 
-        // // 상위 댓글의 작성자 ID 가져오기
-        // const parentCommentUserId = parentComment.UserId;
+            // // 상위 댓글의 작성자 ID 가져오기
+            // const parentCommentUserId = parentComment.UserId;
 
-        // // 게시물 작성자 ID 가져오기
-        // const post = await this.commentRepository.findPostById(postId);
-        // const postUserId = post.UserId;
+            // // 게시물 작성자 ID 가져오기
+            // const post = await this.commentRepository.findPostById(postId);
+            // const postUserId = post.UserId;
 
-        // // 비밀 댓글 작성자가 아닐 때 비밀 대댓글 조회 X
-        // // 게시물 작성자가 아닐 때 비밀 대댓글 조회 X
-        // if (parentComment.isPrivate && parentCommentUserId !== userId && postUserId !== userId) {
-        //     throw new Error("404/비밀 댓글에 대한 비밀 대댓글은 비밀 댓글 작성자 또는 게시물 작성자만 볼 수 있습니다.");
-        // }
+            // // 비밀 댓글 작성자가 아닐 때 비밀 대댓글 조회 X
+            // // 게시물 작성자가 아닐 때 비밀 대댓글 조회 X
+            // if (parentComment.isPrivate && parentCommentUserId !== userId && postUserId !== userId) {
+            //     throw new Error("404/비밀 댓글에 대한 비밀 대댓글은 비밀 댓글 작성자 또는 게시물 작성자만 볼 수 있습니다.");
+            // }
 
-        // 상위 댓글이 비밀 댓글이 아니거나 조회하려는 유저가 댓글 작성자 또는 게시물 작성자인 경우에만 대댓글 조회
-        const childComments = await this.childCommentRepository.findChildCommentsByCommentId(commentId);
+            // 상위 댓글이 비밀 댓글이 아니거나 조회하려는 유저가 댓글 작성자 또는 게시물 작성자인 경우에만 대댓글 조회
+            const childComments = await this.childCommentRepository.findChildCommentsByCommentId(commentId);
+            // 대댓글 존재 여부 확인
+            if (!childComments) {
+                throw new Error("401/대댓글이 존재하지 않습니다");
+            }
+            // 아래 로직은 그대로 유지
+            const childCommentsWithDetail = await Promise.all(
+                childComments.map(async (childComment) => {
+                    const user = await this.commentRepository.findUserById(childComment.UserId);
 
-        // 아래 로직은 그대로 유지
-        const childCommentsWithDetail = await Promise.all(
-            childComments.map(async (childComment) => {
-                const user = await this.commentRepository.findUserById(childComment.UserId);
+                    // 비밀 대댓글인 경우 다음 조건들을 확인
+                    // 대댓글 작성자가 현재 조회하는 사용자와 다른 경우
+                    // 또는 상위 댓글 작성자 또는 게시물 작성자만 조회 가능
+                    // if (childComment.isPrivate && childComment.UserId !== userId && parentCommentUserId !== userId && postUserId !== userId) {
+                    //     return null;
+                    // }
 
-                // 비밀 대댓글인 경우 다음 조건들을 확인
-                // 대댓글 작성자가 현재 조회하는 사용자와 다른 경우
-                // 또는 상위 댓글 작성자 또는 게시물 작성자만 조회 가능
-                // if (childComment.isPrivate && childComment.UserId !== userId && parentCommentUserId !== userId && postUserId !== userId) {
-                //     return null;
-                // }
+                    return {
+                        childCommentId: childComment.childCommentId,
+                        UserId: childComment.UserId,
+                        PostId: childComment.PostId,
+                        CommentId: childComment.CommentId,
+                        childComment: childComment.childComment,
+                        nickname: user.nickname,
+                        userPhoto: user.userPhoto, // userphotoUrl
+                        isPrivate: childComment.isPrivate,
+                        createdAt: childComment.createdAt,
+                        updatedAt: childComment.updatedAt
+                    }
+                })
+            )
 
-                return {
-                    childCommentId: childComment.childCommentId,
-                    UserId: childComment.UserId,
-                    PostId: childComment.PostId,
-                    CommentId: childComment.CommentId,
-                    childComment: childComment.childComment,
-                    nickname: user.nickname,
-                    userPhoto: user.userPhoto, // userphotoUrl
-                    isPrivate: childComment.isPrivate,
-                    createdAt: childComment.createdAt,
-                    updatedAt: childComment.updatedAt
-                }
-            })
-        )
-
-        return childCommentsWithDetail.filter(comment => comment !== null).sort((a, b) => a.createdAt - b.createdAt);
-    };
-
-    // 대댓글 하나 찾기
-    findChildCommentById = async (childCommentId) => {
-        return await this.childCommentRepository.findChildCommentById(childCommentId);
+            return childCommentsWithDetail.filter(comment => comment !== null).sort((a, b) => a.createdAt - b.createdAt);
+        } catch (error) {
+            error.failedApi = "대댓글 조회";
+            throw error;
+        }
     };
 
     // 대댓글 삭제
     deleteChildComment = async (userId, postId, commentId, childCommentId) => {
-        return await this.childCommentRepository.deleteChildComment(userId, postId, commentId, childCommentId);
+        try {
+            // 게시글이 존재하는지 여부 확인
+            const post = await this.commentRepository.findPostById(postId);
+            if (!post) {
+                throw new Error("401/게시물이 존재하지 않습니다");
+            }
+            // 댓글이 존재하는지 여부 확인
+            const comment = await this.commentRepository.findCommentById(commentId);
+            if (!comment) {
+                throw new Error("401/댓글이 존재하지 않습니다.");
+            }
+            // 대댓글 존재 여부 확인
+            const childComments = await this.childCommentRepository.findChildCommentById(childCommentId);
+            if (!childComments) {
+                throw new Error("401/대댓글이 존재하지 않습니다");
+            }
+            // 유저 아이디가 일치하지 않을 때
+            if (childComments.UserId !== userId) {
+                throw new Error("401/대댓글 삭제 권한이 존재하지 않습니다.");
+            }
+            return await this.childCommentRepository.deleteChildComment(userId, postId, commentId, childCommentId);
+        } catch (error) {
+            error.failedApi = "대댓글 삭제";
+            throw error;
+        }
     };
 };
 
