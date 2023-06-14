@@ -10,7 +10,6 @@ class ReportPooController {
         const { pooId } = req.params;
         const { reportContent } = req.body;
         const postReportPoo = await this.reportPooService.postReportPoo(userId, pooId, reportContent)
-        console.log(postReportPoo)
         return res.status(200).json(postReportPoo)
     };
 }
