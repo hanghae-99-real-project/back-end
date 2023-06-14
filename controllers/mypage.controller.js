@@ -1,14 +1,7 @@
 const MypageService = require('../services/mypage.service')
 
-
 class myPagesController {
     mypagesService = new MypageService()
-    constructor(myLostPost = 0, myBookmark = 0, myPooPost = 0) {
-        this.myLostPost = myLostPost; // 변수 선언 및 초기화
-        this.myBookmark = myBookmark; // 변수 선언 및 초기화
-        this.myPooPost = myPooPost; // 변수 선언 및 초기화
-    }
-
 
     getMyInfo = async (req, res) => {
         const { userId } = res.locals.user;

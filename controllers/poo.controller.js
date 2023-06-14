@@ -14,9 +14,9 @@ class PoosController {
     };
 
     // 푸박스 조회
-    getPoo = async (req, res, next) => {
+    findAllPoo = async (req, res, next) => {
         const originalUrl = req.originalUrl
-        const getPooData = await this.poosService.getPoo(originalUrl);
+        const getPooData = await this.poosService.findAllPoo(originalUrl);
         return res.status(201).json({ getPooData })
     };
 
