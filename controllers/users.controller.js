@@ -263,9 +263,9 @@ class UserController {
         userId,
         userPhoto,
       );
-      res.status(200).json({ message: "닉네임을 수정하였습니다." });
+      res.status(200).json({ message: "이미지를 수정하였습니다." });
     } catch (error) {
-      error.failedApi = "마이페이지 닉네임 수정";
+      error.failedApi = "마이페이지 이미지 수정";
       throw error
     };
   }
