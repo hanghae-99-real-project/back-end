@@ -218,5 +218,59 @@ class UserController {
       throw error
     };
   }
+
+
+  updatenickname =async (req, res) => {
+    try {
+      const { nickname } = req.body;
+      const { userId } = res.locals.user
+      
+      await this.userService.updatenickname(
+        userId,
+        nickname,
+      );
+      res.status(200).json({ message: "닉네임을 수정하였습니다." });
+    } catch (error) {
+      error.failedApi = "마이페이지 닉네임 수정";
+      throw error
+    };
+  }
+
+
+  updatepass = async (req, res) => {
+    try {
+      const { password } = req.body;
+      const { userId } = res.locals.user
+
+      const hashedPassword = await bcrypt.hash(password, 10);
+      await this.userService.updatepass(
+        userId,
+        hashedPassword,
+      );
+      res.status(200).json({ message: "패스워드를 수정하였습니다." });
+    } catch (error) {
+      error.failedApi = "마이페이지 패스워드 수정";
+      throw error
+    };
+  }
+
+  updateimage =async (req, res) => {
+    try {
+      const { userPhoto } = req;
+      const { userId } = res.locals.user
+      
+      await this.userService.updateimage(
+        userId,
+        userPhoto,
+      );
+      res.status(200).json({ message: "닉네임을 수정하였습니다." });
+    } catch (error) {
+      error.failedApi = "마이페이지 닉네임 수정";
+      throw error
+    };
+  }
+
+
+
 }
 module.exports = UserController;
