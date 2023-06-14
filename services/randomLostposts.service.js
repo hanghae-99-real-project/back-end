@@ -44,6 +44,7 @@ class RandomLostpostsService {
             nickname: item.nickname,
             lostPhotoUrl: item.lostPhotoUrl,
             title: item.title,
+            address: item.address,
             content: item.content,
             createdAt: item.createdAt,
             updatedAt: item.updatedAt,

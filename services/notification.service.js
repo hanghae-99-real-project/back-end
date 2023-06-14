@@ -5,7 +5,7 @@ class NotificationService {
     notificationRepository = new NotificationRepository(Notifications, Users, Comments, ChildComments);
 
 
-    // // 특정 유저의 모든 알림 조회
+    // 특정 유저의 모든 알림 조회
     getNotificationsByUserId = async (userId) => {
         const notifications = await this.notificationRepository.getCommentNotificationsByUserId(userId);
 
