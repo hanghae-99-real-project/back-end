@@ -53,21 +53,21 @@ router.post(
 router.put(
     "/nickname",
     authMiddleware,
-    userController.updatenickname
+    userController.updatenickname(req, res)
 );
 
 router.put(
     "/image",
     authMiddleware,
     uploaduserImage.single("userPhoto"),
-    userController.updateimage
+    userController.updateimage(req, res)
 );
 
 
 router.put(
     "/pass",
     authMiddleware,
-    userController.updatepass
+    userController.updatepass(req, res)
 );
 
 
