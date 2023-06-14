@@ -49,8 +49,9 @@ const uploadImage = multer({
             }
             if (file.originalname.includes(sujung)) {
                 req.lostPhotoUrl.push(file.originalname)
-            }            
+            } else {
             req.lostPhotoUrl.push(photo);
+            }
 
             callback(null, `folder/${date}_${randomNumber}`);
         },
