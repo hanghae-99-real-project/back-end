@@ -15,6 +15,7 @@ const s3 = new aws.S3({
 
 
 const allowedExtensions = ['.png', '.jpg', '.jpeg', '.bmp', '.gif',];
+const sujung = ['https','http','karyl']
 
 
 
@@ -46,6 +47,9 @@ const uploadImage = multer({
             if (!req.lostPhotoUrl) {
                 req.lostPhotoUrl = [];
             }
+            if (file.originalname.includes(sujung)) {
+                req.lostPhotoUrl.push(file.originalname)
+            }            
             req.lostPhotoUrl.push(photo);
 
             callback(null, `folder/${date}_${randomNumber}`);
