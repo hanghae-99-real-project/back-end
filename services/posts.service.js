@@ -38,6 +38,7 @@ class PostService {
             nickname: item.nickname,
             lostPhotoUrl: item.lostPhotoUrl,
             title: item.title,
+            status:item.status,
             content: item.content,
             createdAt: item.createdAt,
             updatedAt: item.updatedAt,
