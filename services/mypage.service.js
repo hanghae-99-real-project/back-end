@@ -46,7 +46,18 @@ class myPagesService {
             if (!getMyBookmark) {
                 throw new Error("401/데이터가 존재하지 않습니다.")
             }
-            return getMyBookmark
+
+            return getMyBookmark.map((item) => {
+                const { postId, title, content, lostPhotoUrl, createdAt, updatedAt } = item.Post;
+                return {
+                    postId,
+                    title,
+                    content,
+                    lostPhotoUrl,
+                    createdAt,
+                    updatedAt
+                };
+            });
 
         } catch (err) {
             console.error(err)
