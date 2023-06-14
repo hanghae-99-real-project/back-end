@@ -201,6 +201,10 @@ class UserService {
     };
 
     updateimage = async (userId, userPhoto,) => {
+        if (!userPhoto) {
+            console.log(userPhoto)
+            throw new Error("401/유저 포토가 입력되지 않았습니다.");
+        }
 
         if (userId == null) {
             throw new Error("401/유저 아이디가 null 입니다");
@@ -214,7 +218,8 @@ class UserService {
 
     updatepass = async (userId, hashedPassword) => {
         if (!hashedPassword) {
-            throw new Error("401/입력 값이 유효하지 않습니다.");
+            console.log(hashedPassword)
+            throw new Error("401/바꿀 패스워드 값을 입력해주세요.");
         }
 
         if (userId == null) {
@@ -230,7 +235,8 @@ class UserService {
 
     updatenickname = async (userId,nickname) => {
         if (!nickname) {
-            throw new Error("401/입력 값이 유효하지 않습니다.");
+            console.log(nickname)
+            throw new Error("401/닉네임이 들어오지 않았습니다.");
         }
 
         if (userId == null) {
