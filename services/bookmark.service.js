@@ -9,7 +9,7 @@ class bookmarkService {
             const getExistPost = await this.bookmarkRepository.findPostById(postId);
 
             if (!getExistPost) {
-                throw new Error("403/게시물이 존재하지 않습니다.")
+                throw new Error("401/게시물이 존재하지 않습니다.")
             }
 
             const findBookmark = await this.bookmarkRepository.findBookmark(userId, postId);

@@ -1,7 +1,5 @@
-// const { model } = require('mongoose');
 const { Posts, Users, BookMarks, Sequelize } = require('../models');
 require('dotenv').config();
-
 
 class PostRepository {
 
@@ -86,7 +84,6 @@ class PostRepository {
             },
             attributes: ['userLongitude', 'userLatitude',]
         })
-        console.log("할렐루야할렐루야할렐루야할렐루야할렐루야할렐루야할렐루야할렐루야할렐루야할렐루야", result)
         return result
     }
 

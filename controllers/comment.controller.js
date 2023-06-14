@@ -19,14 +19,14 @@ class CommentController {
             const { commentPhotoUrl } = req;
 
             if (!comment) {
-                throw new Error("403/댓글 작성에 실패하였습니다.");
+                throw new Error("401/댓글 작성에 실패하였습니다.");
             }
 
             // 게시글이 존재하는지 여부 확인
             const post = await this.commentService.findPostById(postId);
 
             if (!post) {
-                throw new Error("403/게시물이 존재하지 않습니다.");
+                throw new Error("401/게시물이 존재하지 않습니다.");
             }
 
             await this.commentService.createComment(
@@ -55,13 +55,13 @@ class CommentController {
 
             const post = await this.commentService.findPostById(postId);
             if (!post) {
-                throw new Error("403/게시물이 존재하지 않습니다.");
+                throw new Error("401/게시물이 존재하지 않습니다.");
             }
 
             // 댓글이 존재하는지 여부 확인
             const comments = await this.commentService.findCommentsByPostId(postId, userId);
             if (!comments) {
-                throw new Error("403/댓글이 존재하지 않습니다.");
+                throw new Error("401/댓글이 존재하지 않습니다.");
             }
 
             return res.status(200).json({ commentsData: comments });
@@ -80,12 +80,12 @@ class CommentController {
 
             const post = await this.commentService.findPostById(postId);
             if (!post) {
-                throw new Error("403/게시물이 존재하지 않습니다.");
+                throw new Error("401/게시물이 존재하지 않습니다.");
             }
 
             const comments = await this.commentService.findCommentById(commentId);
             if (!comments) {
-                throw new Error("403/댓글이 존재하지 않습니다.");
+                throw new Error("401/댓글이 존재하지 않습니다.");
             }
 
             await this.commentService.updateComment(userId, postId, commentId, comment);
@@ -105,16 +105,16 @@ class CommentController {
 
             const post = await this.commentService.findPostById(postId);
             if (!post) {
-                throw new Error("403/게시물이 존재하지 않습니다.");
+                throw new Error("401/게시물이 존재하지 않습니다.");
             }
 
             const comment = await this.commentService.findCommentById(commentId);
             if (!comment) {
-                throw new Error("403/댓글이 존재하지 않습니다.");
+                throw new Error("401/댓글이 존재하지 않습니다.");
             }
 
             if (comment.UserId !== userId) {
-                throw new Error("403/댓글 삭제 권한이 존재하지 않습니다.");
+                throw new Error("401/댓글 삭제 권한이 존재하지 않습니다.");
             }
 
             await this.commentService.deleteComment(userId, postId, commentId);
