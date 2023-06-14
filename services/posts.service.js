@@ -14,12 +14,14 @@ class PostService {
                 return await this.getAllPostsRecently();
             }
 
-            const userLocation = await this.postRepository.findUserLocation(userId); // 유저 위치정보 찾기. 위치정보 동의 했으면 유저 위치 있음.
+            // 유저 위치정보 찾기. 위치정보 동의 했으면 유저 위치 있음.
+            const userLocation = await this.postRepository.findUserLocation(userId);
             if (!userLocation.dataValues.position) {
                 return await this.getAllPostsRecently();
             }
 
-            const findNearbyPosts = await this.postRepository.findNearbyPosts(userId); // 유저의 현위치에서부터 가까운 게시글 순부터 조회
+            // 유저의 현위치에서부터 가까운 게시글 순부터 조회
+            const findNearbyPosts = await this.postRepository.findNearbyPosts(userId);
             const results = await Promise.all(
                 findNearbyPosts.map(async (item) => this.mapPost(item))
             )
