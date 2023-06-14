@@ -26,7 +26,7 @@ const checkSession = require("./middlewares/checkSession-middleware")
 const ms = require("ms");
 const path = require('path');
 const app = express();
-const webSocket = require("./socket.js");
+// const webSocket = require("./socket.js");
 
 
 
@@ -130,4 +130,4 @@ const server = app.listen(process.env.PORT, () => {
 });
 
 
-webSocket(server, app, session);
+// webSocket(server, app, session);
