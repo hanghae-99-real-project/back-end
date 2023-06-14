@@ -7,7 +7,7 @@ class RandomLostpostsRepository {
         this.Sequelize = Sequelize
     };
 
-    // 게시글 조회
+    // 게시글 랜덤 조회
     getAllPosts = async () => {
         return await this.postsModel.findAll({
             order: this.Sequelize.literal("RAND()"),
@@ -15,7 +15,7 @@ class RandomLostpostsRepository {
         });
     };
 
-    // 위치가 가까운 순으로 조회
+    // 5km 이내 게시글 랜덤 조회
     findNearbyPostsRandomly = async (userId) => {
         const user = await this.userModel.findOne({ where: userId });
         const { userLatitude, userLongitude } = user
