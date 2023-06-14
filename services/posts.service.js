@@ -132,7 +132,7 @@ class PostService {
             throw new Error("401/게시글 삭제 권한이 없습니다.");
         }
 
-        await postRepository.deletePostById(postId);
+        await postRepository.endPost(postId);
     };
 
 }
