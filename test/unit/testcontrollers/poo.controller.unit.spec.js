@@ -1,15 +1,17 @@
 const PooController = require("@controllers/poo.controller");
+const PooService = require("@services/poo.service");
 
 
 // poo.controller.js 에서는 아래 5개의 Method만을 사용합니다.
 let mockPooService = {
     postPoo: jest.fn(),
-    findAllPoo: jest.fn()
+    findAllPoo: jest.fn(),
+    cashingPoo: jest.fn(),
 };
 
 let mockRequest = {
     params: jest.fn(),
-    body: jest.fn(),
+    body: jest.fn()
 };
 
 let mockResponse = {
@@ -23,6 +25,8 @@ let mockResponse = {
 let mockNext = jest.fn();
 
 let pooController = new PooController();
+
+let pooService = new PooService();
 // postsController의 Service를 Mock Service로 변경합니다.
 pooController.pooService = mockPooService;
 
@@ -38,21 +42,26 @@ describe('푸박스 컨트롤러 유닛 테스트', () => {
     });
 
     test('푸박스 컨트롤러 postPoo 메소드 유닛 테스트 성공케이스 테스트', async () => {
-        const postPooRequestBody = {
-            content: "여기가 똥통",
-            pooLatitude: "37.5652352",
-            pooLongitude: "127.0284288",
-            pooPhotoUrl: "대충 url"
-        };
+        const postPooRequest = {
+            pooPhotoUrl: "https://karyl.s3.ap-northeast-2.amazonaws.com/folder/2023-6-15-8-59-23_0480642"
+            , body: {
+                content: "여기가 똥통",
+                pooLatitude: 32.758252,
+                pooLongitude: 124.8784288,
+            }, originalUrl: "/api/map/poo"
+
+
+        }
+
         const postPooRequestParams = {
-            pooId: 5,
+            pooId: 1,
         };
 
         const postPooResLocals = {
             userId: 1,
         };
 
-        mockRequest.body = postPooRequestBody;
+        mockRequest = postPooRequest
         mockRequest.params = postPooRequestParams;
         mockResponse.locals.user = postPooResLocals;
 
@@ -70,6 +79,7 @@ describe('푸박스 컨트롤러 유닛 테스트', () => {
 
 
         await pooController.postPoo(mockRequest, mockResponse);
+        await pooService.cashingPoo(mockRequest, 20, "OK");
 
         //req
         expect(mockPooService.distanceBetweenPooLocation).toHaveBeenCalledTimes(1);
