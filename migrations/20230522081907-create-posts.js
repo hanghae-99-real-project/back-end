@@ -23,7 +23,7 @@ module.exports = {
         allowNull: true
       },
       losttime: {
-        type: DataTypes.DECIMAL(17, 14),
+        type: Sequelize.DECIMAL(17, 14),
         allowNull: true
       },
       dogname: {

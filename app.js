@@ -4,26 +4,17 @@ const cors = require("cors")
 const dotenv = require('dotenv')
 require("express-async-errors");
 const cookieParser = require("cookie-parser");
-//const session = require("./middlewares/session");
 const RedisStore = require("connect-redis").default
 const redisClient = require('./modules/redisClient');
 const session = require('express-session');
 const rateLimit = require("express-rate-limit");
 const helmet = require("helmet");
-//const checkSession = require("./middlewares/checkSession-middleware")
-require("express-async-errors");
 const errorHandler = require("./middlewares/error-handler");
 const swaggerUi = require("swagger-ui-express");
 const swaggerFile = require("./swagger-output.json");
 const morgan = require('morgan')
 const router = require("./routes");
 const Sentry = require("@sentry/node")
-//const sentryInterceptor = require("./middlewares/sentry-middleware")
-const { IncomingWebhook } = require('@slack/webhook');
-const config = {
-  SlackWebhook: process.env.webHookUrl
-};
-const checkSession = require("./middlewares/checkSession-middleware")
 const ms = require("ms");
 const path = require('path');
 const app = express();
@@ -65,37 +56,15 @@ app.use(session({
   resave: false,
   name: 'connect.sid',
   cookie: {
-    secure: false, // if true: only transmit cookie over https, in prod, always activate this
-    httpOnly: true, // if true: prevents client side JS from reading the cookie
-    maxAge: 1000 * 60 * 30, // session max age in milliseconds
+    secure: false,
+    httpOnly: true,
+    maxAge: 1000 * 60 * 30,
     sameSite: 'lax',
   },
 }));
-//app.use(checkSession)
+
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
-
-// const webhook = new IncomingWebhook(config.SlackWebhook);
-// webhook
-//   .send({
-//     attachments: [
-//       {
-//         color: 'danger',
-//         text: '백엔드 에러 발생',
-//         fields: [
-//           {
-//             title: '에러가 발생했습니다',
-//             value: 'sentry에서 확인하세요',
-//             short: false,
-//           },
-//         ],
-//         ts: Math.floor(new Date().getTime() / 1000).toString(),
-//       },
-//     ],
-//   })
-//   .catch((err) => {
-//     if (err) Sentry.captureException(err);
-//   });
 app.use(Sentry.Handlers.requestHandler());
 // https로 접속했을 때 http로 가지 않게 하기 위해 약 1년간 https로 묶어둔다.
 app.use(helmet.hsts({

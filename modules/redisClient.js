@@ -1,25 +1,20 @@
 const redis = require('redis');
 const dotenv = require('dotenv')
-dotenv.config(); // env환경변수 파일 가져오기
+dotenv.config();
 
 const redisClient = redis.createClient({
     url: `redis://${process.env.REDIS_USERNAME}:${process.env.REDIS_PASSWORD}@${process.env.REDIS_HOST}:${process.env.REDIS_PORT}/0`,
-    // legacyMode 옵션은 Redis v2 호환성 모드를 사용합니다.
-    // 따라서, Redis v4 사용시에는 필요 없습니다.
-    //legacyMode: true,
 });
 
 redisClient.on('error', (err) => {
     console.error('Redis Error:', err);
 });
-// Redis 연결 이벤트 핸들러 등록
+
 redisClient.on('connect', () => {
-    console.info('Redis connected!');
+    console.log('Redis connected!');
 });
 
-// Redis 연결
 redisClient.connect();
 
-// 다른 모듈에서 RedisClient를 사용할 수 있도록 export
 module.exports = redisClient;
 
