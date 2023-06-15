@@ -2,7 +2,6 @@ const MypageRepository = require('../repositories/mypage.repository')
 const { Users, Posts, BookMarks, Poos } = require("../models");
 
 class myPagesService {
-    //의존성주입
     mypageRepository = new MypageRepository(Users, Posts, BookMarks, Poos)
 
     getMyInfo = async (userId) => {
@@ -14,7 +13,7 @@ class myPagesService {
             return getMyInfoData
 
         } catch (error) {
-            error.failedApi = "조회 실패";
+            error.failedApi = "내 프로필 조회";
             throw error;
         }
     };
@@ -30,10 +29,9 @@ class myPagesService {
             }
             return getMyPostData
 
-        } catch (err) {
-            console.error(err)
-            throw new Error("400/내가 작성한 게시글")
-
+        } catch (error) {
+            error.failedApi = "내가 작성한 게시글 조회";
+            throw error;
         }
     };
 
@@ -59,9 +57,9 @@ class myPagesService {
                 };
             });
 
-        } catch (err) {
-            console.error(err)
-            throw new Error("400/예외처리")
+        } catch (error) {
+            error.failedApi = "내가 북마크한 게시글 조회";
+            throw error;
         }
     };
 
@@ -73,19 +71,14 @@ class myPagesService {
                 throw new Error("401/마이페이지 권한이 없습니다.")
             }
 
-            console.log(getMyPoo)
-            console.log(getMyPoo.length)
-            console.log(getMyPoo.length === 0)
-
             if (getMyPoo.length === 0) {
                 throw new Error("401/작성한 푸박스가 없습니다.")
             }
             return getMyPoo
 
         } catch (error) {
-            error.failedApi = "에러처리";
-            throw error
-
+            error.failedApi = "내가 작성한 푸박스 조회";
+            throw error;
         }
     };
 }

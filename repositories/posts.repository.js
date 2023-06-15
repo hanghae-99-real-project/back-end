@@ -35,7 +35,6 @@ class PostRepository {
                 }
             ]
         });
-        console.log(post)
         return post;
     };
 
