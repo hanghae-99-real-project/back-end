@@ -48,6 +48,7 @@ const uploadImage = multer({
             const karyl = 'https://karyl.s3.ap-northeast-2.amazonaws.com/folder'
             const extension = path.extname(file.originalname).toLowerCase();
             if (!allowedExtensions.includes(extension)) {
+                console.log("버킷에 들어간거 쓰는게 아니라 원문 그대로 글어가는것")
                 req.lostPhotoUrl.push(`${karyl}/${file.originalname}`)
             } else {
             req.lostPhotoUrl.push(photo);
