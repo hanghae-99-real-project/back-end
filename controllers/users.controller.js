@@ -120,7 +120,7 @@ class UserController {
       const userId = loginUser.userId;
       console.log("유저아이디",userId)
       const hashedPassword = loginUser.password;
-      console.log("가져온 비밀번호",passtest)
+      console.log("가져온 비밀번호",hashedPassword)
       const passwordMatch = await bcrypt.compare(password, hashedPassword);
       console.log(passwordMatch)
 
