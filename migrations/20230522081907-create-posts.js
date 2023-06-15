@@ -22,6 +22,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true
       },
+      losttime: {
+        type: DataTypes.DECIMAL(17, 14),
+        allowNull: true
+      },
       dogname: {
         allowNull: false,
         type: Sequelize.STRING,
