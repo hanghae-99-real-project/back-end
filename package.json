@@ -1,13 +1,17 @@
 {
   "name": "back-end",
   "version": "1.0.0",
-  "description": "",
+  "description": "> 푸댕은 서울시의 반려견 배변 시설 위치와 길 안내, 반려견의 실종 위치와 사용자들의 제보를 제공하는 서비스입니다.",
   "main": "app.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
     "test": "jest",
+    "test:silent": "jest --silent --forceExit",
+    "test:coverage": "jest --coverage --forceExit",
+    "test:unit": "jest __tests__/unit --forceExit",
+    "test:integration": "jest __tests__/integration --forceExit",
     "start": "node app.js",
     "swagger-autogen": "node ./swagger.js"
   },
