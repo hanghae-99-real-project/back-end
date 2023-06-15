@@ -38,6 +38,7 @@ const uploadImage = multer({
             for (let i = 0; i < 7; i++) {
                 randomNumber += String(Math.floor(Math.random() * 10));
             }
+            console.log("파일 원래 이름", file.originalname)
 
 
             const photo = `https://karyl.s3.ap-northeast-2.amazonaws.com/folder/${date}_${randomNumber}`
