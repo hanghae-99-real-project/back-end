@@ -32,7 +32,7 @@ const uploaduserImage = multer({
             const currentMinute = today.getMinutes();
             const currentSecond = today.getSeconds();
             const date = `${currentYear}-${currentMonth}-${currentDate}-${currentHour}-${currentMinute}-${currentSecond}`;
-            
+            console.log("파일 원래 이름", file.originalname)
             let randomNumber = '';
             for (let i = 0; i < 7; i++) {
                 randomNumber += String(Math.floor(Math.random() * 10));
