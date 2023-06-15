@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const ReportPooController = require("../controllers/reportPoo.controller.js");
-const authMiddleware = require("../middlewares/auth-middleware.js");
+const ReportPooController = require("@controllers/reportPoo.controller.js");
+const authMiddleware = require("@middlewares/auth-middleware.js");
 
 const reportPooController = new ReportPooController();
 

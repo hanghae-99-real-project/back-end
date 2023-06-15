@@ -1,5 +1,5 @@
-const MypageRepository = require('../repositories/mypage.repository')
-const { Users, Posts, BookMarks, Poos } = require("../models");
+const MypageRepository = require('@repositories/mypage.repository')
+const { Users, Posts, BookMarks, Poos } = require("@models");
 
 class myPagesService {
     mypageRepository = new MypageRepository(Users, Posts, BookMarks, Poos)

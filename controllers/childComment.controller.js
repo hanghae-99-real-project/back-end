@@ -1,4 +1,4 @@
-const ChildCommentService = require("../services/childComment.service.js");
+const ChildCommentService = require("@services/childComment.service.js");
 // const PostsService = require("../services/posts.service.js");
 
 class ChildCommentController {

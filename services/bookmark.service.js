@@ -1,5 +1,5 @@
-const BookmarkRepository = require('../repositories/bookmark.repository')
-const { BookMarks, Posts } = require("../models")
+const BookmarkRepository = require('@repositories/bookmark.repository')
+const { BookMarks, Posts } = require("@models")
 
 class bookmarkService {
     bookmarkRepository = new BookmarkRepository(BookMarks, Posts)

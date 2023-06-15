@@ -1,5 +1,5 @@
 // 캐시 체크를 위한 미들웨어
-const redisClient = require("../modules/redisClient")
+const redisClient = require("@modules/redisClient")
 checkCache = async (req, res, next) => {
     try {
         const cacheData = await redisClient.get(req.originalUrl)

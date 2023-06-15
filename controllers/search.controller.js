@@ -1,4 +1,4 @@
-const SearchService = require("../services/search.service.js");
+const SearchService = require("@services/search.service.js");
 
 class SearchController {
     searchService = new SearchService();

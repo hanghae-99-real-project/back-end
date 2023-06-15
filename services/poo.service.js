@@ -1,7 +1,7 @@
-const PoosRepository = require('../repositories/poo.repository')
-const { Poos, Users, Sequelize } = require("../models");
-const getAddress = require("../modules/kakao")
-const redisClient = require("../modules/redisClient")
+const PoosRepository = require('@repositories/poo.repository')
+const { Poos, Users, Sequelize } = require("@models");
+const getAddress = require("@modules/kakao")
+const redisClient = require("@modules/redisClient")
 const DEFAULT_EXPIRATION = 3600
 
 class PoosService {

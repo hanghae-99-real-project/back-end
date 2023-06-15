@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const ChildCommentController = require("../controllers/childComment.controller.js");
-const authMiddleware = require("../middlewares/auth-middleware.js");
+const ChildCommentController = require("@controllers/childComment.controller.js");
+const authMiddleware = require("@middlewares/auth-middleware.js");
 const childCommentController = new ChildCommentController();
 
 // 대댓글 생성

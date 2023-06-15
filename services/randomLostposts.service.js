@@ -1,5 +1,5 @@
-const RandomLostpostsRepository = require("../repositories/randomLostposts.repository");
-const { Posts, Users, Sequelize } = require("../models");
+const RandomLostpostsRepository = require("@repositories/randomLostposts.repository");
+const { Posts, Users, Sequelize } = require("@models");
 
 class RandomLostpostsService {
     randomLostpostsRepository = new RandomLostpostsRepository(Posts, Users, Sequelize);

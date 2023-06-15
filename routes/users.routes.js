@@ -1,11 +1,11 @@
 const express = require("express");
 
 const router = express.Router();
-const checkSession = require("../middlewares/checkSession-middleware")
-const authMiddleware = require("../middlewares/auth-middleware");
-const UserController = require("../controllers/users.controller.js");
+const checkSession = require("@middlewares/checkSession-middleware")
+const authMiddleware = require("@middlewares/auth-middleware");
+const UserController = require("@controllers/users.controller.js");
 const userController = new UserController();
-const uploaduserImage = require('../modules/user_s3.js');
+const uploaduserImage = require('@modules/user_s3.js');
 
 
 router.post(

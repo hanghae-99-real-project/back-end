@@ -1,4 +1,5 @@
 const express = require("express");
+require('module-alias/register')
 const cors = require("cors")
 const dotenv = require('dotenv')
 require("express-async-errors");
@@ -27,7 +28,6 @@ const ms = require("ms");
 const path = require('path');
 const app = express();
 // const webSocket = require("./socket.js");
-
 
 
 dotenv.config();

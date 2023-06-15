@@ -1,5 +1,5 @@
-const ReportPooRepository = require("../repositories/reportPoo.repository");
-const { ReportPoos, Poos } = require("../models");
+const ReportPooRepository = require("@repositories/reportPoo.repository");
+const { ReportPoos, Poos } = require("@models");
 
 class ReportPooService {
     reportPooRepository = new ReportPooRepository(ReportPoos, Poos);

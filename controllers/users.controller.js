@@ -1,5 +1,5 @@
-const UserService = require("../services/users.service.js");
-const { Users } = require('../models')
+const UserService = require("@services/users.service.js");
+const { Users } = require('@models')
 const bcrypt = require("bcrypt");
 
 class UserController {
@@ -220,13 +220,13 @@ class UserController {
   }
 
 
-  updatenickname =async (req, res) => {
+  updatenickname = async (req, res) => {
     try {
-      console.log("바디",req.body)
-      const {nickname} = req.body;
+      console.log("바디", req.body)
+      const { nickname } = req.body;
       const { userId } = res.locals.user
       console.log("닉네임", nickname)
-      
+
       await this.userService.updatenickname(
         userId,
         nickname,
@@ -241,8 +241,8 @@ class UserController {
 
   updatepass = async (req, res) => {
     try {
-      console.log("바디",req.body)
-      const {password}  = req.body;
+      console.log("바디", req.body)
+      const { password } = req.body;
       const { userId } = res.locals.user
       console.log("패스워드", password)
 
@@ -258,11 +258,11 @@ class UserController {
     };
   }
 
-  updateimage =async (req, res) => {
+  updateimage = async (req, res) => {
     try {
       const { userPhoto } = req;
       const { userId } = res.locals.user
-      
+
       await this.userService.updateimage(
         userId,
         userPhoto,

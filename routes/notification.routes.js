@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const authMiddleware = require("../middlewares/auth-middleware.js");
-const NotificationController = require("../controllers/notification.controller.js");
+const authMiddleware = require("@middlewares/auth-middleware.js");
+const NotificationController = require("@controllers/notification.controller.js");
 const notificationController = new NotificationController();
 
 // 특정 유저의 모든 알림 조회

@@ -1,4 +1,4 @@
-const RandomLostpostsService = require("../services/randomLostposts.service");
+const RandomLostpostsService = require("@services/randomLostposts.service");
 
 class RandomLostpostsController {
   randomLostpostsService = new RandomLostpostsService();
