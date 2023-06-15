@@ -1,4 +1,4 @@
-const redisClient = require('../modules/redisClient')
+const redisClient = require('@modules/redisClient')
 //세션체크를 위한 미들웨어
 
 module.exports = async (req, res, next) => {

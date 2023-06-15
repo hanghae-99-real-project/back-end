@@ -1,5 +1,5 @@
-const redisClient = require('../modules/redisClient');
-const { Users, UserDaos } = require('../models');
+const redisClient = require('@modules/redisClient');
+const { Users, UserDaos } = require('@models');
 
 const bcrypt = require("bcrypt");
 

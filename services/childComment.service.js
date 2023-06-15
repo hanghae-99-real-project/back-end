@@ -1,9 +1,9 @@
-const ChildCommentRepository = require("../repositories/childComment.repository.js");
-const CommentRepository = require("../repositories/comment.repository.js");
-const NotificationRepository = require("../repositories/notification.repository.js");
+const ChildCommentRepository = require("@repositories/childComment.repository.js");
+const CommentRepository = require("@repositories/comment.repository.js");
+const NotificationRepository = require("@repositories/notification.repository.js");
 
 
-const { ChildComments, Comments, Users, Posts, Notifications } = require("../models");
+const { ChildComments, Comments, Users, Posts, Notifications } = require("@models");
 
 class ChildCommentService {
     childCommentRepository = new ChildCommentRepository(ChildComments);

@@ -1,4 +1,4 @@
-const { BookMarks } = require('../models');
+const { BookMarks } = require('@models');
 
 class PostRepository {
     constructor(postsModel, usersModel, Sequelize) {

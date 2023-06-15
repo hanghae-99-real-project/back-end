@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const authMiddleware = require("../middlewares/auth-middleware");
-const MyPagesController = require("../controllers/mypage.controller");
+const authMiddleware = require("@middlewares/auth-middleware");
+const MyPagesController = require("@controllers/mypage.controller");
 const myPagesController = new MyPagesController();
 
 //마이페이지 조회

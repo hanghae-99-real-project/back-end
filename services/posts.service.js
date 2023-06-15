@@ -1,5 +1,5 @@
-const PostRepository = require("../repositories/posts.repository");
-const { Posts, Users, Sequelize } = require('../models');
+const PostRepository = require("@repositories/posts.repository");
+const { Posts, Users, Sequelize } = require('@models');
 
 class PostService {
     postRepository = new PostRepository(Posts, Users, Sequelize);
@@ -40,7 +40,7 @@ class PostService {
             nickname: item.nickname,
             lostPhotoUrl: item.lostPhotoUrl,
             title: item.title,
-            status:item.status,
+            status: item.status,
             content: item.content,
             createdAt: item.createdAt,
             updatedAt: item.updatedAt,

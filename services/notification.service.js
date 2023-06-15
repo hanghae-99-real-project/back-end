@@ -1,5 +1,5 @@
-const NotificationRepository = require("../repositories/notification.repository.js");
-const { Notifications, Users, Comments, ChildComments } = require("../models");
+const NotificationRepository = require("@repositories/notification.repository.js");
+const { Notifications, Users, Comments, ChildComments } = require("@models");
 
 class NotificationService {
     notificationRepository = new NotificationRepository(Notifications, Users, Comments, ChildComments);

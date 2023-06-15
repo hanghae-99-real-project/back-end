@@ -1,15 +1,15 @@
-const UserRepository = require("../repositories/Users.repository.js");
-const TokenRepository = require("../repositories/tokens.repository.js");
-const createAuthCode = require("../modules/utils.js")
-const send_message = require("../modules/smsService.js")
+const UserRepository = require("@repositories/Users.repository.js");
+const TokenRepository = require("@repositories/tokens.repository.js");
+const createAuthCode = require("@modules/utils.js")
+const send_message = require("@modules/smsService.js")
 const jwt = require("jsonwebtoken");
-const { Users } = require("../models/index.js");
+const { Users } = require("@models/index.js");
 const axios = require("axios");
-const { UserDao } = require("../models/index.js");
+const { UserDao } = require("@models/index.js");
 require('dotenv').config();
 const querystring = require('querystring');
 const qs = require('qs');
-const redisClient = require('../modules/redisClient.js');
+const redisClient = require('@modules/redisClient.js');
 const bcrypt = require("bcrypt");
 
 
@@ -233,7 +233,7 @@ class UserService {
     };
 
 
-    updatenickname = async (userId,nickname) => {
+    updatenickname = async (userId, nickname) => {
         if (!nickname) {
             console.log(nickname)
             throw new Error("401/닉네임이 들어오지 않았습니다.");

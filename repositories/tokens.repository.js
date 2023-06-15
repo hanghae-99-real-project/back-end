@@ -1,20 +1,20 @@
-const { Tokens } = require("../models");
+const { Tokens } = require("@models");
 
 class TokenRepository {
 
     saveToken = async (userId, refreshToken) => {
-    const saveToken = await Tokens.create({
-        token: refreshToken,
-        userId: userId,
-    });
+        const saveToken = await Tokens.create({
+            token: refreshToken,
+            userId: userId,
+        });
 
-    return saveToken;
+        return saveToken;
     };
 
 
     findTokenId = async (authRefreshToken) => {
         const accessTokenId = await Tokens.findOne({
-        where: { token: authRefreshToken },
+            where: { token: authRefreshToken },
         });
         const { userId } = accessTokenId;
 

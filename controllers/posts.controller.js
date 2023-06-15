@@ -1,7 +1,7 @@
-const PostService = require("../services/posts.service");
+const PostService = require("@services/posts.service");
 const postService = new PostService();
-const CommentsService = require("../services/comment.service");
-const getAddress = require("../modules/kakao")
+const CommentsService = require("@services/comment.service");
+const getAddress = require("@modules/kakao")
 
 
 class PostController {

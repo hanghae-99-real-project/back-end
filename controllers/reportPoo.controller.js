@@ -1,4 +1,4 @@
-const ReportPooService = require("../services/reportPoo.service.js");
+const ReportPooService = require("@services/reportPoo.service.js");
 
 class ReportPooController {
     reportPooService = new ReportPooService();

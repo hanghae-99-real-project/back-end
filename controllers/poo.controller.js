@@ -1,4 +1,4 @@
-const PoosService = require('../services/poo.service');
+const PoosService = require('@services/poo.service');
 
 class PoosController {
     poosService = new PoosService()

@@ -1,8 +1,8 @@
-const CommentRepository = require("../repositories/comment.repository.js");
-const NotificationRepository = require("../repositories/notification.repository.js");
+const CommentRepository = require("@repositories/comment.repository.js");
+const NotificationRepository = require("@repositories/notification.repository.js");
 // const getAddress = require("../modules/kakao")
 
-const { Comments, Users, Posts, Notifications } = require("../models");
+const { Comments, Users, Posts, Notifications } = require("@models");
 
 class CommentService {
     commentRepository = new CommentRepository(Comments, Users, Posts);
@@ -30,17 +30,17 @@ class CommentService {
             if (!post) {
                 throw new Error("401/게시물이 존재하지 않습니다.");
             }
+            const createcomment = await this.commentRepository.createComment(userId, postId, comment, commentPhotoUrl, isPrivate,
+                // commentLatitude, 
+                // commentLongitude, 
+                // address
+            );
             const postUserId = post.UserId; // 게시물의 작성자 Id를 갖고옴
             const commentId = createcomment.commentId; // 방금 생성된 댓글의 Id를 갖고옴
             // 게시글 작성자와 댓글 작성자가 다르면 알림 생성
             if (postUserId !== userId) {
                 await this.notificationRepository.createNotification(postUserId, postId, commentId)
             }
-            const createcomment = await this.commentRepository.createComment(userId, postId, comment, commentPhotoUrl, isPrivate,
-                // commentLatitude, 
-                // commentLongitude, 
-                // address
-            );
             return createcomment
         } catch (error) {
             error.failedApi = "댓글 생성";

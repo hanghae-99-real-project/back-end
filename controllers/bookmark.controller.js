@@ -1,4 +1,4 @@
-const BookmarkService = require('../services/bookmark.service')
+const BookmarkService = require('@services/bookmark.service')
 
 class BookmarkController {
     bookmarkService = new BookmarkService()

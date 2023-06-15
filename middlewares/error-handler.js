@@ -15,7 +15,7 @@ module.exports = async (error, req, res, next) => {
     error.message = `400/${error.failedApi}에 실패했습니다.`;
   }
   const [status, errorMessage] = error.message.split("/");
-  console.error("ERROR!!!:", status, errorMessage);
+  console.error("ERROR!!!:", status, errorMessage, error);
 
   // status를 넘버로 형변환
   return res.status(status).json({ errorMessage });

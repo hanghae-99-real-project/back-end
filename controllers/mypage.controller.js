@@ -1,4 +1,4 @@
-const MypageService = require('../services/mypage.service')
+const MypageService = require('@services/mypage.service')
 
 class myPagesController {
     mypagesService = new MypageService()
