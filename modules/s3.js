@@ -39,15 +39,13 @@ const uploadImage = multer({
                 randomNumber += String(Math.floor(Math.random() * 10));
             }
 
-            const extension = path.extname(file.originalname).toLowerCase();
-            // if (!allowedExtensions.includes(extension)) {
-            //     return callback(new Error('확장자 에러'));
-            // }
+
             const photo = `https://karyl.s3.ap-northeast-2.amazonaws.com/folder/${date}_${randomNumber}`
             if (!req.lostPhotoUrl) {
                 req.lostPhotoUrl = [];
             }
-            if (sujung.includes(file.originalname)) {
+            const extension = path.extname(file.originalname).toLowerCase();
+            if (!allowedExtensions.includes(extension)) {
                 req.lostPhotoUrl.push(file.originalname)
             } else {
             req.lostPhotoUrl.push(photo);
