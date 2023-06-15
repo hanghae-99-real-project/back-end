@@ -109,13 +109,15 @@ class UserController {
 
       const loginUser = await this.userService.loginUser(phoneNumber);
       const userId = loginUser.userId;
-
+      const passtest = loginUser.password;
       const passwordMatch = await bcrypt.hash(password, 10);
+
+      if (passtest === passwordMatch ){
       if (!loginUser || !passwordMatch) {
         return res
           .status(401)
           .json({ errorMessage: "닉네임 또는 패스워드를 확인해주세요." });
-      }
+      }}else{return res.status(400).json({ message: "비밀번호를 확인해주세요" });}
 
       await Users.update(
         {
