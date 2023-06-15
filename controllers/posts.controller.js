@@ -10,7 +10,7 @@ class PostController {
   createPost = async (req, res) => {
     try {
       const { userId, nickname } = res.locals.user;
-      const { dogname, title, content, lostLatitude, lostLongitude } = req.body;
+      const { dogname, title, content, lostLatitude, lostLongitude,losttime } = req.body;
       const { lostPhotoUrl } = req;
       // const { year, month, day, hour, minute } = req.body;
       // // 자바스크립트 달은 0부터 11까지이므로 month에 -1 을 해줌
@@ -40,6 +40,7 @@ class PostController {
         nickname,
         title,
         content,
+        losttime,
         lostPhotoUrl,
         lostLatitude,
         lostLongitude,
@@ -88,7 +89,7 @@ class PostController {
     try {
       const { userId } = res.locals.user;
       const { postId } = req.params;
-      const { title, content, dogname, } = req.body;
+      const { title, content, dogname,losttime } = req.body;
       const { lostLatitude, lostLongitude } = req.body;
       const { lostPhotoUrl } = req;
       let address = await getAddress(lostLatitude, lostLongitude);
@@ -104,6 +105,7 @@ class PostController {
         lostPhotoUrl,
         lostLatitude,
         lostLongitude,
+        losttime,
         address
       );
       res.status(200).json({ message: "게시글을 수정하였습니다." });
