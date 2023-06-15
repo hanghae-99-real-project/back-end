@@ -32,10 +32,9 @@ class UserService {
         userPhoto
     ) => {
         try {
-            const hashedPassword = await bcrypt.hash(password, 10);
             const signupData = await this.userRepository.signup(
                 nickname,
-                hashedPassword,
+                password,
                 phoneNumber,
                 position,
                 userPhoto
