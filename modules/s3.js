@@ -45,9 +45,10 @@ const uploadImage = multer({
             if (!req.lostPhotoUrl) {
                 req.lostPhotoUrl = [];
             }
+            const karyl = 'https://karyl.s3.ap-northeast-2.amazonaws.com/folder'
             const extension = path.extname(file.originalname).toLowerCase();
             if (!allowedExtensions.includes(extension)) {
-                req.lostPhotoUrl.push(file.originalname)
+                req.lostPhotoUrl.push(`${karyl}/${file.originalname}`)
             } else {
             req.lostPhotoUrl.push(photo);
             }
