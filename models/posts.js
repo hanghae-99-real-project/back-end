@@ -66,7 +66,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true
       },
       losttime: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.DECIMAL(17, 14),
         allowNull: ture
       },
       lostLatitude: {

@@ -23,7 +23,7 @@ module.exports = {
         allowNull: true
       },
       losttime: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.DECIMAL(17, 14),
         allowNull: true
       },
       dogname: {
