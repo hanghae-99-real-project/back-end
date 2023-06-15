@@ -15,6 +15,7 @@ class UserController {
       const passwordFilter = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
       const phoneNumberFilter = /^\d+$/;
       const existNickname = await this.userService.findNickname(nickname);
+      console.log("아이디 중복 체크",existNickname)
 
       if (!passwordFilter.test(password)) {
         return res
