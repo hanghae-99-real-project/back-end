@@ -47,7 +47,7 @@ const uploadImage = multer({
             if (!req.lostPhotoUrl) {
                 req.lostPhotoUrl = [];
             }
-            if (file.originalname.includes(sujung)) {
+            if (sujung.includes(file.originalname)) {
                 req.lostPhotoUrl.push(file.originalname)
             } else {
             req.lostPhotoUrl.push(photo);
