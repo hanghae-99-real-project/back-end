@@ -33,8 +33,9 @@ class UserController {
           .status(401)
           .json({ errorMessage: "중복된 닉네임입니다." });
       }
+      const salt =await bcrypt.genSalt(10)
 
-      const hashedPassword = await bcrypt.hash(password, 10);
+      const hashedPassword = await bcrypt.hash(password, salt);
 
       await this.userService.signup(
         nickname,
