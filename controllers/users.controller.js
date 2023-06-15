@@ -10,6 +10,7 @@ class UserController {
   signup = async (req, res, next) => {
     const { nickname, password, phoneNumber, position } = req.body;
     const { userPhoto } = req;
+    console.log("닉네임 콘솔로그",nickname)
 
     try {
       const passwordFilter = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
@@ -35,7 +36,6 @@ class UserController {
           .json({ errorMessage: "중복된 닉네임입니다." });
       }
       const salt =await bcrypt.genSalt(10)
-
       const hashedPassword = await bcrypt.hash(password, salt);
 
       await this.userService.signup(
@@ -108,6 +108,7 @@ class UserController {
           .status(401)
           .json({ errorMessage: "데이터의 형식이 일치하지 않습니다." });
       }
+      console.log("패스워드",password)
 
       const loginUser = await this.userService.loginUser(phoneNumber);
       const userId = loginUser.userId;
@@ -115,6 +116,7 @@ class UserController {
       const passtest = loginUser.password;
       console.log("가져온 비밀번호",passtest)
       const passwordMatch = await bcrypt.compare(password, passtest);
+      console.log(passwordMatch)
 
       if (!passwordMatch) {
         return res.status(400).json({ message: "비밀번호를 확인해주세요" });
