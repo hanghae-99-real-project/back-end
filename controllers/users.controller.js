@@ -36,6 +36,7 @@ class UserController {
           .json({ errorMessage: "중복된 닉네임입니다." });
       }
       const hashedPassword = await bcrypt.hash(password, 10);
+      console.log("암호화된 패스워드 ",hashedPassword)
       const passwordMatch = await bcrypt.compare(password, hashedPassword);
       console.log(passwordMatch)
       if(!passwordMatch){
