@@ -121,6 +121,7 @@ class UserController {
       console.log("유저아이디",userId)
       const passtest = loginUser.password;
       console.log("가져온 비밀번호",passtest)
+      const hashedPassword = await bcrypt.hash(password, 10);
       const passwordMatch = await bcrypt.compare(password, passtest);
       console.log(passwordMatch)
 
