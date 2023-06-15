@@ -110,7 +110,8 @@ class UserController {
       const loginUser = await this.userService.loginUser(phoneNumber);
       const userId = loginUser.userId;
       const passtest = loginUser.password;
-      const passwordMatch = await bcrypt.compare(password, loginUser.password);
+      console.log(passtest)
+      const passwordMatch = await bcrypt.compare(password, passtest);
 
       if (!passwordMatch) {
         return res.status(400).json({ message: "비밀번호를 확인해주세요" });
