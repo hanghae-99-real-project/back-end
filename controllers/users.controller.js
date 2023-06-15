@@ -119,10 +119,9 @@ class UserController {
       const loginUser = await this.userService.loginUser(phoneNumber);
       const userId = loginUser.userId;
       console.log("유저아이디",userId)
-      const passtest = loginUser.password;
+      const hashedPassword = loginUser.password;
       console.log("가져온 비밀번호",passtest)
-      const hashedPassword = await bcrypt.hash(password, 10);
-      const passwordMatch = await bcrypt.compare(password, passtest);
+      const passwordMatch = await bcrypt.compare(password, hashedPassword);
       console.log(passwordMatch)
 
       if (!passwordMatch) {
