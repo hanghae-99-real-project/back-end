@@ -1,0 +1,19 @@
+{ // Jest용 바벨 module-alias 자체 매커니즘
+    "plugins": [
+      [
+        "module-resolver",
+        {
+          "alias": {
+            "@root": "./",
+            "@controllers": "./controllers",
+            "@services": "./services",
+            "@repositories": "./repositories",
+            "@models": "./models",
+            "@middlewares": "./middlewares",
+            "@modules": "./modules"
+          }
+        }
+      ]
+    ]
+  }
+  
