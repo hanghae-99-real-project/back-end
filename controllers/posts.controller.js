@@ -77,7 +77,6 @@ class PostController {
     try {
       const { postId } = req.params;
       const post = await postService.getPostById(postId);
-      console.log(post)
       res.json(post);
     } catch (err) {
       console.error(err);
