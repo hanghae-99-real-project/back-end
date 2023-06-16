@@ -46,6 +46,7 @@
 //         jest.clearAllMocks();
 //     });
 
+//     // 댓글 작성 성공
 //     test('코멘트 컨트롤러 createComment 메소드 유닛 테스트 성공 케이스', async () => {
 //         const mockcreateCommmentreturnValue = { message: '댓글을 작성하였습니다.' };
 //         const mockRequestBody = {
@@ -70,6 +71,8 @@
 //         expect(mockResponse.json).toHaveBeenCalledWith(mockcreateCommmentreturnValue);
 
 //     });
+
+//     // 댓글 조회 성공
 //     test('코멘트 컨트롤러 readComments 메소드 유닛 테스트 성공 케이스', async () => {
 
 //         const mockGetCommentData = [
@@ -111,6 +114,7 @@
 //         expect(mockResponse.json).toHaveBeenCalledWith({ commentsData: mockGetCommentData });
 //     });
 
+//     // 댓글 수정 성공
 //     test('코멘트 컨트롤러 fixComment 메소드 유닛 테스트 성공 케이스', async () => {
 //         const mockfixCommmentreturnValue = { message: '댓글을 수정하였습니다.' };
 //         const mockRequestBody = {
@@ -141,6 +145,7 @@
 //         expect(mockResponse.json).toHaveBeenCalledWith(mockfixCommmentreturnValue);
 //     });
 
+//     // 댓글 삭제 성공
 //     test('코멘트 컨트롤러 deleteComment 메소드 유닛 테스트 성공 케이스', async () => {
 //         const mockdeleteCommentreturnValue = { message: '댓글을 지웠습니다.' };
 
