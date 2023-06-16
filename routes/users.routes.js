@@ -72,5 +72,16 @@ router.put(
 );
 
 
+router.put(
+    "/newpass",
+    userController.newpass
+);
+
+
+router.put(
+    "/findnick",
+    userController.findnick
+);
+
 
 module.exports = router;

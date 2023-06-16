@@ -258,5 +258,20 @@ class UserService {
         );
     };
 
+    newpass = async (phoneNumber) => {
+        if (!phoneNumber) {
+            console.log(phoneNumber)
+            throw new Error("401/휴대폰 번호를 입력해주세요.");
+        }
+
+        const ssapping = await this.userRepository.makenewpass(phoneNumber);
+        return ssapping
+    };
+
+    findphone = async (phoneNumber) => {
+        const findphonenumnum = await this.userRepository.findphone(phoneNumber);
+        return findphonenumnum ;
+    };
+
 };
 module.exports = UserService;

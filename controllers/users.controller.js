@@ -292,6 +292,30 @@ class UserController {
   }
 
 
+  newpass = async (req, res) => {
+    try {
+      const { phoneNumber } = req.body
+
+      const newnumber = await this.userService.newpass(phoneNumber);
+      res.status(200).json({ message: `새 비밀번호는 ${newnumber} 입니다 ` });
+    } catch (error) {
+      error.failedApi = "비밀번호 찾기";
+      throw error
+    };
+  }
+
+  findnick = async (req, res) => {
+    const { phoneNumber } = req.body;
+    try {
+      const userdata = await this.userService.findphone(phoneNumber);
+      return res.status(200).json({ message: `해당 당사자의 닉네임은${userdata.nickname}입니다` });
+    } catch (error) {
+      console.error(error);
+      error.failedApi = "닉네임 찾기";
+      throw error
+    }
+  };
+
 
 }
 module.exports = UserController;
