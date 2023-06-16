@@ -18,7 +18,6 @@ class PoosService {
             if (!address) {
                 address = `${pooLatitude}, ${pooLongitude}`
             }
-            console.log(userId, content, pooPhotoUrl, pooLatitude, pooLongitude, address)
             await this.poosRepository.postPoo(userId, content, pooPhotoUrl, pooLatitude, pooLongitude, address)
             const getPooAll = await this.poosRepository.findAllPoo()
             await this.poosRepository.cashingPoo(originalUrl, DEFAULT_EXPIRATION, getPooAll)
