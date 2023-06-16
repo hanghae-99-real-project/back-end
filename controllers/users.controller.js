@@ -202,7 +202,8 @@ class UserController {
 
   //카카오로그인
   signInKakao = async (req, res) => {
-    const position = req.body
+    const {position} = req.body
+    console.log("포지션 들어오는지", position)
     const headers = req.headers["authorization"];
     const authCode = headers.split(" ")[1];
     const kakaoToken = await this.userService.getTokens(authCode);
