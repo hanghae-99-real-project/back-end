@@ -269,6 +269,10 @@ class UserService {
     };
 
     findphone = async (phoneNumber) => {
+        if (!phoneNumber) {
+            console.log(phoneNumber)
+            throw new Error("401/휴대폰번호를 입력해주세요.");
+        }
         const findphonenumnum = await this.userRepository.findphone(phoneNumber);
         return findphonenumnum ;
     };

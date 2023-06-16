@@ -74,12 +74,16 @@ router.put(
 
 router.put(
     "/newpass",
+    authMiddleware,
+    uploaduserImage.single("userPhoto"),
     userController.newpass
 );
 
 
 router.put(
     "/findnick",
+    authMiddleware,
+    uploaduserImage.single("userPhoto"),
     userController.findnick
 );
 
