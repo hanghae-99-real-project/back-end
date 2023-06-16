@@ -47,7 +47,7 @@ app.use(express.json());
 app.use(cookieParser());
 // express사용 정보 숨기기
 app.disable("x-powered-by");
-app.use(cors({ origin: ['http://localhost:3000', 'https://front-end-fork-vegatality.vercel.app','https://poodaeng-poodaeng.vercel.app','https://poodaeng-dsv2ksbi3-poodaeng.vercel.app', 'https://poodaeng.vercel.app'], credentials: true }));
+app.use(cors({ origin: ['http://localhost:3000', 'https://poodaeng.vercel.app/','https://poodaeng.vercel.app','https://poodaeng-dsv2ksbi3-poodaeng.vercel.app', 'https://poodaeng.vercel.app'], credentials: true }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(session({
   store: new RedisStore({ client: redisClient }),
