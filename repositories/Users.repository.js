@@ -110,7 +110,7 @@ class UserRepository {
     updatepassById = async (userId, hashedPassword) => {
         await Users.update(
             {
-                passward: hashedPassword
+                password: hashedPassword
             },
             {
                 where: { userId }
@@ -136,6 +136,39 @@ class UserRepository {
         const loginUser = await this.usersModel.findOne({ where: { email } });
         return loginUser;
     };
+
+
+    makenewpass = async (phoneNumber) => {
+        function generateRandomString() {
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
+            const length = Math.floor(Math.random() * 7) + 9; // 9~15 사이의 길이
+            let result = '';
+            for (let i = 0; i < length; i++) {
+                const randomIndex = Math.floor(Math.random() * characters.length);
+                result += characters.charAt(randomIndex);
+        }
+        return result;
+        }
+        const rendom = generateRandomString();
+        const hashedPassword = await bcrypt.hash(rendom, 10);
+        await Users.update(
+            {
+                password: hashedPassword,
+            },
+            {
+                where: { phoneNumber }
+            }
+        );
+        return rendom
+    };
+
+    findphone = async (phoneNumber) => {
+        const userdata = await this.usersModel.findOne({
+            where: { phoneNumber },
+        });
+        return userdata;
+    };
+
 
 
 }
