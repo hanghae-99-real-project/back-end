@@ -10,13 +10,13 @@ class UserController {
   signup = async (req, res, next) => {
     const { nickname, password, phoneNumber, position } = req.body;
     const { userPhoto } = req;
-    console.log("닉네임 콘솔로그",nickname)
+    console.log("닉네임 콘솔로그", nickname)
 
     try {
       const passwordFilter = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
       const phoneNumberFilter = /^\d+$/;
       const existNickname = await this.userService.findNickname(nickname);
-      console.log("아이디 중복 체크",existNickname)
+      console.log("아이디 중복 체크", existNickname)
 
       if (!passwordFilter.test(password)) {
         return res
@@ -36,10 +36,10 @@ class UserController {
           .json({ errorMessage: "중복된 닉네임입니다." });
       }
       const hashedPassword = await bcrypt.hash(password, 10);
-      console.log("암호화된 패스워드 ",hashedPassword)
+      console.log("암호화된 패스워드 ", hashedPassword)
       const passwordMatch = await bcrypt.compare(password, hashedPassword);
       console.log(passwordMatch)
-      if(!passwordMatch){
+      if (!passwordMatch) {
         return res
           .status(401)
           .json({ errorMessage: "아니 암호 비교가 왜 안돼??" })
@@ -115,19 +115,16 @@ class UserController {
           .status(401)
           .json({ errorMessage: "데이터의 형식이 일치하지 않습니다." });
       }
-      console.log("패스워드",password)
+
 
       const loginUser = await this.userService.loginUser(phoneNumber);
       const userId = loginUser.userId;
-      console.log("유저아이디",userId)
       const hashedPassword = loginUser.password;
-      console.log("가져온 비밀번호",hashedPassword)
       const passwordMatch = await bcrypt.compare(password, hashedPassword);
-      console.log(passwordMatch)
 
       if (!passwordMatch) {
         return res.status(400).json({ message: "비밀번호를 확인해주세요" });
-        }
+      }
 
       if (!loginUser || !passwordMatch) {
         return res
@@ -280,12 +277,14 @@ class UserController {
     try {
       const { userPhoto } = req;
       const { userId } = res.locals.user
+      const { imageIndex } = req.params
 
-      await this.userService.updateimage(
+      const profileImageUrl = await this.userService.updateimage(
         userId,
         userPhoto,
+        imageIndex
       );
-      res.status(200).json({ message: "이미지를 수정하였습니다." });
+      res.status(200).json({ profileImageUrl });
     } catch (error) {
       error.failedApi = "마이페이지 이미지 수정";
       throw error
