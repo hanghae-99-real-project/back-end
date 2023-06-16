@@ -44,6 +44,7 @@
 //         jest.clearAllMocks();
 //     });
 
+//     // 대댓글 작성 성공
 //     test('대댓글 컨트롤러 createChildComment 메소드 유닛 테스트 성공 케이스', async () => {
 //         const mockcreateChildCommmentreturnValue = { message: '대댓글을 작성하였습니다.' };
 //         const mockRequestBody = {
@@ -72,6 +73,8 @@
 //         expect(mockResponse.json).toHaveBeenCalledWith(mockcreateChildCommmentreturnValue);
 
 //     });
+
+//     // 대댓글 조회 실패
 //     test('Unit test for getChildComments method in Child Comment Controller (successful case)', async () => {
 //         const mockGetChildCommentData = [{ childCommentId: 1, CommentId: 3, UserId: 1, PostId: 2, childComment: 'ㅇㅁ', nickname: 'jsp_brian', userPhoto: 'URL for user photo', isPrivate: true, createdAt: new Date().toString(), updatedAt: new Date().toString(), }, { childCommentId: 2, CommentId: 12, UserId: 1, PostId: 2, childComment: 'ㅇㅁ', nickname: 'jsp_brian', userPhoto: 'URL for user photo', isPrivate: true, createdAt: new Date().toString(), updatedAt: new Date().toString(), }];
 
@@ -99,6 +102,7 @@
 //         expect(mockResponse.json).toHaveBeenCalledWith({ childCommentData: mockGetChildCommentData });
 //     });
 
+//     //대댓글 삭제 성공
 //     test('대댓글 컨트롤러 deleteChildComment 메소드 유닛 테스트 성공 케이스', async () => {
 //         const mockdeleteChildCommentreturnValue = { message: "대댓글을 삭제하였습니다." };
 

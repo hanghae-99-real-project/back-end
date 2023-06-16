@@ -47,6 +47,7 @@
 //         jest.clearAllMocks();
 //     });
 
+//     // 푸박스 등록 성공
 //     test('postPoo method should call poosService.postPoo and return the response', async () => {
 //         const mockPostPooData = { message: '푸박스 등록 성공' };
 //         const mockRequestBody = {
@@ -72,6 +73,8 @@
 //         expect(mockResponse.json).toHaveBeenCalledWith(mockPostPooData);
 
 //     });
+
+//     // 푸박스 조회 성공
 //     test('푸박스 컨트롤러 findAllPoo 메소드 유닛 테스트 성공케이스 테스트', async () => {
 
 //         const mockGetPooData = [
