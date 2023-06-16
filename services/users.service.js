@@ -140,6 +140,7 @@ class UserService {
         let nicknamee = data.properties.nickname;
         let datata = data.kakao_account.email;
         let userPhotoo = data.properties.profile_image;
+        console.log("포지션", position)
 
         if (!nicknamee || !datata) throw new Error("KEY_ERROR", 400);
 
