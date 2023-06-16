@@ -85,11 +85,22 @@ class ChildCommentService {
     };
 
     // 대댓글과 비밀 대댓글 조회
-    findChildCommentsByCommentId = async (postId, commentId, userId) => {
+    findChildCommentsByCommentId = async (
+        postId,
+        commentId,
+        // userId
+    ) => {
         try {
+            const parentPost = await this.commentRepository.findPostById(postId)
+            // 게시글이 존재하는지 여부 확인
+            console.log(parentPost)
+            if (!parentPost) {
+                throw new Error("401/게시물이 존재하지 않습니다");
+            }
             // 상위 댓글 가져오기
             const parentComment = await this.commentRepository.findCommentById(commentId);
             // 댓글이 존재하는지 여부 확인
+            console.log(parentComment)
             if (!parentComment) {
                 throw new Error("401/댓글이 존재하지 않습니다.");
             }
