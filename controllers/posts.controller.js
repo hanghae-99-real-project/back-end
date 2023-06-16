@@ -10,7 +10,7 @@ class PostController {
   createPost = async (req, res) => {
     try {
       const { userId, nickname } = res.locals.user;
-      const { dogname, title, content, lostLatitude, lostLongitude,losttime } = req.body;
+      const { dogname, title, content, lostLatitude, lostLongitude, losttime } = req.body;
       const { lostPhotoUrl } = req;
       // const { year, month, day, hour, minute } = req.body;
       // // 자바스크립트 달은 0부터 11까지이므로 month에 -1 을 해줌
@@ -78,7 +78,7 @@ class PostController {
     try {
       const { postId } = req.params;
       const post = await postService.getPostById(postId);
-      res.json(post);
+      res.status(200).json(post);
     } catch (err) {
       console.error(err);
       res.status(400).send({ message: "게시글 조회에 실패하였습니다." });
@@ -89,7 +89,7 @@ class PostController {
     try {
       const { userId } = res.locals.user;
       const { postId } = req.params;
-      const { title, content, dogname,losttime } = req.body;
+      const { title, content, dogname, losttime } = req.body;
       const { lostLatitude, lostLongitude } = req.body;
       const { lostPhotoUrl } = req;
       let address = await getAddress(lostLatitude, lostLongitude);
