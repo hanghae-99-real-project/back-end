@@ -199,20 +199,30 @@ class UserService {
         );
     };
 
-    updateimage = async (userId, userPhoto,) => {
-        if (!userPhoto) {
-            console.log(userPhoto)
-            throw new Error("401/유저 포토가 입력되지 않았습니다.");
-        }
+    updateimage = async (userId, userPhoto, imageIndex) => {
+
 
         if (userId == null) {
             throw new Error("401/유저 아이디가 null 입니다");
         }
 
-        await this.userRepository.updateimageById(
-            userId,
-            userPhoto,
-        );
+        if (imageIndex <= 4) {
+            const profileImageUrl = await redisClient.LINDEX("image", imageIndex);
+            return profileImageUrl
+        }
+
+        else {
+            if (!userPhoto) {
+                console.log(userPhoto)
+                throw new Error("401/유저 포토가 입력되지 않았습니다.");
+            }
+            await this.userRepository.updateimageById(
+                userId,
+                userPhoto,
+            );
+            return { message: "이미지를 수정하였습니다." }
+        }
+
     };
 
     updatepass = async (userId, hashedPassword) => {

@@ -65,7 +65,7 @@ router.put(
 );
 
 router.put(
-    "/image",
+    "/image/:imageIndex",
     authMiddleware,
     uploaduserImage.single("userPhoto"),
     userController.updateimage
