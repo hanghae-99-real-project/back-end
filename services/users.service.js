@@ -129,7 +129,7 @@ class UserService {
 
 
     // 카카오 로그인
-    signInKakao = async (kakaoToken) => {
+    signInKakao = async (kakaoToken, position) => {
         const result = await axios.get("https://kapi.kakao.com/v2/user/me", {
             headers: {
                 Authorization: `Bearer ${kakaoToken}`,
@@ -150,6 +150,7 @@ class UserService {
                 datata: datata,
                 nickname: nicknamee,
                 userPhoto: userPhotoo,
+                position
             });
             const kakaocall = await this.userRepository.loginkakao(datata);
             const userId = kakaocall.userId
