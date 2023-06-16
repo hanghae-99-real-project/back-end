@@ -203,18 +203,21 @@ class UserService {
 
 
         if (userId == null) {
-            throw new Error("401/유저 아이디가 null 입니다");
+            throw new Error("401/유저 아이디가 입력되지 않았습니다");
         }
 
         if (imageIndex <= 4) {
-            const profileImageUrl = await redisClient.LINDEX("image", imageIndex);
+            let profileImageUrl = await redisClient.LINDEX("image", imageIndex);
+            userPhoto = profileImageUrl
+            await this.userRepository.updateimageById(
+                userId,
+                userPhoto,
+            );
             return profileImageUrl
         }
-
         else {
             if (!userPhoto) {
-                console.log(userPhoto)
-                throw new Error("401/유저 포토가 입력되지 않았습니다.");
+                throw new Error("401/프로필 사진이 첨부되지 않았습니다.");
             }
             await this.userRepository.updateimageById(
                 userId,
