@@ -14,7 +14,7 @@ class NotificationController {
             res.status(200).json({ notificationsData: notifications });
         } catch (error) {
             error.failedApi = "알림 조회"
-            next(error);
+            throw error;
         }
     }
 
@@ -35,7 +35,7 @@ class NotificationController {
             res.status(200).json({ message: "알림을 확인하였습니다." })
         } catch (error) {
             error.failedApi = "알림 확인"
-            next(error);
+            throw error;
         }
     }
 }
