@@ -62,7 +62,8 @@ class UserRepository {
     signupkakao = async (
         datata,
         nicknamee,
-        userPhotoo
+        userPhotoo,
+        position
     ) => {
         console.log("레퍼지 이메일", datata)
         console.log("레퍼지 닉네임", nicknamee)
@@ -78,7 +79,8 @@ class UserRepository {
         const signupData = await this.usersModel.create({
             email,
             nickname,
-            userPhoto
+            userPhoto,
+            position
         });
         return signupData;
     };
