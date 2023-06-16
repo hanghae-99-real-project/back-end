@@ -16,6 +16,7 @@ class PostService {
 
             // 유저 위치정보 찾기. 위치정보 동의 했으면 유저 위치 있음.
             const userLocation = await this.postRepository.findUserLocation(userId);
+            // 유저 position이 false일 때 최신순 조회
             if (!userLocation.dataValues.position) {
                 return await this.getAllPostsRecently();
             }
