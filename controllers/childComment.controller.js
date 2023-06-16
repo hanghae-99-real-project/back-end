@@ -19,6 +19,7 @@ class ChildCommentController {
         const { postId, commentId } = req.params;
         const userId = res.locals.user ? res.locals.user.userId : null;
         const childComments = await this.childCommentService.findChildCommentsByCommentId(postId, commentId, userId);
+        console.log("나를위해노래를 불러주지마:" + childComments)
         return res.status(200).json({ childCommentsData: childComments })
     };
 

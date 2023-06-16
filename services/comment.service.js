@@ -49,7 +49,9 @@ class CommentService {
     };
 
     // 게시물 아이디의 전체 댓글 조회
-    findCommentsByPostId = async (postId, userId) => {
+    findCommentsByPostId = async (postId,
+        // userId
+    ) => {
         try {
             const comments = await this.commentRepository.findCommentsByPostId(postId);
             if (!comments) {
