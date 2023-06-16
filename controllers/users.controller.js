@@ -280,7 +280,7 @@ class UserController {
       const { userPhoto } = req;
       const { userId } = res.locals.user
       const { imageIndex } = req.params
-
+      console.log(imageIndex)
       const profileImageUrl = await this.userService.updateimage(
         userId,
         userPhoto,
