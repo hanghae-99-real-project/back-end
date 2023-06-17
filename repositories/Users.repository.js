@@ -73,8 +73,8 @@ class UserRepository {
         const { malmla, nickname, userPhoto } = datata
         console.log("이놈에는 뭐가 담길까",malmla)
         const email = datata.datata
-        let qoduf = []
-        qoduf.push(userPhotoo)
+        let qoduf = [userPhoto]
+        qoduf.push(userPhoto)
         console.log(qoduf)
 
         console.log("다시담은 레퍼지 이메일",email)
