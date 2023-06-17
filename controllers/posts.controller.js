@@ -87,7 +87,8 @@ class PostController {
       console.log("유저 데이터", data)
       console.log("사진 URL", userPhoto)
       post.userPhoto = userPhoto;
-      res.status(200).json(post, userPhoto);
+      res.status(200).json(post);
+      res.status(200).json(userPhoto);
     } catch (err) {
       console.error(err);
       res.status(400).send({ message: "게시글 조회에 실패하였습니다." });
