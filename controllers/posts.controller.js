@@ -80,7 +80,7 @@ class PostController {
   getPostById = async (req, res) => {
     try {
       const { postId } = req.params;
-      const post = await postService.getPostById(postId);
+      let post = await postService.getPostById(postId);
       const nickname = post.nickname;
       const data = await this.userService.findNickname(nickname);
       const userPhoto = data.userPhoto;
