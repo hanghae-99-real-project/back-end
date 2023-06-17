@@ -76,7 +76,9 @@ class UserRepository {
         datata,
         nicknamee,
         userPhotoo,
-        position
+        position,
+        userLongitude,
+        userLatitude
     ) => {
         console.log("레퍼지 이메일", datata)
         console.log("레퍼지 닉네임", nicknamee)
