@@ -84,6 +84,8 @@ class PostController {
       const nickname = post.nickname;
       const data = await this.userService.findNickname(nickname);
       const userPhoto = data.userPhoto;
+      console.log("유저 데이터", data)
+      console.log("사진 URL", userPhoto)
       post.userPhoto = userPhoto;
       res.status(200).json(post);
     } catch (err) {
