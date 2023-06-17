@@ -2,11 +2,13 @@ const PostService = require("@services/posts.service");
 const postService = new PostService();
 const CommentsService = require("@services/comment.service");
 const getAddress = require("@modules/kakao")
-const UserService = require("@services/users.service")
+const UserService = require("@services/users.service.js");
+const { Users } = require('@models')
 
 
 class PostController {
   commentsService = new CommentsService();
+  userService = new UserService();
 
   createPost = async (req, res) => {
     try {
