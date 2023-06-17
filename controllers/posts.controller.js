@@ -84,11 +84,13 @@ class PostController {
       const nickname = post.nickname;
       const data = await this.userService.findNickname(nickname);
       const userPhoto = data.userPhoto;
+      result = []
+      result.push(post)
+      result.push(userPhoto)
       console.log("유저 데이터", data)
       console.log("사진 URL", userPhoto)
       post.userPhoto = userPhoto;
-      res.status(200).json(post);
-      res.status(200).json(userPhoto);
+      res.status(200).json(result);
     } catch (err) {
       console.error(err);
       res.status(400).send({ message: "게시글 조회에 실패하였습니다." });
