@@ -84,7 +84,7 @@ class PostController {
       const nickname = post.nickname
       const data = await this.userService.findNickname(nickname);
       let userPhoto = data.userPhoto
-      post.userPhoto =  userPhoto
+      post.push(userPhoto)
       res.status(200).json(post);
     } catch (err) {
       console.error(err);
