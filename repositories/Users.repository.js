@@ -75,6 +75,7 @@ class UserRepository {
         const email = datata.datata
         qoduf = []
         qoduf.push(userPhotoo)
+        console.log(qoduf)
 
         // console.log("다시담은 레퍼지 이메일",email)
         // console.log("다시담은 레퍼지 닉네임",nickname)
@@ -82,7 +83,7 @@ class UserRepository {
         const signupData = await this.usersModel.create({
             email,
             nickname,
-            userPhoto:userPhotoo,
+            userPhoto:qoduf,
             position
         });
         return signupData;
