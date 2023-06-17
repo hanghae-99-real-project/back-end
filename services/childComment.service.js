@@ -125,7 +125,7 @@ class ChildCommentService {
             // 아래 로직은 그대로 유지
             const childCommentsWithDetail = await Promise.all(
                 childComments.map(async (childComment) => {
-                    const user = await this.commentRepository.findUserById(userId);
+                    const user = await this.commentRepository.findUserById(childComment.UserId);
                     // 비밀 대댓글인 경우 다음 조건들을 확인
                     // 대댓글 작성자가 현재 조회하는 사용자와 다른 경우
                     // 또는 상위 댓글 작성자 또는 게시물 작성자만 조회 가능
