@@ -80,11 +80,11 @@ class PostController {
   getPostById = async (req, res) => {
     try {
       const { postId } = req.params;
-      let post = await postService.getPostById(postId);
-      const nickname = post.nickname
+      const post = await postService.getPostById(postId);
+      const nickname = post.nickname;
       const data = await this.userService.findNickname(nickname);
-      let userPhoto = data.userPhoto
-      post.push(userPhoto)
+      const userPhoto = data.userPhoto;
+      post.userPhoto = userPhoto;
       res.status(200).json(post);
     } catch (err) {
       console.error(err);
