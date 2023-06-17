@@ -18,9 +18,6 @@ class PoosService {
             if (!address) {
                 address = `${pooLatitude}, ${pooLongitude}`
             }
-            await this.poosRepository.postPoo(userId, content, pooPhotoUrl, pooLatitude, pooLongitude, address)
-            const getPooAll = await this.poosRepository.findAllPoo()
-            await this.poosRepository.cashingPoo(originalUrl, DEFAULT_EXPIRATION, getPooAll)
 
             if (!userId) {
                 throw new Error("401/마이페이지 권한이 없습니다.")
@@ -37,6 +34,9 @@ class PoosService {
             if (!pooLongitude) {
                 throw new Error("401/위도가 입력되지 않았습니다.")
             }
+            await this.poosRepository.postPoo(userId, content, pooPhotoUrl, pooLatitude, pooLongitude, address)
+            const getPooAll = await this.poosRepository.findAllPoo()
+            await this.poosRepository.cashingPoo(originalUrl, DEFAULT_EXPIRATION, getPooAll)
             return { message: "푸박스 등록 성공" }
         } catch (error) {
             error.failedApi = "푸박스 등록";
