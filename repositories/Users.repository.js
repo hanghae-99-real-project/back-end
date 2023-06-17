@@ -24,6 +24,18 @@ class UserRepository {
         position,
         userPhoto
     ) => {
+        if (userPhoto === null || userPhoto.length === 0) {
+            const randomUrls = [
+                'https://karyl.s3.ap-northeast-2.amazonaws.com/folder/KakaoTalk_20230616_144459289.png',
+                'https://karyl.s3.ap-northeast-2.amazonaws.com/folder/KakaoTalk_20230616_144459289_01.png',
+                'https://karyl.s3.ap-northeast-2.amazonaws.com/folder/KakaoTalk_20230616_144459289_02.png',
+                'https://karyl.s3.ap-northeast-2.amazonaws.com/folder/KakaoTalk_20230616_144459289_03.png',
+                'https://karyl.s3.ap-northeast-2.amazonaws.com/folder/KakaoTalk_20230616_144459289_04.png'
+            ];
+            const randomIndex = Math.floor(Math.random() * randomUrls.length);
+            userPhoto = [randomUrls[randomIndex]];
+        }
+    
         const signupData = await this.usersModel.create({
             nickname,
             password,
@@ -31,6 +43,7 @@ class UserRepository {
             position,
             userPhoto,
         });
+    
         return signupData;
     };
 
