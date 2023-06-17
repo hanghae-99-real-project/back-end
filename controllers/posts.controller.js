@@ -2,6 +2,7 @@ const PostService = require("@services/posts.service");
 const postService = new PostService();
 const CommentsService = require("@services/comment.service");
 const getAddress = require("@modules/kakao")
+const UserService = require("@services/users.service")
 
 
 class PostController {
@@ -77,7 +78,11 @@ class PostController {
   getPostById = async (req, res) => {
     try {
       const { postId } = req.params;
-      const post = await postService.getPostById(postId);
+      let post = await postService.getPostById(postId);
+      const nickname = post.nickname
+      const data = await this.userService.findNickname(nickname);
+      let userPhoto = data.userPhoto
+      post.userPhoto =  userPhoto
       res.status(200).json(post);
     } catch (err) {
       console.error(err);
