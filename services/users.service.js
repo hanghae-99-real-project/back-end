@@ -210,7 +210,8 @@ class UserService {
 
         if (imageIndex <= 4) {
             let profileImageUrl = await redisClient.LINDEX("image", imageIndex);
-            userPhoto = profileImageUrl
+            userPhoto = [profileImageUrl]
+            console.log(userPhoto)
             await this.userRepository.updateimageById(
                 userId,
                 userPhoto,
@@ -279,7 +280,7 @@ class UserService {
             throw new Error("401/휴대폰번호를 입력해주세요.");
         }
         const findphonenumnum = await this.userRepository.findphone(phoneNumber);
-        return findphonenumnum ;
+        return findphonenumnum;
     };
 
 };
