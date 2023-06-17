@@ -84,7 +84,9 @@ class UserRepository {
             email,
             nickname,
             userPhoto:qoduf,
-            position
+            position,
+            userLongitude, 
+            userLatitude
         });
         return signupData;
     };
