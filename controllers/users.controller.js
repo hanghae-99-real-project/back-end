@@ -255,13 +255,11 @@ class UserController {
     };
   }
 
-
   updatepass = async (req, res) => {
     try {
       console.log("바디", req.body)
       const { password } = req.body;
       const { userId } = res.locals.user
-      console.log("패스워드", password)
 
       const hashedPassword = await bcrypt.hash(password, 10);
       await this.userService.updatepass(

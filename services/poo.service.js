@@ -62,7 +62,8 @@ class PoosService {
                     };
                 })
             )
-            await this.poosRepository.cashingPoo(originalUrl, DEFAULT_EXPIRATION, getPooAll)
+
+            await this.poosRepository.cashingPoo(originalUrl, DEFAULT_EXPIRATION, getPooDataAll)
             return getPooDataAll;
         } catch (error) {
             error.failedApi = "푸박스 조회";
