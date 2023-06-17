@@ -211,12 +211,11 @@ class UserService {
         if (imageIndex <= 4) {
             let profileImageUrl = await redisClient.LINDEX("image", imageIndex);
             userPhoto = [profileImageUrl]
-            console.log(userPhoto)
             await this.userRepository.updateimageById(
                 userId,
                 userPhoto,
             );
-            return profileImageUrl
+            return [profileImageUrl]
         }
         else {
             if (!userPhoto) {
