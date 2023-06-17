@@ -84,7 +84,7 @@ class PostController {
       const nickname = post.nickname;
       const data = await this.userService.findNickname(nickname);
       const userPhoto = data.userPhoto;
-      result = []
+      let result = []
       result.push(post)
       result.push(userPhoto)
       console.log("유저 데이터", data)
