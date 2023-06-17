@@ -37,7 +37,6 @@ class UserService {
                 password,
                 phoneNumber,
                 position,
-                userPhoto
             );
             return signupData;
         } catch (error) {
