@@ -71,15 +71,15 @@ class UserRepository {
         console.log("레퍼지 포지션", position)
 
         const { malmla, nickname, userPhoto } = datata
-        // console.log("이놈에는 뭐가 담길까",malmla)
+        console.log("이놈에는 뭐가 담길까",malmla)
         const email = datata.datata
-        qoduf = []
+        let qoduf = []
         qoduf.push(userPhotoo)
         console.log(qoduf)
 
-        // console.log("다시담은 레퍼지 이메일",email)
-        // console.log("다시담은 레퍼지 닉네임",nickname)
-        // console.log("다시담은 레퍼지 유저포토",userPhoto)
+        console.log("다시담은 레퍼지 이메일",email)
+        console.log("다시담은 레퍼지 닉네임",nickname)
+        console.log("다시담은 레퍼지 유저포토",userPhoto)
         const signupData = await this.usersModel.create({
             email,
             nickname,
