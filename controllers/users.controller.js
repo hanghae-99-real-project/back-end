@@ -202,12 +202,12 @@ class UserController {
 
   //카카오로그인
   signInKakao = async (req, res) => {
-    const {position} = req.body
+    const {position ,userLongitude, userLatitude } = req.body
     console.log("포지션 들어오는지", position)
     const headers = req.headers["authorization"];
     const authCode = headers.split(" ")[1];
     const kakaoToken = await this.userService.getTokens(authCode);
-    const jaja = await this.userService.signInKakao(kakaoToken,position);
+    const jaja = await this.userService.signInKakao(kakaoToken, position, userLongitude, userLatitude);
     const accessToken = await this.userService.createKAccessToken(jaja)
     const refreshToken = await this.userService.createRefreshToken();
     res.cookie("accesstoken", `Bearer ${accessToken}`);
