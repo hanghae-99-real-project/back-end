@@ -39,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       isBookmarked: {
         allowNull: false,
-        type: Sequelize.BOOLEAN,
+        type: DataTypes.BOOLEAN,
         defaultValue: true,
       },
       createdAt: {

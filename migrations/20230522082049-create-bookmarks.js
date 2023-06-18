@@ -27,6 +27,11 @@ module.exports = {
         },
         onDelete: "CASCADE",
       },
+      isBookmarked: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN,
+        defaultValue: true,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
