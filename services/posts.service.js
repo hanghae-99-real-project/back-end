@@ -1,13 +1,15 @@
 const PostRepository = require("@repositories/posts.repository");
 const UserRepository = require("@repositories/users.repository");
 const getAddress = require("@modules/kakao")
-const { Posts, Sequelize, Users } = require('@models');
+const { Posts, Sequelize, Users, BookMarks } = require('@models');
+const redisClient = require("@modules/redisClient")
+const DEFAULT_EXPIRATION = 3600
 
 class PostService {
-    postRepository = new PostRepository(Posts, Sequelize, Users);
+    postRepository = new PostRepository(Posts, Sequelize, Users, BookMarks, redisClient);
     userRepository = new UserRepository(Users);
 
-    createPost = async (postData) => {
+    createPost = async (postData, originalUrl) => {
         try {
             let address = await getAddress(postData.lostLatitude, postData.lostLongitude);
             if (!address) {
@@ -21,14 +23,17 @@ class PostService {
             }
 
             postData.address = address
-            return await this.postRepository.createPost(postData);
+            await this.postRepository.createPost(postData);
+            const getPostsAll = await this.postRepository.getPosts()
+            await this.postRepository.cashingLostposts(originalUrl, DEFAULT_EXPIRATION, getPostsAll)
+            return
         } catch (error) {
             error.failedApi = "게시글 작성"
             throw error
         }
     }
 
-    getPosts = async (userId) => {
+    getPosts = async (userId, originalUrl) => {
         try {
             if (!userId) {
                 return await this.getAllPostsRecently();
@@ -43,6 +48,7 @@ class PostService {
             const results = await Promise.all(
                 findNearbyPosts.map(async (item) => this.mapPost(item))
             )
+            await this.postRepository.cashingLostposts(originalUrl, DEFAULT_EXPIRATION, results)
             return results
         } catch (error) {
             error.failedApi = "댕파인더 조회"

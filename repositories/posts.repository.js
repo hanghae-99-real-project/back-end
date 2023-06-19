@@ -1,10 +1,12 @@
-const { BookMarks } = require('@models');
+
 
 class PostRepository {
-    constructor(postsModel, Sequelize, usersModel) {
+    constructor(postsModel, Sequelize, usersModel, bookMarksModel, redisClient) {
         this.postsModel = postsModel;
         this.Sequelize = Sequelize;
         this.usersModel = usersModel;
+        this.bookMarksModel = bookMarksModel;
+        this.redisClient = redisClient
     }
 
     createPost = async (postData) => {
@@ -26,7 +28,7 @@ class PostRepository {
             where: { postId },
             include: [
                 {
-                    model: BookMarks,
+                    model: bookMarksModel,
                     attributes: ["isBookmarked"]
                 }
             ]
@@ -85,6 +87,16 @@ class PostRepository {
         })
         return result
     }
+
+    cashingLostposts = async (originalUrl, DEFAULT_EXPIRATION, results) => {
+        const postPoo = await this.redisClient.setEx(
+            originalUrl,
+            DEFAULT_EXPIRATION,
+            JSON.stringify(results)
+        )
+        return postPoo
+    }
+
 
 };
 
