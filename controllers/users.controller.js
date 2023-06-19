@@ -142,7 +142,7 @@ class UserController {
       const refreshToken = await this.userService.createRefreshToken();
 
       await this.userService.saveToken(loginUser, refreshToken);
-      res.cookie("accesstoken", `Bearer ${accessToken}`, { httpOnly: true, secure: false });
+      res.cookie("accesstoken", `${accessToken}`, { httpOnly: true, secure: false });
       res.cookie("refreshtoken", `${refreshToken}`, { httpOnly: true, secure: false });
 
       const sessionData = {
@@ -204,7 +204,7 @@ class UserController {
     const jaja = await this.userService.signInKakao(kakaoToken, position, userLongitude, userLatitude);
     const accessToken = await this.userService.createKAccessToken(jaja)
     const refreshToken = await this.userService.createRefreshToken();
-    res.cookie("accesstoken", `Bearer ${accessToken}`);
+    res.cookie("accesstoken", `${accessToken}`);
     res.cookie("refreshtoken", `${refreshToken}`);
     return res.status(200).json({ accessToken, refreshToken });
   };
