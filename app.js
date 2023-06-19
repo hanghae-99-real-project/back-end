@@ -94,9 +94,8 @@ app.get('/', (req, res) => {
   res.send("안녕")
 });
 
-const server = app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT, () => {
   console.log(`running http://localhost:${process.env.PORT}`);
 });
 
 
-// webSocket(server, app, session);
