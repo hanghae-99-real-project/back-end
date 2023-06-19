@@ -26,14 +26,14 @@ class PostService {
             await this.postRepository.createPost(postData);
             const getPostsAll = await this.postRepository.getPosts()
             await this.postRepository.cashingLostposts(originalUrl, DEFAULT_EXPIRATION, getPostsAll)
-            return
+            return { message: "게시글 작성에 성공하였습니다." }
         } catch (error) {
             error.failedApi = "게시글 작성"
             throw error
         }
     }
 
-    getPosts = async (userId, originalUrl) => {
+    getPosts = async (userId, originalUrl, limit, offset) => {
         try {
             if (!userId) {
                 return await this.getAllPostsRecently();
@@ -44,7 +44,7 @@ class PostService {
                 return await this.getAllPostsRecently();
             }
 
-            const findNearbyPosts = await this.postRepository.findNearbyPosts(userId);
+            const findNearbyPosts = await this.postRepository.findNearbyPosts(userId, limit, offset);
             const results = await Promise.all(
                 findNearbyPosts.map(async (item) => this.mapPost(item))
             )
@@ -73,8 +73,8 @@ class PostService {
         };
     }
 
-    getAllPostsRecently = async () => {
-        const posts = await this.postRepository.getPosts();
+    getAllPostsRecently = async (limit, offset) => {
+        const posts = await this.postRepository.getPosts(limit, offset);
         const results = await Promise.all(
             posts.map(async (item) => this.mapPost(item))
         );

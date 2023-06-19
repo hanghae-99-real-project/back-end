@@ -89,7 +89,6 @@ class UserController {
         return res.status(200).json({ message: "회원탈퇴에 성공하였습니다." });
       }
     } catch (error) {
-      console.error(error);
       error.failedApi = "회원가입 탈퇴";
       throw error
     }
