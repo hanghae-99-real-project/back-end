@@ -3,7 +3,7 @@ const router = express.Router();
 const authMiddleware = require("@middlewares/auth-middleware");
 const PostController = require("@controllers/posts.controller");
 const postController = new PostController();
-const uploadImage = require("@modules/s3.js");
+const uploadImage = require("@middlewares/post_s3.js");
 
 
 

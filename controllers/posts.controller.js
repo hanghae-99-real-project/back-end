@@ -87,8 +87,6 @@ class PostController {
       let result = []
       result.push(post)
       result.push(userPhoto)
-      console.log("유저 데이터", data)
-      console.log("사진 URL", userPhoto)
       post.userPhoto = userPhoto;
       res.status(200).json(result);
     } catch (err) {

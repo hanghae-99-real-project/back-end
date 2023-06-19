@@ -67,7 +67,6 @@ class UserService {
 
     createKAccessToken = async (jaja) => {
         const userId = jaja;
-        // console.log("유저아이디 잘 들어갔는지 확인", userId)
         const accessToken = jwt.sign({ userId }, process.env.ACCESS_KEY, {
             expiresIn: process.env.ACCESS_EXPIRES,
         });
@@ -139,7 +138,6 @@ class UserService {
         let nicknamee = data.properties.nickname;
         let datata = data.kakao_account.email;
         let userPhotoo = data.properties.profile_image;
-        console.log("포지션", position)
 
         if (!nicknamee || !datata) throw new Error("KEY_ERROR", 400);
 
@@ -165,7 +163,7 @@ class UserService {
                 {
                     where: { userId },
                 }
-                );
+            );
             return userId;
         } else {
             const userId = user.userId
@@ -243,7 +241,6 @@ class UserService {
 
     updatepass = async (userId, hashedPassword) => {
         if (!hashedPassword) {
-            console.log(hashedPassword)
             throw new Error("401/바꿀 패스워드 값을 입력해주세요.");
         }
 
@@ -260,7 +257,6 @@ class UserService {
 
     updatenickname = async (userId, nickname) => {
         if (!nickname) {
-            console.log(nickname)
             throw new Error("401/닉네임이 들어오지 않았습니다.");
         }
 
@@ -276,7 +272,6 @@ class UserService {
 
     newpass = async (phoneNumber) => {
         if (!phoneNumber) {
-            console.log(phoneNumber)
             throw new Error("401/휴대폰 번호를 입력해주세요.");
         }
 
@@ -286,7 +281,6 @@ class UserService {
 
     findphone = async (phoneNumber) => {
         if (!phoneNumber) {
-            console.log(phoneNumber)
             throw new Error("401/휴대폰번호를 입력해주세요.");
         }
         const findphonenumnum = await this.userRepository.findphone(phoneNumber);

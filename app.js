@@ -1,7 +1,7 @@
 const express = require("express");
-require('module-alias/register')
-const cors = require("cors")
-const dotenv = require('dotenv')
+require('module-alias/register');
+const cors = require("cors");
+const dotenv = require('dotenv');
 require("express-async-errors");
 const cookieParser = require("cookie-parser");
 const RedisStore = require("connect-redis").default
@@ -12,13 +12,12 @@ const helmet = require("helmet");
 const errorHandler = require("./middlewares/error-handler");
 const swaggerUi = require("swagger-ui-express");
 const swaggerFile = require("./swagger-output.json");
-const morgan = require('morgan')
+const morgan = require('morgan');
 const router = require("./routes");
-const Sentry = require("@sentry/node")
+const Sentry = require("@sentry/node");
 const ms = require("ms");
 const path = require('path');
 const app = express();
-// const webSocket = require("./socket.js");
 
 
 dotenv.config();
@@ -47,7 +46,7 @@ app.use(express.json());
 app.use(cookieParser());
 // express사용 정보 숨기기
 app.disable("x-powered-by");
-app.use(cors({ origin: ['http://localhost:3000', 'https://poodaeng.vercel.app', 'https://poodaeng-dsv2ksbi3-poodaeng.vercel.app'], credentials: true }));
+app.use(cors({ origin: ['http://localhost:3000', 'https://poodaeng.vercel.app'], credentials: true }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(session({
   store: new RedisStore({ client: redisClient }),
@@ -83,12 +82,8 @@ app.use(helmet.frameguard("deny"));
 // 브라우저에서 파일 형식의 임의 추측 금지
 app.use(helmet.noSniff());
 app.use("/api", router);
-// app.use(webSocket)
 app.use(errorHandler);
 app.use(Sentry.Handlers.errorHandler());
-
-
-app.use(express.static(path.join(__dirname)));
 
 app.get('/', (req, res) => {
   res.send("안녕")

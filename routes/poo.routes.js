@@ -3,7 +3,7 @@ const router = express.Router();
 const authMiddleware = require("@middlewares/auth-middleware");
 const PoosController = require("@controllers/poo.controller");
 const pooController = new PoosController();
-const uploadpooImage = require("@modules/poo_s3");
+const uploadpooImage = require("@middlewares/poo_s3");
 const casheCheck = require("@middlewares/checkCahche-middleware")
 
 //푸박스 등록

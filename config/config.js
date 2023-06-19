@@ -6,6 +6,7 @@ const development = {
   database: "pooDeang",
   host: process.env.DB_HOST,
   dialect: "mysql",
+  logging: false
 };
 
 const test = {
@@ -14,6 +15,7 @@ const test = {
   database: "pooDeang_test",
   host: process.env.DB_HOST,
   dialect: "mysql",
+  logging: false
 };
 
 const production = {
@@ -22,6 +24,7 @@ const production = {
   database: "database_production",
   host: "127.0.0.1",
   dialect: "mysql",
+  logging: false
 };
 
 module.exports = { development, test, production };
