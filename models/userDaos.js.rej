@@ -1,9 +1,0 @@
-diff a/models/userDaos.js b/models/userDaos.js	(rejected hunks)
-@@ -48,6 +48,7 @@
-         },
-         {
-             sequelize,
-+            modelName: "UserDaos",
-         }
-     );
- 
