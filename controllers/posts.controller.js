@@ -12,15 +12,18 @@ class PostController {
     const postData = {
       dogname, UserId: userId, nickname, title, content, losttime, lostPhotoUrl, lostLatitude, lostLongitude, likes: 0, views: 0, likeCount: 0, commentCount: 0, status: 0
     };
-    await this.postService.createPost(postData, originalUrl);
-    return res.status(201).json({ message: "게시글 작성에 성공하였습니다." });
+    const post = await this.postService.createPost(postData, originalUrl);
+    return res.status(201).json(post);
   };
 
   getPosts = async (req, res) => {
+    const limit = 10;
+    const page = req.query.page ? req.query.page : 1;
+    const offset = (page - 1) * limit; // 페이지네이션
     const userId = res.locals.user ? res.locals.user.userId : null;
     const originalUrl = req.originalUrl
     console.log(originalUrl)
-    const posts = await this.postService.getPosts(userId, originalUrl);
+    const posts = await this.postService.getPosts(userId, originalUrl, limit, offset);
     return res.status(200).json({ lostPostsData: posts });
   };
 
