@@ -33,7 +33,7 @@ class PostService {
         }
     }
 
-    getPosts = async (userId, originalUrl, limit, offset) => {
+    getPosts = async (userId, limit, offset) => {
         try {
             if (!userId) {
                 return await this.getAllPostsRecently();
@@ -48,7 +48,7 @@ class PostService {
             const results = await Promise.all(
                 findNearbyPosts.map(async (item) => this.mapPost(item))
             )
-            await this.postRepository.cashingLostposts(originalUrl, DEFAULT_EXPIRATION, results)
+
             return results
         } catch (error) {
             error.failedApi = "댕파인더 조회"

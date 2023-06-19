@@ -92,15 +92,6 @@ class PostRepository {
         return result
     }
 
-    cashingLostposts = async (originalUrl, DEFAULT_EXPIRATION, results) => {
-        const postPoo = await this.redisClient.setEx(
-            originalUrl,
-            DEFAULT_EXPIRATION,
-            JSON.stringify(results)
-        )
-        return postPoo
-    }
-
 
 };
 

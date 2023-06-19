@@ -21,9 +21,7 @@ class PostController {
     const page = req.query.page ? req.query.page : 1;
     const offset = (page - 1) * limit; // 페이지네이션
     const userId = res.locals.user ? res.locals.user.userId : null;
-    const originalUrl = req.originalUrl
-    console.log(originalUrl)
-    const posts = await this.postService.getPosts(userId, originalUrl, limit, offset);
+    const posts = await this.postService.getPosts(userId, limit, offset);
     return res.status(200).json({ lostPostsData: posts });
   };
 
