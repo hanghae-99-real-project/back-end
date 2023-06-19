@@ -4,11 +4,10 @@ const authMiddleware = require("@middlewares/auth-middleware");
 const PostController = require("@controllers/posts.controller");
 const postController = new PostController();
 const uploadImage = require("@middlewares/post_s3.js");
-const casheCheck = require("@middlewares/checkCahche-middleware")
 
 router.post("/", authMiddleware, uploadImage.array("image", 5), postController.createPost)
 
-router.get("/", authMiddleware, casheCheck, postController.getPosts);
+router.get("/", authMiddleware, postController.getPosts);
 
 router.get("/:postId", postController.getPostById);
 
