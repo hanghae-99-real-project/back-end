@@ -7,7 +7,7 @@ fi
 if pgrep -f node > /dev/null; then
     sudo kill $(pgrep -f node)
 fi
-
+pm2 kill
 sudo rm -rf /home/ubuntu/back-end
 
 
