@@ -10,13 +10,11 @@ class UserController {
   signup = async (req, res, next) => {
     const { nickname, password, phoneNumber, position } = req.body;
     const { userPhoto } = req;
-    console.log("닉네임 콘솔로그", nickname)
 
     try {
       const passwordFilter = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
       const phoneNumberFilter = /^\d+$/;
       const existNickname = await this.userService.findNickname(nickname);
-      console.log("아이디 중복 체크", existNickname)
 
       if (!passwordFilter.test(password)) {
         return res
@@ -36,9 +34,7 @@ class UserController {
           .json({ errorMessage: "중복된 닉네임입니다." });
       }
       const hashedPassword = await bcrypt.hash(password, 10);
-      console.log("암호화된 패스워드 ", hashedPassword)
       const passwordMatch = await bcrypt.compare(password, hashedPassword);
-      console.log(passwordMatch)
       if (!passwordMatch) {
         return res
           .status(401)
@@ -202,8 +198,7 @@ class UserController {
 
   //카카오로그인
   signInKakao = async (req, res) => {
-    const {position ,userLongitude, userLatitude } = req.body
-    console.log("포지션 들어오는지", position)
+    const { position, userLongitude, userLatitude } = req.body
     const headers = req.headers["authorization"];
     const authCode = headers.split(" ")[1];
     const kakaoToken = await this.userService.getTokens(authCode);
@@ -239,10 +234,8 @@ class UserController {
 
   updatenickname = async (req, res) => {
     try {
-      console.log("바디", req.body)
       const { nickname } = req.body;
       const { userId } = res.locals.user
-      console.log("닉네임", nickname)
 
       await this.userService.updatenickname(
         userId,
@@ -257,7 +250,6 @@ class UserController {
 
   updatepass = async (req, res) => {
     try {
-      console.log("바디", req.body)
       const { password } = req.body;
       const { userId } = res.locals.user
 
@@ -278,7 +270,6 @@ class UserController {
       const { userPhoto } = req;
       const { userId } = res.locals.user
       const { imageIndex } = req.params
-      console.log(imageIndex)
       const profileImageUrl = await this.userService.updateimage(
         userId,
         userPhoto,

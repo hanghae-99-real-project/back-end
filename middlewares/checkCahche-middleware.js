@@ -5,11 +5,9 @@ checkCache = async (req, res, next) => {
         const cacheData = await redisClient.get(req.originalUrl)
         // Redis에 저장된게 존재한다.
         if (cacheData) {
-            console.log("Cashe Hit")
             return res.status(200).send({ getPooAll: JSON.parse(cacheData) });
         } else {
             // Redis에 저장된게 없기 때문에 다음 로직 실행
-            console.log('Cashe Miss')
             next();
         }
     } catch (error) {

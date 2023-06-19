@@ -15,11 +15,10 @@ const s3 = new aws.S3({
 
 
 const allowedExtensions = ['.png', '.jpg', '.jpeg', '.bmp', '.gif',];
-const sujung = ['https','http','karyl']
 
 
 
-const uploadImage = multer({
+const uploaduserImage = multer({
     storage: multerS3({
         s3: s3,
         bucket: 'karyl',
@@ -33,26 +32,20 @@ const uploadImage = multer({
             const currentMinute = today.getMinutes();
             const currentSecond = today.getSeconds();
             const date = `${currentYear}-${currentMonth}-${currentDate}-${currentHour}-${currentMinute}-${currentSecond}`;
-
             let randomNumber = '';
             for (let i = 0; i < 7; i++) {
                 randomNumber += String(Math.floor(Math.random() * 10));
             }
-            console.log("파일 원래 이름", file.originalname)
 
-
-            const photo = `https://karyl.s3.ap-northeast-2.amazonaws.com/folder/${date}_${randomNumber}`
-            if (!req.lostPhotoUrl) {
-                req.lostPhotoUrl = [];
-            }
-            const karyl = 'https://karyl.s3.ap-northeast-2.amazonaws.com/folder'
             const extension = path.extname(file.originalname).toLowerCase();
             if (!allowedExtensions.includes(extension)) {
-                console.log("버킷에 들어간거 쓰는게 아니라 원문 그대로 글어가는것")
-                req.lostPhotoUrl.push(`${karyl}/${file.originalname}`)
-            } else {
-            req.lostPhotoUrl.push(photo);
+                return callback(new Error('확장자 에러'));
             }
+            const photo = `https://karyl.s3.ap-northeast-2.amazonaws.com/folder/${date}_${randomNumber}`
+            if (!req.userPhoto) {
+                req.userPhoto = [];
+            }
+            req.userPhoto.push(photo);
 
             callback(null, `folder/${date}_${randomNumber}`);
         },
@@ -65,4 +58,4 @@ const uploadImage = multer({
 
 
 
-module.exports = uploadImage;
+module.exports = uploaduserImage;

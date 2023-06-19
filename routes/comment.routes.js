@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const CommentController = require("@controllers/comment.controller.js");
 const authMiddleware = require("@middlewares/auth-middleware.js");
-const commentPhoto = require("@modules/comment_s3.js")
+const commentPhoto = require("@middlewares/comment_s3.js")
 const commentController = new CommentController();
 
 // 댓글 생성
