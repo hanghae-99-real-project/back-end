@@ -9,7 +9,7 @@ class PostService {
     postRepository = new PostRepository(Posts, Sequelize, Users, BookMarks, redisClient);
     userRepository = new UserRepository(Users);
 
-    createPost = async (postData, originalUrl) => {
+    createPost = async (postData) => {
         try {
             let address = await getAddress(postData.lostLatitude, postData.lostLongitude);
             if (!address) {
@@ -24,8 +24,6 @@ class PostService {
 
             postData.address = address
             await this.postRepository.createPost(postData);
-            const getPostsAll = await this.postRepository.getPosts()
-            await this.postRepository.cashingLostposts(originalUrl, DEFAULT_EXPIRATION, getPostsAll)
             return { message: "게시글 작성에 성공하였습니다." }
         } catch (error) {
             error.failedApi = "게시글 작성"
@@ -36,19 +34,18 @@ class PostService {
     getPosts = async (userId, limit, offset) => {
         try {
             if (!userId) {
-                return await this.getAllPostsRecently();
+                return await this.getAllPostsRecently(limit, offset);
             }
 
             const userLocation = await this.postRepository.findUserLocation(userId);
             if (userLocation === false) {
-                return await this.getAllPostsRecently();
+                return await this.getAllPostsRecently(limit, offset);
             }
 
             const findNearbyPosts = await this.postRepository.findNearbyPosts(userId, limit, offset);
             const results = await Promise.all(
                 findNearbyPosts.map(async (item) => this.mapPost(item))
             )
-
             return results
         } catch (error) {
             error.failedApi = "댕파인더 조회"
