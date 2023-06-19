@@ -35,9 +35,7 @@ module.exports = async (req, res, next) => {
                 return res.json({ errorMessage: "Refresh Token의 정보가 서버에 존재하지 않습니다.", });
             }
             const newAccessToken = createAccessToken(accessTokenId);
-            res.cookie("accesstoken", `Bearer ${newAccessToken}`, {
-                httpOnly: true, secure: false
-            });
+            res.cookie("accesstoken", `Bearer ${newAccessToken}`);
             return res.status(203).json({ newAccessToken });
         }
         const { userId } = jwt.verify(authAccessToken, process.env.ACCESS_KEY);
