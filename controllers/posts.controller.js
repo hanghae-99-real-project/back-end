@@ -7,18 +7,16 @@ class PostController {
     const { userId, nickname } = res.locals.user;
     const { dogname, title, content, lostLatitude, lostLongitude, losttime } = req.body;
     const { lostPhotoUrl } = req;
-    const originalUrl = req.originalUrl
-    console.log(originalUrl)
     const postData = {
       dogname, UserId: userId, nickname, title, content, losttime, lostPhotoUrl, lostLatitude, lostLongitude, likes: 0, views: 0, likeCount: 0, commentCount: 0, status: 0
     };
-    const post = await this.postService.createPost(postData, originalUrl);
+    const post = await this.postService.createPost(postData);
     return res.status(201).json(post);
   };
 
   getPosts = async (req, res) => {
     const limit = 10;
-    const page = req.query.page ? req.query.page : 1;
+    const page = req.query.page
     const offset = (page - 1) * limit; // 페이지네이션
     const userId = res.locals.user ? res.locals.user.userId : null;
     const posts = await this.postService.getPosts(userId, limit, offset);
