@@ -37,10 +37,6 @@ module.exports = (sequelize, DataTypes) => {
         sourceKey: 'userId',
         foreignKey: 'UserId',
       });
-      this.hasOne(models.UserDao, {
-        sourceKey: 'userId',
-        foreignKey: 'UserId',
-      })
     }
   }
   Users.init(
