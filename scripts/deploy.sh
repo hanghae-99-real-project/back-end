@@ -8,4 +8,3 @@ pm2 start /home/ubuntu/back-end/app.js
 if [ -d /home/ubuntu/temp ]; then
     sudo rm -rf /home/ubuntu/temp
 fi
-

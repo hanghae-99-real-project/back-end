@@ -12,9 +12,7 @@ const notificationRouter = require("./notification.routes");
 const reportRouter = require("./reportPoo.routes");
 const bookMarkRouter = require("./bookmark.routes");
 const mainRouter = require("./randomLostposts.routes");
-// const navigationRouter = require("./navigation.routes")
-//const passportConfig = require('../passport');
-//passportConfig(app);
+
 
 
 router.use("/auth", [authRouter, mypageRouter]);
@@ -30,8 +28,6 @@ router.use("/notifications", notificationRouter);
 router.use("/report", reportRouter);
 
 router.use("/main", mainRouter);
-
-// router.use("/navigation", navigationRouter);
 
 
 module.exports = router;
