@@ -143,8 +143,8 @@ class UserController {
       const refreshToken = await this.userService.createRefreshToken();
 
       await this.userService.saveToken(loginUser, refreshToken);
-      res.cookie("accesstoken", `Bearer ${accessToken}`);
-      res.cookie("refreshtoken", `${refreshToken}`);
+      res.cookie("accesstoken", `Bearer ${accessToken}`, { httpOnly: true, secure: false });
+      res.cookie("refreshtoken", `${refreshToken}`, { httpOnly: true, secure: false });
 
       const sessionData = {
         userId: loginUser.userId,
