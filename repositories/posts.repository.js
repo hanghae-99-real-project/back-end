@@ -1,23 +1,19 @@
 const { BookMarks } = require('@models');
 
 class PostRepository {
-    constructor(postsModel, usersModel, Sequelize) {
+    constructor(postsModel, Sequelize, usersModel) {
         this.postsModel = postsModel;
-        this.usersModel = usersModel;
         this.Sequelize = Sequelize;
+        this.usersModel = usersModel;
     }
 
-    async create(postData) {
+    createPost = async (postData) => {
         return await this.postsModel.create(postData);
     };
 
 
-    getPosts = async (
-        // limit, offset
-    ) => {
+    getPosts = async () => {
         return await this.postsModel.findAll({
-            // limit: limit,
-            // offset: offset,
             order: [
                 ['createdAt', 'DESC']
             ],
@@ -39,7 +35,7 @@ class PostRepository {
     };
 
 
-    updatePostById = async (dogname, userId, postId, title, content, lostPhotoUrl, lostLatitude, lostLongitude) => {
+    updatePost = async (dogname, userId, postId, title, content, lostPhotoUrl, lostLatitude, lostLongitude, address) => {
         const date = new Date();
         await this.postsModel.update(
             {
@@ -51,6 +47,7 @@ class PostRepository {
                 lostPhotoUrl: lostPhotoUrl,
                 lostLatitude: lostLatitude,
                 lostLongitude: lostLongitude,
+                address: address
             },
             {
                 where: { postId }
@@ -78,14 +75,12 @@ class PostRepository {
         })
     };
 
-
     // post를 조회하려는 유저의 위경도 찾기
     findUserLocation = async (userId) => {
         const result = await this.usersModel.findOne({
             where: {
                 userId
             },
-            // attributes: ['userLongitude', 'userLatitude']
             attributes: ['position']
         })
         return result

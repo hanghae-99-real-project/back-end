@@ -5,9 +5,6 @@ const PostController = require("@controllers/posts.controller");
 const postController = new PostController();
 const uploadImage = require("@middlewares/post_s3.js");
 
-
-
-
 router.post(
     "/",
     authMiddleware,
@@ -17,15 +14,12 @@ router.post(
     }
 );
 
-
-
 router.get(
     "/",
     authMiddleware,
     async (req, res) => {
         postController.getPosts(req, res);
     });
-
 
 router.get(
     "/:postId",
