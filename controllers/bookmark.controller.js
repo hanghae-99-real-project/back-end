@@ -7,7 +7,7 @@ class BookmarkController {
         const { userId } = res.locals.user;
         const { postId } = req.params
         const bookmark = await this.bookmarkService.createBookmark(userId, postId);
-        res.status(200).json(bookmark)
+        return res.status(200).json(bookmark)
     }
 
 };

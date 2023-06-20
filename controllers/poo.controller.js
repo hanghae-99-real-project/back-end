@@ -10,7 +10,7 @@ class PoosController {
         const { pooPhotoUrl } = req
         const originalUrl = req.originalUrl
         const postPooData = await this.poosService.postPoo(userId, content, pooPhotoUrl, pooLatitude, pooLongitude, originalUrl)
-        res.status(200).json(postPooData)
+        return res.status(200).json(postPooData)
     };
 
     // 푸박스 조회
