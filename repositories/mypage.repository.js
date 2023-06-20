@@ -23,19 +23,30 @@ class myPagesRepository {
     };
 
     getMyBookmark = async (userId) => {
-        const getMyBookmarData = await this.BookMarksModel.findAll({
+        const getMyBookmarkData = await this.BookMarksModel.findAll({
             where: { UserId: userId },
             attributes: ["bookmarkId"],
             include: [
                 {
                     model: this.PostsModel,
-                    attributes: ["postId", "title", "content", "lostPhotoUrl", "createdAt", "updatedAt"],
-
+                    attributes: ['postId', 'title', 'content', 'lostPhotoUrl', 'createdAt', 'updatedAt']
                 }
             ]
         })
-        return getMyBookmarData
+        return getMyBookmarkData
     };
+
+    // getMyBookmark = async (userId) => {
+    //     const getMyBookmarData = await this.PostsModel.findAll({
+    //         include: [
+    //             {
+    //                 model: this.BookMarksModel,
+    //                 attributes: ["bookmarkId"],
+    //             }
+    //         ]
+    //     })
+    //     return getMyBookmarData
+    // };
 
 
     getMyPoo = async (userId) => {
