@@ -22,7 +22,8 @@ class UserRepository {
         return existNickname;
     };
 
-    signup = async (nickname, password, phoneNumber, position, userPhoto) => {
+    signup = async (nickname, hashedPassword, phoneNumber, position, userPhoto) => {
+        password = hashedPassword
         const signupData = await this.usersModel.create({ nickname, password, phoneNumber, position, userPhoto,});
         return signupData;
     };
