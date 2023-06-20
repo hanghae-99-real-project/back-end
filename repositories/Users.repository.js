@@ -18,28 +18,18 @@ class UserRepository {
 
     signup = async (
         nickname,
-        password,
+        hashedPassword,
         phoneNumber,
         position,
+        userPhoto
     ) => {
-        const randomUrls = [
-            'https://karyl.s3.ap-northeast-2.amazonaws.com/folder/KakaoTalk_20230616_144459289.png',
-            'https://karyl.s3.ap-northeast-2.amazonaws.com/folder/KakaoTalk_20230616_144459289_01.png',
-            'https://karyl.s3.ap-northeast-2.amazonaws.com/folder/KakaoTalk_20230616_144459289_02.png',
-            'https://karyl.s3.ap-northeast-2.amazonaws.com/folder/KakaoTalk_20230616_144459289_03.png',
-            'https://karyl.s3.ap-northeast-2.amazonaws.com/folder/KakaoTalk_20230616_144459289_04.png'
-        ];
-        const randomIndex = Math.floor(Math.random() * randomUrls.length);
-        const userPhoto = [randomUrls[randomIndex]];
-
         const signupData = await this.usersModel.create({
             nickname,
-            password,
+            password: hashedPassword,
             phoneNumber,
             position,
             userPhoto,
         });
-
         return signupData;
     };
 
@@ -76,21 +66,13 @@ class UserRepository {
         userLongitude,
         userLatitude
     ) => {
-        console.log("레퍼지 이메일", datata)
-        console.log("레퍼지 닉네임", nicknamee)
-        console.log("레퍼지 유저포토", userPhotoo)
-        console.log("레퍼지 포지션", position)
 
         const { malmla, nickname, userPhoto } = datata
-        console.log("이놈에는 뭐가 담길까", malmla)
         const email = datata.datata
         let qoduf = [userPhoto]
         qoduf.push(userPhoto)
-        console.log(qoduf)
 
-        console.log("다시담은 레퍼지 이메일", email)
-        console.log("다시담은 레퍼지 닉네임", nickname)
-        console.log("다시담은 레퍼지 유저포토", userPhoto)
+
         const signupData = await this.usersModel.create({
             email,
             nickname,
