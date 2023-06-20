@@ -67,6 +67,10 @@ class UserService {
             ];
             const randomIndex = Math.floor(Math.random() * randomUrls.length);
             const userPhoto = [randomUrls[randomIndex]];
+<<<<<<< HEAD
+            const signupData = await this.userRepository.signup(nickname, hashedPassword, phoneNumber,position,userPhoto);
+            
+=======
             const signupData = await this.userRepository.signup(
                 nickname,
                 hashedPassword,
@@ -75,6 +79,7 @@ class UserService {
                 userPhoto
             );
 
+>>>>>>> 695ac0ad8fd8099843bd62d684d2ce5513351465
             return signupData;
         } catch (error) {
             throw new Error("회원 가입 중 에러가 발생했습니다.");
