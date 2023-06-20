@@ -9,8 +9,7 @@ class UserController {
 
   signup = async (req, res, next) => {
     const { nickname, password, phoneNumber, position } = req.body;
-    const { userPhoto } = req;
-    await this.userService.signup( nickname, password, phoneNumber, position, userPhoto);
+    await this.userService.signup( nickname, password, phoneNumber, position);
     res.status(200).json({ message: "회원 가입에 성공하였습니다." });
   };
 
