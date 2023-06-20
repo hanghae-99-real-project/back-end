@@ -10,93 +10,38 @@ class UserController {
   signup = async (req, res, next) => {
     const { nickname, password, phoneNumber, position } = req.body;
     const { userPhoto } = req;
-
-    try {
-      const passwordFilter = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
-      const phoneNumberFilter = /^\d+$/;
-      const existNickname = await this.userService.findNickname(nickname);
-
-      if (!passwordFilter.test(password)) {
-        return res
-          .status(401)
-          .json({ errorMessage: "패스워드 형식이 일치하지 않습니다." });
-      }
-
-      if (!phoneNumberFilter.test(phoneNumber)) {
-        return res
-          .status(401)
-          .json({ errorMessage: "핸드폰 번호 형식이 일치하지 않습니다." });
-      }
-
-      if (existNickname) {
-        return res
-          .status(401)
-          .json({ errorMessage: "중복된 닉네임입니다." });
-      }
-      const hashedPassword = await bcrypt.hash(password, 10);
-      const passwordMatch = await bcrypt.compare(password, hashedPassword);
-      if (!passwordMatch) {
-        return res
-          .status(401)
-          .json({ errorMessage: "아니 암호 비교가 왜 안돼??" })
-      }
-
       await this.userService.signup(
         nickname,
-        hashedPassword,
+        password,
         phoneNumber,
         position,
         userPhoto
       );
       res.status(200).json({ message: "회원 가입에 성공하였습니다." });
-    } catch (error) {
-      error.failedApi = "회원가입";
-      throw error
-    }
   };
 
 
   checkNickname = async (req, res, next) => {
     const { nickname } = req.body;
-    try {
       const existNickname = await this.userService.findNickname(nickname);
-
       return res.status(200).json({ message: true });
-    } catch (error) {
-      console.error(error);
-      error.failedApi = "닉네임 중복확인";
-      throw error
-    }
   };
 
   // 회원탈퇴 API
   deleteSignup = async (req, res, next) => {
     const { userId } = res.locals.user;
     const { nickname, password } = req.body;
-
-    try {
       const existUser = await this.userService.findNickname(nickname);
-
-      if (existUser.nickname === nickname && existUser.password === password) {
-        return res
-          .status(401)
-          .json({ errorMessage: "닉네임 또는 패스워드를 확인해주세요." });
-      }
-      if (userId === existUser.userId) {
+      const usercut = await this.userService.usercut(existUser, nickname, password);
+      if (usercut == true) {
         await this.userService.deleteSignup(userId);
-        //회원탈퇴시 세션제거
         await req.session.destroy()
         return res.status(200).json({ message: "회원탈퇴에 성공하였습니다." });
       }
-    } catch (error) {
-      error.failedApi = "회원가입 탈퇴";
-      throw error
-    }
   };
 
 
   login = async (req, res, next) => {
-    try {
       const {
         phoneNumber,
         password,
@@ -104,39 +49,10 @@ class UserController {
         userLatitude,
         position,
       } = req.body;
-
-      if (!phoneNumber || !password) {
-        return res
-          .status(401)
-          .json({ errorMessage: "데이터의 형식이 일치하지 않습니다." });
-      }
-
-
+      
       const loginUser = await this.userService.loginUser(phoneNumber);
-      const userId = loginUser.userId;
-      const hashedPassword = loginUser.password;
-      const passwordMatch = await bcrypt.compare(password, hashedPassword);
-
-      if (!passwordMatch) {
-        return res.status(400).json({ message: "비밀번호를 확인해주세요" });
-      }
-
-      if (!loginUser || !passwordMatch) {
-        return res
-          .status(401)
-          .json({ errorMessage: "닉네임 또는 패스워드를 확인해주세요." });
-      }
-
-      await Users.update(
-        {
-          userLongitude: userLongitude,
-          userLatitude: userLatitude,
-          position: position,
-        },
-        {
-          where: { userId },
-        }
-      );
+      const userId = await this.userService.checknull(phoneNumber, password, loginUser)
+      await Users.update({ userLongitude: userLongitude, userLatitude: userLatitude, position: position,},{where: { userId }});
 
       const accessToken = await this.userService.createAccessToken(loginUser);
       const refreshToken = await this.userService.createRefreshToken();
@@ -156,10 +72,6 @@ class UserController {
 
       await req.session.save();
       return res.status(200).json({ accessToken, refreshToken });
-    } catch (error) {
-      error.failedApi = "로그인";
-      throw error
-    }
   };
 
 
@@ -210,62 +122,38 @@ class UserController {
   };
 
   updateUser = async (req, res) => {
-    try {
+
       const { nickname, } = req.body;
       const { password } = req.body;
       const { userPhoto } = req;
       const { userId } = res.locals.user
 
       const hashedPassword = await bcrypt.hash(password, 10);
-      await this.userService.updateuser(
-        userId,
-        hashedPassword,
-        nickname,
-        userPhoto,
-      );
-      res.status(200).json({ message: "마이페이지를 수정하였습니다." });
-    } catch (error) {
-      error.failedApi = "마이페이지 수정";
-      throw error
-    };
+      await this.userService.updateuser( userId, hashedPassword, nickname, userPhoto,);
+      return res.status(200).json({ message: "마이페이지를 수정하였습니다." });
   }
 
 
   updatenickname = async (req, res) => {
-    try {
       const { nickname } = req.body;
       const { userId } = res.locals.user
-
-      await this.userService.updatenickname(
-        userId,
-        nickname,
-      );
-      res.status(200).json({ message: "닉네임을 수정하였습니다." });
-    } catch (error) {
-      error.failedApi = "마이페이지 닉네임 수정";
-      throw error
-    };
+      await this.userService.updatenickname( userId, nickname,);
+      return res.status(200).json({ message: "닉네임을 수정하였습니다." });
   }
 
   updatepass = async (req, res) => {
-    try {
       const { password } = req.body;
       const { userId } = res.locals.user
-
       const hashedPassword = await bcrypt.hash(password, 10);
       await this.userService.updatepass(
         userId,
         hashedPassword,
       );
-      res.status(200).json({ message: "패스워드를 수정하였습니다." });
-    } catch (error) {
-      error.failedApi = "마이페이지 패스워드 수정";
-      throw error
-    };
+      return res.status(200).json({ message: "패스워드를 수정하였습니다." });
   }
 
   updateimage = async (req, res) => {
-    try {
+
       const { userPhoto } = req;
       const { userId } = res.locals.user
       const { imageIndex } = req.params
@@ -274,36 +162,20 @@ class UserController {
         userPhoto,
         imageIndex
       );
-      res.status(200).json({ profileImageUrl });
-    } catch (error) {
-      error.failedApi = "마이페이지 이미지 수정";
-      throw error
-    };
+      return res.status(200).json({ profileImageUrl });
   }
 
 
   newpass = async (req, res) => {
-    try {
       const { phoneNumber } = req.body
-
       const newnumber = await this.userService.newpass(phoneNumber);
-      res.status(200).json({ message: `새 비밀번호는 ${newnumber} 입니다 ` });
-    } catch (error) {
-      error.failedApi = "비밀번호 찾기";
-      throw error
-    };
+      return res.status(200).json({ message: `새 비밀번호는 ${newnumber} 입니다 ` });
   }
 
   findnick = async (req, res) => {
     const { phoneNumber } = req.body;
-    try {
       const userdata = await this.userService.findphone(phoneNumber);
       return res.status(200).json({ message: `해당 당사자의 닉네임은${userdata.nickname}입니다` });
-    } catch (error) {
-      console.error(error);
-      error.failedApi = "닉네임 찾기";
-      throw error
-    }
   };
 
 
