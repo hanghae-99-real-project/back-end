@@ -9,8 +9,8 @@ class UserController {
 
   signup = async (req, res, next) => {
     const { nickname, password, phoneNumber, position } = req.body;
-    await this.userService.signup( nickname, password, phoneNumber, position);
-    res.status(200).json({ message: "회원 가입에 성공하였습니다." });
+    await this.userService.signup(nickname, password, phoneNumber, position);
+    return res.status(200).json({ message: "회원 가입에 성공하였습니다." });
   };
 
 
@@ -73,11 +73,11 @@ class UserController {
   logout = async (req, res, next) => {
     const userId = req.params;
 
-      await this.userService.logout(userId);
-      res.clearCookie("accesstoken");
-      res.clearCookie("refreshtoken");
-      req.session.destroy()
-      return res.status(200).json({ message: "로그아웃에 성공하였습니다." });
+    await this.userService.logout(userId);
+    res.clearCookie("accesstoken");
+    res.clearCookie("refreshtoken");
+    req.session.destroy()
+    return res.status(200).json({ message: "로그아웃에 성공하였습니다." });
   };
 
   authCodeSend = async (req, res, next) => {

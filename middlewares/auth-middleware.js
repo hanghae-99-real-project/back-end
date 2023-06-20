@@ -51,7 +51,8 @@ module.exports = async (req, res, next) => {
             }
             const newAccessToken = createAccessToken(accessTokenId);
             res.cookie("accesstoken", `Bearer ${newAccessToken}`);
-            return res.status(203).json({ newAccessToken });
+            console.log(newAccessToken)
+            return res.status(203).json({ newAccessToken: `Bearer ${newAccessToken}` });
         }
         const { userId } = jwt.verify(authAccessToken, process.env.ACCESS_KEY);
         const user = await Users.findOne({ where: { userId: userId } });
