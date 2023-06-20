@@ -16,7 +16,7 @@ class PostController {
 
   getPosts = async (req, res) => {
     const limit = 10;
-    const { page } = req.query
+    const page = Number(req.query.page)
     const offset = (page - 1) * limit;
     const userId = res.locals.user ? res.locals.user.userId : null;
     const posts = await this.postService.getPosts(userId, limit, offset);
