@@ -18,13 +18,13 @@ class UserRepository {
 
 
     findNickname = async (nickname) => {
-        const existNickname = await this.usersModel.findOne({ where: { nickname },});
+        const existNickname = await this.usersModel.findOne({ where: { nickname }, });
         return existNickname;
     };
 
     signup = async (nickname, hashedPassword, phoneNumber, position, userPhoto) => {
-        password = hashedPassword
-        const signupData = await this.usersModel.create({ nickname, password, phoneNumber, position, userPhoto,});
+        const password = hashedPassword
+        const signupData = await this.usersModel.create({ nickname, password, phoneNumber, position, userPhoto, });
         return signupData;
     };
 
