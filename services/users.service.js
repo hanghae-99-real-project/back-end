@@ -67,13 +67,7 @@ class UserService {
             ];
             const randomIndex = Math.floor(Math.random() * randomUrls.length);
             const userPhoto = [randomUrls[randomIndex]];
-            const signupData = await this.userRepository.signup(
-                nickname,
-                hashedPassword,
-                phoneNumber,
-                position,
-                userPhoto
-            );
+            const signupData = await this.userRepository.signup(nickname, hashedPassword, phoneNumber,position,userPhoto);
             
             return signupData;
         } catch (error) {
