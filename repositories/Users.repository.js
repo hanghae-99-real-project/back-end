@@ -1,12 +1,11 @@
 const redisClient = require('@modules/redisClient');
-const { Users, UserDaos } = require('@models');
+const { Users } = require('@models');
 
 const bcrypt = require("bcrypt");
 
 class UserRepository {
-    constructor(UsersModel, UserDaosModel) {
+    constructor(UsersModel) {
         this.usersModel = UsersModel;
-        this.userDaosModel = UserDaosModel;
     }
 
 
