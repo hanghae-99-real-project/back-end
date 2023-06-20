@@ -22,6 +22,21 @@ module.exports = async (req, res, next) => {
             return next();
         }
 
+        // // 세션 데이터에 사용자 정보가 있는지 확인
+        // if (sessionData && sessionData.isLogined) {
+        //     // 사용자가 로그인한 상태임을 판별할 수 있습니다.
+        //     // 여기서 필요한 추가 로직을 수행할 수 있습니다.
+
+        //     // 예시: 사용자 ID를 요청 객체에 저장
+        //     // res.locals.user = sessionData.userId;
+
+        //     next(); // 다음 미들웨어로 이동
+        // } else {
+        //     // 사용자가 로그인하지 않은 상태임을 판별할 수 있습니다.
+        //     return res.status(401).json({ message: "인증되지 않은 사용자입니다." });
+        // }
+
+
         const isAccessTokenValidate = validateAccessToken(authAccessToken);
         const isRefreshTokenValidate = validateRefreshToken(refreshtoken);
 
@@ -36,7 +51,7 @@ module.exports = async (req, res, next) => {
             }
             const newAccessToken = createAccessToken(accessTokenId);
             res.cookie("accesstoken", `Bearer ${newAccessToken}`);
-            return res.status(203).json(newAccessToken);
+            return res.status(203).json({ newAccessToken });
         }
         const { userId } = jwt.verify(authAccessToken, process.env.ACCESS_KEY);
         const user = await Users.findOne({ where: { userId: userId } });

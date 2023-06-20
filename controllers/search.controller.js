@@ -7,21 +7,21 @@ class SearchController {
     searchUsers = async (req, res, next) => {
         const { search } = req.query;
         const result = await this.searchService.searchUsers(search);
-        res.status(200).json(result);
+        return res.status(200).json(result);
     };
 
     // 실종 신고 게시물 검색
     searchPosts = async (req, res, next) => {
         const { search } = req.query;
         const result = await this.searchService.searchPosts(search);
-        res.status(200).json(result);
+        return res.status(200).json(result);
     };
 
     // 푸박스 주소 검색
     searchPoobox = async (req, res, next) => {
         const { search } = req.query;
         const result = await this.searchService.searchPoobox(search);
-        res.status(200).json(result);
+        return res.status(200).json(result);
     };
 };
 

@@ -2,11 +2,9 @@ const PostRepository = require("@repositories/posts.repository");
 const UserRepository = require("@repositories/Users.repository");
 const getAddress = require("@modules/kakao")
 const { Posts, Sequelize, Users, BookMarks } = require('@models');
-const redisClient = require("@modules/redisClient")
-const DEFAULT_EXPIRATION = 3600
 
 class PostService {
-    postRepository = new PostRepository(Posts, Sequelize, Users, BookMarks, redisClient);
+    postRepository = new PostRepository(Posts, Sequelize, Users, BookMarks);
     userRepository = new UserRepository(Users);
 
     createPost = async (postData) => {
