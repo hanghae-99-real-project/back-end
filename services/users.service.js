@@ -325,9 +325,6 @@ class UserService {
                 throw new Error("401/유저 아이디가 입력되지 않았습니다");
             }
 
-            if (!userPhoto) {
-                throw new Error("401/프로필 사진이 첨부되지 않았습니다.");
-            }
             if (imageIndex <= 4) {
                 let profileImageUrl = await redisClient.LINDEX("image", imageIndex);
                 userPhoto = [profileImageUrl]
@@ -338,6 +335,9 @@ class UserService {
                 return [profileImageUrl]
 
             } else {
+                if (!userPhoto) {
+                    throw new Error("401/프로필 사진이 첨부되지 않았습니다.");
+                }
                 await this.userRepository.updateimageById(
                     userId,
                     userPhoto,
