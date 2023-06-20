@@ -79,17 +79,12 @@ class UserController {
 
   logout = async (req, res, next) => {
     const userId = req.params;
-    try {
+
       await this.userService.logout(userId);
       res.clearCookie("accesstoken");
       res.clearCookie("refreshtoken");
       req.session.destroy()
-
       return res.status(200).json({ message: "로그아웃에 성공하였습니다." });
-    } catch (error) {
-      error.failedApi = "로그아웃";
-      throw error
-    }
   };
 
   authCodeSend = async (req, res, next) => {

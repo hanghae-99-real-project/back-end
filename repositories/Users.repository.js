@@ -2,34 +2,28 @@ const redisClient = require('@modules/redisClient');
 const { Users } = require('@models');
 
 const bcrypt = require("bcrypt");
+function generateRandomString() {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
+    const length = Math.floor(Math.random() * 7) + 9; // 9~15 사이의 길이
+    let result = '';
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        result += characters.charAt(randomIndex);
+    }
+    return result;
+}
 
 class UserRepository {
-    constructor(UsersModel) {
-        this.usersModel = UsersModel;
-    }
+    constructor(UsersModel) { this.usersModel = UsersModel; }
 
 
     findNickname = async (nickname) => {
-        const existNickname = await this.usersModel.findOne({
-            where: { nickname },
-        });
+        const existNickname = await this.usersModel.findOne({ where: { nickname },});
         return existNickname;
     };
 
-    signup = async (
-        nickname,
-        hashedPassword,
-        phoneNumber,
-        position,
-        userPhoto
-    ) => {
-        const signupData = await this.usersModel.create({
-            nickname,
-            password: hashedPassword,
-            phoneNumber,
-            position,
-            userPhoto,
-        });
+    signup = async (nickname, hashedPassword, phoneNumber, position, userPhoto) => {
+        const signupData = await this.usersModel.create({ nickname, password: hashedPassword, phoneNumber, position, userPhoto,});
         return signupData;
     };
 
@@ -140,16 +134,6 @@ class UserRepository {
 
 
     makenewpass = async (phoneNumber) => {
-        function generateRandomString() {
-            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
-            const length = Math.floor(Math.random() * 7) + 9; // 9~15 사이의 길이
-            let result = '';
-            for (let i = 0; i < length; i++) {
-                const randomIndex = Math.floor(Math.random() * characters.length);
-                result += characters.charAt(randomIndex);
-            }
-            return result;
-        }
         const rendom = generateRandomString();
         const hashedPassword = await bcrypt.hash(rendom, 10);
         await Users.update(
