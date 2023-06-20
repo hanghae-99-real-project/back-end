@@ -29,7 +29,6 @@ class UserService {
         password,
         phoneNumber,
         position,
-        userPhoto
     ) => {
         try {
 
