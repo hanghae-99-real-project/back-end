@@ -32,32 +32,32 @@ class UserService {
         userPhoto
     ) => {
         try {
-            
+
             const passwordFilter = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
             const phoneNumberFilter = /^\d+$/;
             const existNickname = await this.userService.findNickname(nickname);
-            
+
             if (!passwordFilter.test(password)) {
                 return res
-                .status(401)
-                .json({ errorMessage: "패스워드 형식이 일치하지 않습니다." });
+                    .status(401)
+                    .json({ errorMessage: "패스워드 형식이 일치하지 않습니다." });
             }
             if (!phoneNumberFilter.test(phoneNumber)) {
                 return res
-                .status(401)
-                .json({ errorMessage: "핸드폰 번호 형식이 일치하지 않습니다." });
+                    .status(401)
+                    .json({ errorMessage: "핸드폰 번호 형식이 일치하지 않습니다." });
             }
             if (existNickname) {
                 return res
-                .status(401)
-                .json({ errorMessage: "중복된 닉네임입니다." });
+                    .status(401)
+                    .json({ errorMessage: "중복된 닉네임입니다." });
             }
             const hashedPassword = await bcrypt.hash(password, 10);
             const passwordMatch = await bcrypt.compare(password, hashedPassword);
             if (!passwordMatch) {
                 return res
-                .status(401)
-                .json({ errorMessage: "아니 암호 비교가 왜 안돼??" })
+                    .status(401)
+                    .json({ errorMessage: "아니 암호 비교가 왜 안돼??" })
             }
             const randomUrls = [
                 'https://karyl.s3.ap-northeast-2.amazonaws.com/folder/KakaoTalk_20230616_144459289.png',
@@ -75,41 +75,42 @@ class UserService {
                 position,
                 userPhoto
             );
-            
+
             return signupData;
         } catch (error) {
             throw new Error("회원 가입 중 에러가 발생했습니다.");
         }
     };
 
-    checknull = async(phoneNumber,password,loginUser ) => {
+    checknull = async (phoneNumber, password, loginUser) => {
         if (!phoneNumber || !password) {
             return res
-            .status(401)
-            .json({ errorMessage: "데이터의 형식이 일치하지 않습니다." });
-        } 
+                .status(401)
+                .json({ errorMessage: "데이터의 형식이 일치하지 않습니다." });
+        }
         const userId = loginUser.userId;
         const hashedPassword = loginUser.password;
         const passwordMatch = await bcrypt.compare(password, hashedPassword);
         if (!passwordMatch) {
-        return res.status(400).json({ message: "비밀번호를 확인해주세요" });
-    }
+            return res.status(400).json({ message: "비밀번호를 확인해주세요" });
+        }
 
         if (!loginUser || !passwordMatch) {
             return res
-            .status(401)
-            .json({ errorMessage: "닉네임 또는 패스워드를 확인해주세요." });
+                .status(401)
+                .json({ errorMessage: "닉네임 또는 패스워드를 확인해주세요." });
         }
-        else {return userId}
+        else { return userId }
     }
 
-    usercut = async(existUser, nickname, password ) => {
-        if (userId === existUser.userId){
-        if (existUser.nickname === nickname && existUser.password === password) {
-            return res
-            .status(401)
-            .json({ errorMessage: "닉네임 또는 패스워드를 확인해주세요." });
-        }} else {return true}
+    usercut = async (existUser, nickname, password) => {
+        if (userId === existUser.userId) {
+            if (existUser.nickname === nickname && existUser.password === password) {
+                return res
+                    .status(401)
+                    .json({ errorMessage: "닉네임 또는 패스워드를 확인해주세요." });
+            }
+        } else { return true }
     }
 
     // 회원탈퇴 API
