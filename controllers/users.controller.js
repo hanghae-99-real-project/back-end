@@ -116,7 +116,7 @@ class UserController {
     const jaja = await this.userService.signInKakao(kakaoToken, position, userLongitude, userLatitude);
     const accessToken = await this.userService.createKAccessToken(jaja)
     const refreshToken = await this.userService.createRefreshToken();
-    res.cookie("accesstoken", `${accessToken}`);
+    res.cookie("accesstoken", `Bearer ${accessToken}`);
     res.cookie("refreshtoken", `${refreshToken}`);
     return res.status(200).json({ accessToken, refreshToken });
   };
