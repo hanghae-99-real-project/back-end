@@ -3,6 +3,7 @@ const UserRepository = require("@repositories/Users.repository");
 const getAddress = require("@modules/kakao")
 const { Posts, Sequelize, Users, BookMarks } = require('@models');
 
+
 class PostService {
     postRepository = new PostRepository(Posts, Sequelize, Users, BookMarks);
     userRepository = new UserRepository(Users);
