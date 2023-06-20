@@ -17,7 +17,7 @@ class PostController {
   getPosts = async (req, res) => {
     const limit = 10;
     const { page } = req.query
-    const offset = (page - 1) * limit; // 페이지네이션
+    const offset = (page - 1) * limit;
     const userId = res.locals.user ? res.locals.user.userId : null;
     const posts = await this.postService.getPosts(userId, limit, offset);
     return res.status(200).json({ lostPostsData: posts });
