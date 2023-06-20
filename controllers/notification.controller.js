@@ -11,7 +11,7 @@ class NotificationController {
 
             const notifications = await this.notificationService.getNotificationsByUserId(userId);
 
-            res.status(200).json({ notificationsData: notifications });
+            return res.status(200).json({ notificationsData: notifications });
         } catch (error) {
             error.failedApi = "알림 조회"
             throw error;
@@ -32,7 +32,7 @@ class NotificationController {
 
             await this.notificationService.markAsRead(notificationId, userId);
 
-            res.status(200).json({ message: "알림을 확인하였습니다." })
+            return res.status(200).json({ message: "알림을 확인하였습니다." })
         } catch (error) {
             error.failedApi = "알림 확인"
             throw error;

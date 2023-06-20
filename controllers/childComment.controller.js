@@ -11,7 +11,7 @@ class ChildCommentController {
         const { postId, commentId } = req.params;
         const { childComment, isPrivate } = req.body;
         await this.childCommentService.createChildComment(userId, postId, commentId, childComment, isPrivate);
-        res.status(201).json({ message: "대댓글을 작성하였습니다." })
+        return res.status(201).json({ message: "대댓글을 작성하였습니다." })
     };
 
     // 대댓글과 비밀 대댓글 조회

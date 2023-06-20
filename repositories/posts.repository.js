@@ -30,7 +30,7 @@ class PostRepository {
             where: { postId },
             include: [
                 {
-                    model: bookMarksModel,
+                    model: this.bookMarksModel,
                     attributes: ["isBookmarked"]
                 }
             ]
