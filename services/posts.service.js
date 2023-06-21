@@ -30,24 +30,35 @@ class PostService {
         }
     }
 
-    getPosts = async (userId, limit, offset) => {
+    getRandomPosts = async (limit, offset) => {
         try {
-            if (!userId) {
-                return await this.getAllPostsRecently(limit, offset);
-            }
+            const posts = await this.postRepository.getRandomPosts(limit, offset);
+            const results = await Promise.all(
+                posts.map(async (item) => this.mapPost(item))
+            );
+            return results
+        } catch (error) {
+            error.failedApi = "댕파인더 랜덤 조회"
+            throw error
+        }
+    }
 
+    getNearbyPosts = async (userId, limit, offset) => {
+        try {
+            if (userId === null) {
+                throw new Error('403/댕파인더 가까운 순으로 조회를 하려면 로그인이 필요합니다.')
+            }
             const userLocation = await this.postRepository.findUserLocation(userId);
-            if (userLocation === false) {
-                return await this.getAllPostsRecently(limit, offset);
+            if (userLocation.dataValues.position === false || userLocation.dataValues.position === null) {
+                throw new Error('401/유저 위치의 조회에 실패하였습니다.')
             }
-
-            const findNearbyPosts = await this.postRepository.findNearbyPosts(userId, limit, offset);
+            const findNearbyPosts = await this.postRepository.getNearbyPosts(userId, limit, offset);
             const results = await Promise.all(
                 findNearbyPosts.map(async (item) => this.mapPost(item))
             )
             return results
         } catch (error) {
-            error.failedApi = "댕파인더 조회"
+            error.failedApi = "댕파인더 가까운 순으로 조회"
             throw error
         }
     }
@@ -67,14 +78,6 @@ class PostService {
             lostLatitude: item.lostLatitude,
             lostLongitude: item.lostLongitude,
         };
-    }
-
-    getAllPostsRecently = async (limit, offset) => {
-        const posts = await this.postRepository.getPosts(limit, offset);
-        const results = await Promise.all(
-            posts.map(async (item) => this.mapPost(item))
-        );
-        return results
     }
 
     getPostById = async (postId) => {

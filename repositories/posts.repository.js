@@ -14,7 +14,7 @@ class PostRepository {
     };
 
 
-    getPosts = async (limit, offset) => {
+    getRandomPosts = async (limit, offset) => {
         return await this.postsModel.findAll({
             limit: limit,
             offset: offset,
@@ -70,7 +70,7 @@ class PostRepository {
     };
 
     // 위치가 가까운 순으로 조회
-    findNearbyPosts = async (userId, limit, offset) => {
+    getNearbyPosts = async (userId, limit, offset) => {
         const user = await this.usersModel.findOne({ where: userId });
         const { userLatitude, userLongitude } = user
 
