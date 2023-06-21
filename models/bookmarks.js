@@ -31,11 +31,21 @@ module.exports = (sequelize, DataTypes) => {
       },
       UserId: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {
+          model: "Users",
+          key: "userId",
+        },
+        onDelete: "CASCADE",
       },
       PostId: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {
+          model: "Posts",
+          key: "postId",
+        },
+        onDelete: "CASCADE",
       },
       isBookmarked: {
         allowNull: false,
