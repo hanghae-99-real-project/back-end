@@ -19,17 +19,14 @@ class UserService {
     tokenRepository = new TokenRepository();
 
 
-    findNickname = async (nickname) => {
-        const existNickname = await this.userRepository.findNickname(nickname);
-        return existNickname;
-    };
+
 
     signup = async (nickname, password, phoneNumber, position, userPhoto) => {
         try {
 
         const passwordFilter = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
         const phoneNumberFilter = /^\d+$/;
-        const existNickname = await this.userService.findNickname(nickname);
+        const existNickname = await this.userRepository.findNickname(nickname);;
 
         if (!passwordFilter.test(password)) {
             throw new Error("패스워드 형식이 일치하지 않습니다.");
