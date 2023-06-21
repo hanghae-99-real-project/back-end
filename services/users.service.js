@@ -19,7 +19,15 @@ class UserService {
     tokenRepository = new TokenRepository();
 
 
+    findNickname = async (nickname) => {
+        const existNickname = await this.userRepository.findNickname(nickname);
+        return existNickname;
+    };
 
+    findbyid = async (userId) => {
+        const existNickname = await this.userRepository.findbyid(userId);
+        return existNickname;
+    };
 
     signup = async (nickname, password, phoneNumber, position, userPhoto) => {
         try {

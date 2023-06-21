@@ -22,6 +22,11 @@ class UserRepository {
         return existNickname;
     };
 
+    findbyid = async (userId) => {
+        const data = await this.usersModel.findOne({ where: { userId }, });
+        return data;
+    };
+
     signup = async (nickname, hashedPassword, phoneNumber, position, userPhoto) => {
         const password = hashedPassword
         const signupData = await this.usersModel.create({ nickname, password, phoneNumber, position, userPhoto, });
