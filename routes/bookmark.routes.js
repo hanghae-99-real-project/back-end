@@ -7,4 +7,7 @@ const bookmarkController = new BookmarkController();
 // 북마크 등록 취소
 router.put("/:postId/bookmark", authMiddleware, bookmarkController.postBookmark);
 
+router.get("/:postId/bookmark", authMiddleware, bookmarkController.getBookmark);
+
+
 module.exports = router;

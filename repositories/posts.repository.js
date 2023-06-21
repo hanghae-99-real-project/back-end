@@ -14,7 +14,7 @@ class PostRepository {
     };
 
 
-    getRandomPosts = async (limit, offset) => {
+    getRecentPosts = async (limit, offset) => {
         return await this.postsModel.findAll({
             limit: limit,
             offset: offset,
@@ -28,12 +28,12 @@ class PostRepository {
         await this.postsModel.increment('views', { where: { postId } });
         const post = await this.postsModel.findOne({
             where: { postId },
-            include: [
-                {
-                    model: this.bookMarksModel,
-                    attributes: ["isBookmarked"]
-                }
-            ]
+            // include: [
+            //     {
+            //         model: this.bookMarksModel,
+            //         attributes: ["isBookmarked"]
+            //     }
+            // ]
         });
         return post;
     };

@@ -35,6 +35,16 @@ class BookmarkRepository {
         )
         return destroyBookmark
     }
+
+    getBookmark = async (userId, postId) => {
+        return await this.bookMarksModel.findOne({
+            where: {
+                UserId: userId,
+                PostId: postId
+            },
+            // attributes: ['isBookmarked']
+        })
+    }
 };
 
 module.exports = BookmarkRepository;
