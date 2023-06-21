@@ -14,12 +14,20 @@ class PostController {
     return res.status(201).json(post);
   };
 
-  getPosts = async (req, res) => {
+  getRandomPosts = async (req, res) => {
     const limit = 10;
     const page = Number(req.query.page)
     const offset = (page - 1) * limit;
-    const userId = res.locals.user ? res.locals.user.userId : null;
-    const posts = await this.postService.getPosts(userId, limit, offset);
+    const posts = await this.postService.getRandomPosts(limit, offset);
+    return res.status(200).json({ lostPostsData: posts });
+  };
+
+  getNearbyPosts = async (req, res) => {
+    const { userId } = res.locals.user;
+    const limit = 10;
+    const page = Number(req.query.page)
+    const offset = (page - 1) * limit;
+    const posts = await this.postService.getNearbyPosts(userId, limit, offset);
     return res.status(200).json({ lostPostsData: posts });
   };
 

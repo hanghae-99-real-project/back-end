@@ -25,10 +25,6 @@ class bookmarkService {
     }
 
 
-
-
-
-
 }
 
 module.exports = bookmarkService;
