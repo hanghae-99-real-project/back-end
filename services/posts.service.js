@@ -15,10 +15,10 @@ class PostService {
                 address = `${postData.lostLatitude}, ${postData.lostLongitude}`
             }
             if (!postData.title) {
-                return res.status(401).json({ message: "모든 필드의 값은 필수 값 입니다." });
+                throw new Error("401/모든 필드의 값은 필수 값 입니다.");
             }
             if (!postData.content) {
-                return res.status(401).json({ message: "모든 필드의 값은 필수 값 입니다." });
+                throw new Error("401/모든 필드의 값은 필수 값 입니다.");
             }
 
             postData.address = address
