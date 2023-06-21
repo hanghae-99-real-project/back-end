@@ -7,7 +7,6 @@ class myPagesService {
     getMyInfo = async (userId) => {
         try {
             const getMyInfoData = await this.mypageRepository.getMyInfo(userId)
-            console.log(userId)
             if (!userId) {
                 throw new Error("401/마이페이지 권한이 없습니다.")
             }
@@ -45,7 +44,17 @@ class myPagesService {
             if (!getMyBookmark) {
                 throw new Error("401/데이터가 존재하지 않습니다.")
             }
-            return getMyBookmark
+            return getMyBookmark.map((item) => {
+                const { postId, title, content, lostPhotoUrl, createdAt, updatedAt } = item.Post;
+                return {
+                    postId,
+                    title,
+                    content,
+                    lostPhotoUrl,
+                    createdAt,
+                    updatedAt
+                };
+            })
 
         } catch (error) {
             error.failedApi = "내가 북마크한 게시글 조회";
