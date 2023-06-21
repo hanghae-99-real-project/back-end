@@ -31,46 +31,37 @@ class UserService {
         position,
     ) => {
         try {
+        const passwordFilter = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
+        const phoneNumberFilter = /^\d+$/;
+        const existNickname = await this.userService.findNickname(nickname);
 
-            const passwordFilter = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
-            const phoneNumberFilter = /^\d+$/;
-            const existNickname = await this.userService.findNickname(nickname);
-
-            if (!passwordFilter.test(password)) {
-                return res
-                    .status(401)
-                    .json({ errorMessage: "패스워드 형식이 일치하지 않습니다." });
-            }
-            if (!phoneNumberFilter.test(phoneNumber)) {
-                return res
-                    .status(401)
-                    .json({ errorMessage: "핸드폰 번호 형식이 일치하지 않습니다." });
-            }
-            if (existNickname) {
-                return res
-                    .status(401)
-                    .json({ errorMessage: "중복된 닉네임입니다." });
-            }
-            const hashedPassword = await bcrypt.hash(password, 10);
-            const passwordMatch = await bcrypt.compare(password, hashedPassword);
-            if (!passwordMatch) {
-                return res
-                    .status(401)
-                    .json({ errorMessage: "아니 암호 비교가 왜 안돼??" })
-            }
-            const randomUrls = [
-                'https://karyl.s3.ap-northeast-2.amazonaws.com/folder/KakaoTalk_20230616_144459289.png',
-                'https://karyl.s3.ap-northeast-2.amazonaws.com/folder/KakaoTalk_20230616_144459289_01.png',
-                'https://karyl.s3.ap-northeast-2.amazonaws.com/folder/KakaoTalk_20230616_144459289_02.png',
-                'https://karyl.s3.ap-northeast-2.amazonaws.com/folder/KakaoTalk_20230616_144459289_03.png',
-                'https://karyl.s3.ap-northeast-2.amazonaws.com/folder/KakaoTalk_20230616_144459289_04.png'
-            ];
-            const randomIndex = Math.floor(Math.random() * randomUrls.length);
-            const userPhoto = [randomUrls[randomIndex]];
-            const signupData = await this.userRepository.signup(nickname, hashedPassword, phoneNumber, position, userPhoto);
-            return signupData;
+        if (!passwordFilter.test(password)) {
+            throw new Error("패스워드 형식이 일치하지 않습니다.");
+        }
+        if (!phoneNumberFilter.test(phoneNumber)) {
+            throw new Error("핸드폰 번호 형식이 일치하지 않습니다.");
+        }
+        if (existNickname) {
+            throw new Error("중복된 닉네임입니다.");
+        }
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const passwordMatch = await bcrypt.compare(password, hashedPassword);
+        if (!passwordMatch) {
+            throw new Error("아니 암호 비교가 왜 안돼??");
+        }
+        const randomUrls = [
+            'https://karyl.s3.ap-northeast-2.amazonaws.com/folder/KakaoTalk_20230616_144459289.png',
+            'https://karyl.s3.ap-northeast-2.amazonaws.com/folder/KakaoTalk_20230616_144459289_01.png',
+            'https://karyl.s3.ap-northeast-2.amazonaws.com/folder/KakaoTalk_20230616_144459289_02.png',
+            'https://karyl.s3.ap-northeast-2.amazonaws.com/folder/KakaoTalk_20230616_144459289_03.png',
+            'https://karyl.s3.ap-northeast-2.amazonaws.com/folder/KakaoTalk_20230616_144459289_04.png'
+        ];
+        const randomIndex = Math.floor(Math.random() * randomUrls.length);
+        const userPhoto = [randomUrls[randomIndex]];
+        const signupData = await this.userRepository.signup(nickname, hashedPassword, phoneNumber, position, userPhoto);
+        return signupData;
         } catch (error) {
-            throw new Error("회원 가입 중 에러가 발생했습니다.");
+        throw new Error("회원 가입 중 에러가 발생했습니다.: " + error.message);
         }
     };
 
