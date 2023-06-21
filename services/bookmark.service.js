@@ -24,6 +24,10 @@ class bookmarkService {
         }
     }
 
+    getBookmark = async (userId, postId) => {
+        const bookmark = await this.bookmarkRepository.getBookmark(userId, postId)
+        return bookmark
+    }
 
 }
 

@@ -7,7 +7,7 @@ const uploadImage = require("@middlewares/post_s3.js");
 
 router.post("/", authMiddleware, uploadImage.array("image", 5), postController.createPost)
 
-router.get("/", postController.getRandomPosts);
+router.get("/", postController.getRecentPosts);
 
 router.get("/nearby", authMiddleware, postController.getNearbyPosts);
 

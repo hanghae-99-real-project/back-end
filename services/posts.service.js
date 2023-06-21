@@ -30,9 +30,9 @@ class PostService {
         }
     }
 
-    getRandomPosts = async (limit, offset) => {
+    getRecentPosts = async (limit, offset) => {
         try {
-            const posts = await this.postRepository.getRandomPosts(limit, offset);
+            const posts = await this.postRepository.getRecentPosts(limit, offset);
             const results = await Promise.all(
                 posts.map(async (item) => this.mapPost(item))
             );

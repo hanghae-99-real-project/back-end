@@ -14,11 +14,11 @@ class PostController {
     return res.status(201).json(post);
   };
 
-  getRandomPosts = async (req, res) => {
+  getRecentPosts = async (req, res) => {
     const limit = 10;
     const page = Number(req.query.page)
     const offset = (page - 1) * limit;
-    const posts = await this.postService.getRandomPosts(limit, offset);
+    const posts = await this.postService.getRecentPosts(limit, offset);
     return res.status(200).json({ lostPostsData: posts });
   };
 
