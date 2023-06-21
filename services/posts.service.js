@@ -81,8 +81,8 @@ class PostService {
         try {
             const post = await this.postRepository.findPostById(postId);
 
-            const nickname = post.nickname;
-            const data = await this.userRepository.findNickname(nickname);
+            const userId = post.userId;
+            const data = await this.userRepository.findbyid(userId);
             const userPhoto = data.userPhoto;
             let result = []
             result.push(post)
