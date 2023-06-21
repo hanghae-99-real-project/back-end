@@ -81,7 +81,7 @@ class PostService {
         try {
             const post = await this.postRepository.findPostById(postId);
 
-            const userId = post.userId;
+            const userId = post.UserId;
             const data = await this.userRepository.findbyid(userId);
             const userPhoto = data.userPhoto;
             let result = []
