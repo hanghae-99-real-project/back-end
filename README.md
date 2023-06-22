@@ -29,11 +29,13 @@
 
 ## 📒 푸댕 S.A 보러가기
 
-https://www.notion.so/Poo-Daeng-b6a9dfbab28e4295b889bf0040ff1b21
+![푸댕 S.A](https://www.notion.so/Poo-Daeng-b6a9dfbab28e4295b889bf0040ff1b21)
 
 <br>
 
 ## 디자인
+
+![푸댕 디자인](https://www.figma.com/file/pBnEtEMaoNtBYKXftbYfKW/%ED%91%B8%EB%8C%95-%EB%94%94%EC%9E%90%EC%9D%B8?type=design&node-id=0-1&mode=design&t=Ik37bQY8HltMvWNF-0)
 
 <br>
 
