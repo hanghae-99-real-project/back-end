@@ -9,7 +9,7 @@
 
 
 
-## ⚙️ BE Tech Stack
+## ⚙️ BE Tech Stack ⚙️
 
 <div style="display: flex">
   <img src="https://img.shields.io/badge/Javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=fff"/>
@@ -31,7 +31,7 @@
 
 
 
-## 📒 푸댕 S.A 보러가기
+## 📒 푸댕 S.A 보러가기 📒
 
 ![푸댕 S.A](https://github.com/hanghae-99-real-project/back-end/assets/125964794/e5472469-3da5-4f58-b913-40a43de77010)
 [푸댕 S.A](https://www.notion.so/Poo-Daeng-b6a9dfbab28e4295b889bf0040ff1b21)
@@ -40,7 +40,7 @@
 
 
 
-## 디자인
+## 🖌️ 디자인 🖌️
 
 ![푸댕 S.A](https://github.com/hanghae-99-real-project/back-end/assets/125964794/e5472469-3da5-4f58-b913-40a43de77010)
 [푸댕 디자인](https://www.figma.com/file/pBnEtEMaoNtBYKXftbYfKW/%ED%91%B8%EB%8C%95-%EB%94%94%EC%9E%90%EC%9D%B8?type=design&node-id=0-1&mode=design&t=Ik37bQY8HltMvWNF-0)
@@ -49,7 +49,7 @@
 
 
 
-## 🛠 Project Architecture
+## 🛠 Project Architecture 🛠
 
 ![KakaoTalk_20230622_174339706](https://github.com/hanghae-99-real-project/back-end/assets/125964794/c8d5c614-ae6f-4c1d-9e09-1b1ff691802f)
 
@@ -57,7 +57,7 @@
 
 
 
-## ✨ 프로젝트 기능 정리
+## ✨ 프로젝트 기능 정리 ✨
 
 1. 회원가입: 유저 위치 동의, 이미지 업로드, 휴대폰 번호 인증
 
@@ -83,7 +83,7 @@
 
 
 
-## ⚙️ ERD
+## ⚙️ ERD ⚙️
 
 <div style="display: flex">
 <img src="https://i.ibb.co/Dp3wVSg/poo-Daeng-ERD.png">
@@ -93,7 +93,7 @@
 
 
 
-## BE 팀원
+## 👨‍👨‍👦 BE 팀원 👨‍👨‍👦
 
 | Role | GitHub                                                |
 | ---- | ----------------------------------------------------- |
