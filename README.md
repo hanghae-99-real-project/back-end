@@ -7,6 +7,8 @@
 </div>
 <br>
 
+
+
 ## ⚙️ BE Tech Stack
 
 <div style="display: flex">
@@ -27,12 +29,16 @@
 
 <br>
 
+
+
 ## 📒 푸댕 S.A 보러가기
 
 ![푸댕 S.A](https://github.com/hanghae-99-real-project/back-end/assets/125964794/e5472469-3da5-4f58-b913-40a43de77010)
 [푸댕 S.A](https://www.notion.so/Poo-Daeng-b6a9dfbab28e4295b889bf0040ff1b21)
 
 <br>
+
+
 
 ## 디자인
 
@@ -41,11 +47,15 @@
 
 <br>
 
+
+
 ## 🛠 Project Architecture
 
 ![KakaoTalk_20230622_174339706](https://github.com/hanghae-99-real-project/back-end/assets/125964794/c8d5c614-ae6f-4c1d-9e09-1b1ff691802f)
 
 <br>
+
+
 
 ## ✨ 프로젝트 기능 정리
 
@@ -71,6 +81,8 @@
 
 <br>
 
+
+
 ## ⚙️ ERD
 
 <div style="display: flex">
@@ -78,6 +90,20 @@
 </div>
 
 <br>
+
+
+
+## BE 팀원
+
+| Role | GitHub                                                |
+| ---- | ----------------------------------------------------- |
+| BE   | [ParkBrianJunSoo](https://github.com/ParkBrianJunSoo) |
+| BE   | [김용식](https://github.com/ystar5008)                |
+| BE   | [조우상](https://github.com/juster0706)               |
+
+<br>
+
+
 
 ## 🛠️ BE 트러블 슈팅 🛠️
 
@@ -541,12 +567,3 @@ SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 
 <br>
 
-## BE 팀원
-
-| Role | GitHub                                                |
-| ---- | ----------------------------------------------------- |
-| BE   | [ParkBrianJunSoo](https://github.com/ParkBrianJunSoo) |
-| BE   | [김용식](https://github.com/ystar5008)                |
-| BE   | [조우상](https://github.com/juster0706)               |
-
-<br>
