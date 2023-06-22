@@ -9,6 +9,7 @@
 
 
 
+
 ## ⚙️ BE Tech Stack ⚙️
 
 <div style="display: flex">
@@ -40,7 +41,7 @@
 
 
 
-## 🖌️ 디자인 🖌️
+## 🎨 디자인 🖌️
 
 ![푸댕 S.A](https://github.com/hanghae-99-real-project/back-end/assets/125964794/e5472469-3da5-4f58-b913-40a43de77010)
 [푸댕 디자인](https://www.figma.com/file/pBnEtEMaoNtBYKXftbYfKW/%ED%91%B8%EB%8C%95-%EB%94%94%EC%9E%90%EC%9D%B8?type=design&node-id=0-1&mode=design&t=Ik37bQY8HltMvWNF-0)
