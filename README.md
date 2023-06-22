@@ -15,6 +15,13 @@
   <img src="https://img.shields.io/badge/Mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=fff"/>
   <img src="https://img.shields.io/badge/Npm-CB3837?style=for-the-badge&logo=npm&logoColor=fff"/>
   <img src="https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Kakao_Map-FFCD00?style=for-the-badge&logo=kakao&logoColor=black"/>
+  <img src="https://img.shields.io/badge/TMap-000000?style=for-the-badge&logo=sktelecom&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Amazon_EC2-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Amazon_RDS-007BFF?style=for-the-badge&logo=amazon-rds&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Sentry-362D59?style=for-the-badge&logo=sentry&logoColor=white"/>
+  <img src="https://img.shields.io/badge/AWS_CodeDeploy-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white"/>
+  <img src="https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white"/>
 
 </div>
 
