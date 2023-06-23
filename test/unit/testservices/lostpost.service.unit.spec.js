@@ -1,53 +1,74 @@
-const CommentService = require("@services/comment.service");
+const PostService = require("@services/posts.service");
 
-let mockCommentRepository = {
-    createComment: jest.fn(),
+let mockPostRepository = {
+    createPost: jest.fn(),
+    getRecentPosts: jest.fn(),
+    getNearbyPosts: jest.fn(),
+    findUserLocation: jest.fn(),
+    getPostById: jest.fn(),
+    findbyid: jest.fn(),
+    updatePost: jest.fn(),
     findPostById: jest.fn(),
-    createNotification: jest.fn(),
-    findCommentsByPostId: jest.fn(),
-    findUserById: jest.fn(),
-    updateComment: jest.fn(),
-    findCommentById: jest.fn(),
-    deleteComment: jest.fn(),
+    deletePost: jest.fn(),
+    deletePostById: jest.fn(),
+    endPost: jest.fn(),
 };
 
-let commentService = new CommentService();
-commentService.commentRepository = mockCommentRepository;
+let postService = new PostService();
+postService.postRepository = mockPostRepository;
 
-describe("댓글 단위 테스트", () => {
+describe("댕파인더 단위 테스트", () => {
     beforeEach(() => {
         jest.resetAllMocks();
     });
 
-    /** createWorldcup의 비즈니스 로직**/
-    // 1. body 데이터로 가져온 값들을 Worldcups table에 추가합니다. (worldcupRepository.create(user_id, title, content))
-    // 2. worldcup_id를 가져옵니다.
-    // 3. 각 choice들을 Worldcup_choices table에 추가합니다. (worldcupChoicesRepository.createChoice(worldcup_id, choice.choice_name, choice.choice_url))
-
-    test("댓글 작성 성공 케이스", async () => {
-        const createCommentReturnValue = {
+    test("댕파인더 작성 성공 케이스", async () => {
+        const createPostReturnValue = {
             userId: 1,
-            postId: 1,
-            comment: 1,
-            commentPhotoUrl: "http://example.com.jpg",
-            isPrivate: false
+            nickname: 1,
+            dogname: 1,
+            title: "htpg",
+            content: "하이하이 에이치 아이~",
+            losttime: "2022-07-25T07:45:56.000Z",
+            lostPhotoUrl: "http://example.com.jpg",
+            lostLatitude: 36.2341234,
+            lostLongitude: 126.2346214,
+            address: "asdf",
+            likes: 0,
+            views: 0,
+            likeCount: 0,
+            commentCount: 0,
+            status: 0,
+            createdAt: "2022-07-25T07:45:56.000Z",
+            updatedAt: "2022-07-25T07:45:56.000Z",
         };
 
-        mockCommentRepository.create = jest.fn(() => ({
-            dataValues: { commentId: 1 },
+        mockPostRepository.create = jest.fn(() => ({
+            dataValues: { postId: 1 },
         }));
 
-        const createdComment = await commentService.createComment(
-            createCommentReturnValue.userId,
-            createCommentReturnValue.postId,
-            createCommentReturnValue.comment,
-            createCommentReturnValue.commentPhotoUrl,
-            createCommentReturnValue.isPrivate,
+        const postedComment = await postService.createPost(
+            createPostReturnValue.userId,
+            createPostReturnValue.nickname,
+            createPostReturnValue.dogname,
+            createPostReturnValue.title,
+            createPostReturnValue.content,
+            createPostReturnValue.losttime,
+            createPostReturnValue.lostPhotoUrl,
+            createPostReturnValue.lostLatitude,
+            createPostReturnValue.address,
+            createPostReturnValue.likes,
+            createPostReturnValue.views,
+            createPostReturnValue.likeCount,
+            createPostReturnValue.commentCount,
+            createPostReturnValue.status,
+            createPostReturnValue.createdAt,
+            createPostReturnValue.updatedAt,
         );
 
-        expect(createdComment).toEqual(createCommentReturnValue);
+        expect(postedComment).toEqual(createPostReturnValue);
 
-        expect(mockCommentRepository.create).toHaveBeenCalledTimes(1);
+        expect(mockPostRepository.create).toHaveBeenCalledTimes(1);
 
     });
 

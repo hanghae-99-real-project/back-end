@@ -83,16 +83,7 @@ class PostService {
     getPostById = async (postId) => {
         try {
             const post = await this.postRepository.findPostById(postId);
-
-            const userId = post.UserId;
-            const data = await this.userRepository.findbyid(userId);
-            const userPhoto = data.userPhoto;
-            let result = []
-            result.push(post)
-            result.push(userPhoto)
-            post.userPhoto = userPhoto;
-
-            return result;
+            return post
         } catch (error) {
             error.failedApi = "게시글 상세 조회"
             throw error
