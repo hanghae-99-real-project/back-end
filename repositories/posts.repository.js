@@ -1,4 +1,4 @@
-
+const sequelize = require("sequelize");
 
 class PostRepository {
     constructor(postsModel, Sequelize, usersModel, bookMarksModel, redisClient) {
@@ -28,12 +28,32 @@ class PostRepository {
         await this.postsModel.increment('views', { where: { postId } });
         const post = await this.postsModel.findOne({
             where: { postId },
-            // include: [
-            //     {
-            //         model: this.bookMarksModel,
-            //         attributes: ["isBookmarked"]
-            //     }
-            // ]
+            attributes: [
+                "postId",
+                "UserId",
+                "dogname",
+                "title",
+                "content",
+                "lostPhotoUrl",
+                "lostLatitude",
+                "lostLongitude",
+                "address",
+                "losttime",
+                "createdAt",
+                "updatedAt",
+                [
+                    sequelize.literal(
+                        "(SELECT COUNT(*) FROM Comments WHERE Comments.PostId = Posts.postId)",
+                    ),
+                    "commentsCount",
+                ],
+            ],
+            include: [
+                {
+                    model: this.usersModel,
+                    attributes: ["nickname", "userPhoto"],
+                },
+            ],
         });
         return post;
     };
