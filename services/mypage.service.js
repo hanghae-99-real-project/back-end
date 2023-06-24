@@ -24,7 +24,7 @@ class myPagesService {
             if (!userId) {
                 throw new Error("401/마이페이지 권한이 없습니다.")
             }
-            if (!getMyPostData) {
+            if (getMyPostData.length === 0) {
                 throw new Error("401/작성한 게시글이 존재하지 않습니다.")
             }
             return getMyPostData
@@ -41,7 +41,7 @@ class myPagesService {
             if (!userId) {
                 throw new Error("401/마이페이지 권한이 없습니다.")
             }
-            if (!getMyBookmark) {
+            if (getMyBookmark.length === 0) {
                 throw new Error("401/데이터가 존재하지 않습니다.")
             }
             return getMyBookmark.map((item) => {
