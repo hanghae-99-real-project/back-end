@@ -55,11 +55,9 @@ class NotificationRepository {
                 ]
             }
         );
-        console.log(comment) // 인클루드 안댐
         return comment
     };
 
-    // Retrieve a childComment by its ID
     getChildCommentById = async (childCommentId) => {
         return await this.childCommentsModel.findOne(
             {
