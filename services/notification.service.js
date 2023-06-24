@@ -40,7 +40,7 @@ class NotificationService {
     // 알림 상태 변경 // 읽음 or 안읽음 //isRead로 진실 혹은 거짓 표시
     getNotificationsByUserIds = async (notificationId, userId) => {
         try {
-            const notification = await this.notificationRepository.getNotificationsByUserIds(notificationId, userId);
+            const notification = await this.notificationRepository.getNotificationByIdAndUserId(notificationId, userId);
 
             if (!notification) {
                 throw new Error("401/해당 알림을 확인할 수 없습니다.");
