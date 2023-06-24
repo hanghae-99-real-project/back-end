@@ -6,16 +6,12 @@ class NotificationController {
 
     // 특정 유저의 모든 알림 조회
     getNotificationForUser = async (req, res, next) => {
-        try {
-            const { userId } = res.locals.user;
+        const { userId } = res.locals.user;
 
-            const notifications = await this.notificationService.getNotificationsByUserId(userId);
+        const notifications = await this.notificationService.getNotificationsByUserId(userId);
 
-            return res.status(200).json({ notificationsData: notifications });
-        } catch (error) {
-            error.failedApi = "알림 조회"
-            throw error;
-        }
+        return res.status(200).json({ notificationsData: notifications });
+
     }
 
 
