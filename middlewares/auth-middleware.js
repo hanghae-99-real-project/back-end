@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const { Users } = require("@models");
 const TokenRepository = require("@repositories/tokens.repository");
+require('dotenv').config();
 
 const tokenRepository = new TokenRepository();
 
@@ -48,7 +49,9 @@ module.exports = async (req, res, next) => {
             if (!accessTokenId) {
                 return res.json({ errorMessage: "Refresh Token의 정보가 서버에 존재하지 않습니다.", });
             }
-            const newAccessToken = createAccessToken(accessTokenId);
+            const newAccessToken = jwt.sign({ userId: accessTokenId }, process.env.ACCESS_KEY, {
+                expiresIn: process.env.ACCESS_EXPIRES,
+            });
             res.cookie("accesstoken", `Bearer ${newAccessToken}`);
             console.log(newAccessToken)
             return res.status(203).json({ newAccessToken: `Bearer ${newAccessToken}` });
