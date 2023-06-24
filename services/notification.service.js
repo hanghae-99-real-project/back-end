@@ -18,7 +18,6 @@ class NotificationService {
                         comment = await this.notificationRepository.getCommentById(commentNotification.CommentId);
                         user = comment.User;
                     } else {
-
                         comment = await this.notificationRepository.getChildCommentById(commentNotification.ChildCommentId);
                         user = comment.User;
                     }
@@ -27,7 +26,7 @@ class NotificationService {
 
                     let message;
                     if (commentNotification.ChildCommentId == null) {
-                        message = `${nickname}'님이 댓글을 작성하였습니다.`;
+                        message = `${nickname}님이 댓글을 작성하였습니다.`;
                         delete commentNotification.ChildComment;
                     } else {
                         message = `${nickname}님이 대댓글을 작성하였습니다.`;
