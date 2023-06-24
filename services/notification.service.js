@@ -13,16 +13,15 @@ class NotificationService {
                     let commentNotification = notification.get({ plain: true });
                     let comment = null;
                     let user = null;
-
+                    console.log(notification.User)
                     if (commentNotification.ChildCommentId == null) {
                         comment = await this.notificationRepository.getCommentById(commentNotification.CommentId);
-                        user = comment.User;
+                        user = comment && comment.User;
                     } else {
                         comment = await this.notificationRepository.getChildCommentById(commentNotification.ChildCommentId);
-                        user = comment.User;
+                        user = comment && comment.User;
                     }
-
-                    const { userPhoto, nickname } = user.get({ plain: true });
+                    const { userPhoto, nickname } = user ? user.get({ plain: true }) : {};
 
                     let message;
                     if (commentNotification.ChildCommentId == null) {
@@ -36,7 +35,7 @@ class NotificationService {
                     return {
                         ...commentNotification,
                         User: {
-                            ...user.get({ plain: true }),
+                            ...(user && user.get({ plain: true })),
                             userPhoto,
                             nickname: message,
                         },
@@ -49,6 +48,7 @@ class NotificationService {
             throw error;
         }
     };
+
 
     // 알림 상태 변경 // 읽음 or 안읽음 //isRead로 진실 혹은 거짓 표시
     getNotificationsByUserIds = async (notificationId, userId) => {
