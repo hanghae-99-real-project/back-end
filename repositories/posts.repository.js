@@ -23,6 +23,13 @@ class PostRepository {
             ],
         });
     }
+    // findOnePostsViews = async (postId) => {
+    //     await this.postsModel.increment('views', { where: { postId } });
+    //     const post = await this.postsModel.findOne({
+    //         where: { postId },
+    //     })
+    //     return post
+    // }
 
     findPostById = async (postId) => {
         await this.postsModel.increment('views', { where: { postId } });
@@ -39,6 +46,8 @@ class PostRepository {
                 "lostLongitude",
                 "address",
                 "losttime",
+                "status",
+                "views",
                 "createdAt",
                 "updatedAt",
                 [
