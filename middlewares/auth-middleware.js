@@ -8,7 +8,6 @@ module.exports = async (req, res, next) => {
 
     let { accesstoken, refreshtoken } = req.headers;
 
-
     try {
         accesstoken = !req.headers.refreshtoken ? req.cookies.accesstoken : accesstoken;
         refreshtoken = !req.headers.refreshtoken ? req.cookies.refreshtoken : refreshtoken;
