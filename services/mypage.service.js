@@ -24,9 +24,9 @@ class myPagesService {
             if (!userId) {
                 throw new Error("401/마이페이지 권한이 없습니다.")
             }
-            if (getMyPostData.length === 0) {
-                throw new Error("401/작성한 게시글이 존재하지 않습니다.")
-            }
+            // if (getMyPostData.length === 0) {
+            //     throw new Error("401/작성한 게시글이 존재하지 않습니다.")
+            // }
             return getMyPostData
 
         } catch (error) {
@@ -41,9 +41,9 @@ class myPagesService {
             if (!userId) {
                 throw new Error("401/마이페이지 권한이 없습니다.")
             }
-            if (getMyBookmark.length === 0) {
-                throw new Error("401/데이터가 존재하지 않습니다.")
-            }
+            // if (getMyBookmark.length === 0) {
+            //     throw new Error("401/데이터가 존재하지 않습니다.")
+            // }
             return getMyBookmark.map((item) => {
                 const { postId, title, content, lostPhotoUrl, createdAt, updatedAt } = item.Post;
                 return {
