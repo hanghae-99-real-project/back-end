@@ -28,7 +28,11 @@ class CommentRepository {
         // address
     ) => {
         const createdComment = await this.commentsModel.create({
-            UserId: userId, PostId: postId, comment, commentPhotoUrl, isPrivate: isPrivate,
+            UserId: userId,
+            PostId: postId,
+            comment,
+            commentPhotoUrl,
+            isPrivate: isPrivate,
             // commentLatitude,
             // commentLongitude,
             // address,
