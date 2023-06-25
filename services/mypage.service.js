@@ -36,9 +36,8 @@ class myPagesService {
             if (!userId) {
                 throw new Error("401/마이페이지 권한이 없습니다.")
             }
-
             if (getMyBookmark.length === 0) {
-                return res.status(201).json({ message: "데이터 없쩌" })
+                return { message: "데이터 없쩌" }
             }
 
             const result = await Promise.all(

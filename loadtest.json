@@ -1,0 +1,27 @@
+{
+  "config": {
+    "target": "http://localhost:3000",
+    "phases": [{ "duration": 60, "arrivalRate": 2 }],
+    "defaults": {
+      "headers": {
+        "User-Agent": "Artillery"
+      }
+    },
+    "payload": {
+      "path": "./data.csv",
+      "fields": ["phoneNumber", "password"]
+    }
+  },
+  "scenarios": [
+    {
+      "name": "login User",
+      "flow": [
+        { "get": { "url": "/" } },
+        { "get": { "url": "/api/lostposts?page=1" } },
+        {
+          "get": { "url": "/api/map/poo" }
+        }
+      ]
+    }
+  ]
+}
