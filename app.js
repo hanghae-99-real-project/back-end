@@ -86,6 +86,7 @@ app.use(errorHandler);
 app.use(Sentry.Handlers.errorHandler());
 
 app.get('/', (req, res) => {
+  console.log(`현재 프로세스 ID: ${process.pid}`);
   res.send("안녕")
 });
 

@@ -13,11 +13,11 @@ module.exports = async (req, res, next) => {
         accesstoken = !req.headers.refreshtoken ? req.cookies.accesstoken : accesstoken;
         refreshtoken = !req.headers.refreshtoken ? req.cookies.refreshtoken : refreshtoken;
         const [authAccessType, authAccessToken] = (accesstoken ?? "").split(" ");
-
         // refreshtoken이 없거나 accesstoken의 형식이 올바르지 않을 때
         if ((!refreshtoken) || (authAccessType !== "Bearer" || !authAccessToken)) {
             // 로컬에 사용자 정보를 null로 설정 // 가짜 사용자 객체를 만듬
             res.locals.user = { userId: null };
+
             // 다음 미들웨어로 진행
             return next();
         }
@@ -36,7 +36,6 @@ module.exports = async (req, res, next) => {
         //     return res.status(401).json({ message: "인증되지 않은 사용자입니다." });
         // }
 
-
         const isAccessTokenValidate = validateAccessToken(authAccessToken);
         const isRefreshTokenValidate = validateRefreshToken(refreshtoken);
 
@@ -49,13 +48,22 @@ module.exports = async (req, res, next) => {
             if (!accessTokenId) {
                 return res.json({ errorMessage: "Refresh Token의 정보가 서버에 존재하지 않습니다.", });
             }
-            const newAccessToken = jwt.sign({ userId: accessTokenId }, process.env.ACCESS_KEY, {
-                expiresIn: process.env.ACCESS_EXPIRES,
-            });
+            // const newAccessToken = jwt.sign(
+            //     { userId: accessTokenId },
+            //     process.env.ACCESS_KEY,
+            //     {
+            //         expiresIn: process.env.ACCESS_EXPIRES,
+            //     }
+            // );
+
+            const newAccessToken = createAccessToken(accessTokenId);
             res.cookie("accesstoken", `Bearer ${newAccessToken}`);
             console.log(newAccessToken)
+
             return res.status(203).json({ newAccessToken: `Bearer ${newAccessToken}` });
         }
+        console.log("생성 시간", Date())
+        console.log("만료 시간", Date(1111125555))
         const { userId } = jwt.verify(authAccessToken, process.env.ACCESS_KEY);
         const user = await Users.findOne({ where: { userId: userId } });
         res.locals.user = user;
