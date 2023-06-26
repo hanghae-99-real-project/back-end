@@ -1,5 +1,7 @@
 const ReportPooRepository = require("@repositories/reportPoo.repository");
 const { ReportPoos, Poos } = require("@models");
+const DEFAULT_EXPIRATION = 3600
+
 
 class ReportPooService {
     reportPooRepository = new ReportPooRepository(ReportPoos, Poos);
@@ -23,6 +25,8 @@ class ReportPooService {
                     await this.reportPooRepository.incrementReportCount(findOneReportPoo);
                     if (findOneReportPoo.reportCount === 5) {
                         await this.reportPooRepository.destroyPoo(pooId);
+                        const getPooAll = await this.poosRepository.findAllPoo()
+                        await this.poosRepository.cashingPoo(originalUrl, DEFAULT_EXPIRATION, getPooAll)
                         return { msg: "게시글삭제 완료" };
                     }
                 }
