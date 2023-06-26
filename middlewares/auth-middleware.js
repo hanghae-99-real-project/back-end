@@ -58,12 +58,9 @@ module.exports = async (req, res, next) => {
 
             const newAccessToken = createAccessToken(accessTokenId);
             res.cookie("accesstoken", `Bearer ${newAccessToken}`);
-            console.log(newAccessToken)
 
             return res.status(203).json({ newAccessToken: `Bearer ${newAccessToken}` });
         }
-        console.log("생성 시간", Date())
-        console.log("만료 시간", Date(1111125555))
         const { userId } = jwt.verify(authAccessToken, process.env.ACCESS_KEY);
         const user = await Users.findOne({ where: { userId: userId } });
         res.locals.user = user;
