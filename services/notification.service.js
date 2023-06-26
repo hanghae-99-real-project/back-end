@@ -13,7 +13,7 @@ class NotificationService {
                     let commentNotification = notification.get({ plain: true });
                     let comment = null;
                     let user = null;
-                    console.log(notification.User)
+
                     if (commentNotification.ChildCommentId == null) {
                         comment = await this.notificationRepository.getCommentById(commentNotification.CommentId);
                         user = comment && comment.User;
