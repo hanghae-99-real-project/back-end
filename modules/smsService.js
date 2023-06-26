@@ -49,10 +49,8 @@ function send_message(phoneNumber, authcode) {
             type: "SMS",
             countryCode: "82",
             from: my_number,
-            // 원하는 메세지 내용
             content: `푸댕에 가입해주셔서 감사합니다. \n인증번호는 ${user_authcode} 입니다`,
             messages: [
-                // 신청자의 전화번호
                 { to: `${user_phone_number}`, },],
         },
     }).then((res) => {
