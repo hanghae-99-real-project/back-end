@@ -52,8 +52,8 @@ class UserController {
     const refreshToken = await this.userService.createRefreshToken();
 
     await this.userService.saveToken(loginUser, refreshToken);
-    res.cookie("accesstoken", `Bearer ${accessToken}`);
-    res.cookie("refreshtoken", `${refreshToken}`);
+    res.cookie("accesstoken", `Bearer ${accessToken}`, { httpOnly: true, secure: true, sameSite: 'Lax', });
+    res.cookie("refreshtoken", `${refreshToken}`, { httpOnly: true, secure: true, sameSite: 'Lax', });
 
     const sessionData = {
       userId: loginUser.userId,
@@ -107,8 +107,8 @@ class UserController {
     const refreshToken = await this.userService.createRefreshToken();
     const data = await this.userService.findbyid(jaja)
     await this.userService.saveToken(data, refreshToken);
-    res.cookie("accesstoken", `Bearer ${accessToken}`);
-    res.cookie("refreshtoken", `${refreshToken}`);
+    res.cookie("accesstoken", `Bearer ${accessToken}`, { httpOnly: true, secure: true, sameSite: 'Lax', });
+    res.cookie("refreshtoken", `${refreshToken}`, { httpOnly: true, secure: true, sameSite: 'Lax', });
     return res.status(200).json({ accessToken, refreshToken });
   };
 
