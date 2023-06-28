@@ -16,6 +16,7 @@ const morgan = require('morgan');
 const router = require("./routes");
 const Sentry = require("@sentry/node");
 const ms = require("ms");
+const compression = require('compression');
 const path = require('path');
 const app = express();
 
@@ -41,6 +42,7 @@ Sentry.init({
 
 //요청과 관련된 트랜잭션,스팬,브레드크럼 추적
 app.use(morgan("dev"))
+app.use(compression());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
