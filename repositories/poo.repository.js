@@ -35,7 +35,7 @@ class PoosRepository {
             include: [
                 {
                     model: this.UsersModel,
-                    attribues: ['userId'],
+                    attributes: ['userId'],
                 },
             ],
             order: [["createdAt", "DESC"]] // 수정된 부분
