@@ -7,6 +7,12 @@
 </div>
 <br>
 
+# 💩 푸댕(PooDaeng) 소개 YOUTUBE 💩
+
+[![푸댕 유튜브](http://img.youtube.com/vi/qkDX3ZYx_NI/0.jpg)](https://youtu.be/qkDX3ZYx_NI)
+
+<br>
+
 ## 👨‍👨‍👦 BE 팀원 👨‍👨‍👦
 
 | Role | GitHub                                                |
