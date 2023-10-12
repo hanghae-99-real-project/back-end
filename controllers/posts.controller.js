@@ -8,7 +8,7 @@ class PostController {
     const { dogname, title, content, lostLatitude, lostLongitude, losttime } = req.body;
     const { lostPhotoUrl } = req;
     const postData = {
-      dogname, UserId: userId, nickname, title, content, losttime, lostPhotoUrl, lostLatitude, lostLongitude, likes: 0, views: 0, likeCount: 0, commentCount: 0, status: 0
+      dogname, UserId: userId, nickname, title, content, losttime, lostPhotoUrl, lostLatitude, lostLongitude, views: 0, commentCount: 0, status: 0
     };
     const post = await this.postService.createPost(postData);
     return res.status(201).json(post);
